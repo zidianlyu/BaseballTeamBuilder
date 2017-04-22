@@ -16,7 +16,8 @@ export default class TeamUp extends React.Component {
         this.updateName = this.updateName.bind(this);
         this.updateBool = this.updateBool.bind(this);
         this.updateInning = this.updateInning.bind(this);
-        this.getTeamInfo = this.getTeamInfo.bind(this);
+        this.infoForm = this.infoForm.bind(this);
+        this.finalForm = this.finalForm.bind(this);
     }
 
     updateName(event) {
@@ -31,34 +32,40 @@ export default class TeamUp extends React.Component {
         this.setState({p_inning: event.target.value});
     }
 
-    getTeamInfo(teamDetail) {
-        for (let i = 0; i < teamDetail.length; i++) {
-            return (<TeamInfo roles={this.props.roles} detail={teamDetail[i]} innings={6}/>);
-        }
+    infoForm(){
+      const playersInfo = [];
+      this.props.teaminfo.map((el, i) => {
+        playersInfo.push(<PlayerInfo key={i} name={el.name} p_bool={el.p_bool} p_inning={el.p_inning} pre={el.pre_pos} avd={el.avd_pos}/>);
+      });
+      return playersInfo;
     }
 
-    render() {
-        let teamDetail = this.props.teaminfo.map((el, i) => {
-            return (<PlayerInfo key={i} name={el.name} p_bool={el.p_bool} p_inning={el.p_inning} pre={el.pre_pos} avd={el.avd_pos}/>);
-        });
-        // debugger;
-        let arr = [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7
-        ];
+    finalForm(){
+      const finalInfo = [];
+      let innings = [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+      ];
+      innings.map((el, i) => {
+        finalInfo.push(<TeamInfo key={i} detail={this.infoForm()[i]} innings={6}/>);
+      });
+      return finalInfo;
+    }
 
-        let finalForm = arr.map((el, i) => {
-          return (<TeamInfo key={i} roles={this.props.roles} detail={teamDetail[i]} innings={6}/>);
-        });
+
+
+    render() {
+        // debugger;
+
 
         return (
             <div>
-                <table>
+                <table >
                     <tbody>
                         <tr>
                             <th>Name</th>
@@ -67,9 +74,10 @@ export default class TeamUp extends React.Component {
                             <th>Preferred Position</th>
                             <th>Position to Avoid</th>
                         </tr>
-                        {teamDetail}
+                        {this.infoForm()}
                     </tbody>
                 </table>
+
                 <br/>
                 <br/>
                 <br/>
@@ -85,7 +93,7 @@ export default class TeamUp extends React.Component {
                             <th>Inning 5</th>
                             <th>Inning 6</th>
                         </tr>
-                        {finalForm}
+                        {this.finalForm()}
                     </tbody>
                 </table>
 
