@@ -1,4 +1,16 @@
-table, tr, th, td{
-  border: 1px solid #aaa;
-  text-align: center;
+@import url('font.css');
+@import url('homepage.css');
+@import url('navbar.css');
+@import url('team_form.css');
+@import url('printpage.css');
+body {
+    margin: 0 40px;
+}
+
+h1 {
+    font-family: 'Nunito', sans-serif;
+}
+
+p, input{
+    font-family: 'Varela Round', sans-serif;
 }

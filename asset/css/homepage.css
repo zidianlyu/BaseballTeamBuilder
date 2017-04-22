@@ -1,0 +1,30 @@
+.homepage-header {
+    font-family: 'Nunito', sans-serif;
+}
+
+#app-player{
+
+}
+
+.min-rules p{
+  font-size: 12px;
+}
+
+.opt-rules p{
+  font-size: 12px;
+}
+
+.build-btn {
+    color: #aaa;
+    text-decoration: none;
+    border: 1px solid #aaa;
+    box-shadow: 1px 2px 3px #bbb;
+    padding: 3px 3px 3px 3px;
+    float: right;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.build-btn:hover {
+    opacity: 0.8;
+    transition: all 0.8s;
+}

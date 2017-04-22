@@ -1,0 +1,17 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-right p {
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    padding: 2px 2px 2px 2px;
+}
+
+.navbar-right p a {
+    font-family: 'Varela Round', sans-serif;
+    text-decoration: none !important;
+    margin: 0 2px;
+}
