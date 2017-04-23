@@ -69,10 +69,36 @@
     -webkit-animation: bounceUp 2s infinite ease-in-out;
 }
 
+.build-final-form-output {
+    text-align: right;
+}
+
 .origin-form.print-btn {
+    display: inline-grid;
+    justify-content: center;
+}
+
+.origin-form.print-btn span {
+    text-align: center;
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: #f0ad4e;
+    -webkit-animation: bounceUp 2s infinite ease-in-out;
+}
+
+.build-print-output {
     text-align: right;
 }
 
 .final-form.print-btn {
-    text-align: right;
+    display: inline-grid;
+    justify-content: center;
+}
+
+.final-form.print-btn span {
+    text-align: center;
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: #f0ad4e;
+    -webkit-animation: bounceUp 2s infinite ease-in-out;
 }

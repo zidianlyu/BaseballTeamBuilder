@@ -275,7 +275,12 @@ export default class TeamUp extends React.Component {
         let buildFinalFormBtn = "";
         if (originForm !== '') {
             buildFinalFormBtn = (
-                <button className="btn btn-primary" onClick={this.buildFinalForm}>Build Your Lineups</button>
+                <div className="build-final-form-output">
+                    <div className="origin-form print-btn">
+                        <span className="fa fa-arrow-down"></span>
+                        <button className="btn btn-primary" onClick={this.buildFinalForm}>Build Your Lineups</button>
+                    </div>
+                </div>
             );
         }
 
@@ -289,7 +294,12 @@ export default class TeamUp extends React.Component {
             originForm = "";
             buildFinalFormBtn = "";
             printBtn = (
-                <button className="btn btn-primary" onClick={this.handleClick}>Print Your Lineups</button>
+                <div className="build-print-output">
+                    <div className="final-form print-btn">
+                        <span className="fa fa-arrow-down"></span>
+                        <button className="btn btn-primary" onClick={this.handleClick}>Print Your Lineups</button>
+                    </div>
+                </div>
             );
         }
 
@@ -301,16 +311,12 @@ export default class TeamUp extends React.Component {
 
                 <div className="origin-form">
                     {originForm}
-                    <div className="origin-form print-btn">
-                        {buildFinalFormBtn}
-                    </div>
+                    {buildFinalFormBtn}
                 </div>
 
                 <div className="final-form">
                     {finalForm}
-                    <div className="final-form print-btn">
-                        {printBtn}
-                    </div>
+                    {printBtn}
                 </div>
 
                 <footer className="footer">
