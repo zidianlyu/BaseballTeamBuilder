@@ -133,8 +133,6 @@
 
 - Designed page icon
 
-  ![](https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/favicon.png)
-
 - Designed animation to give the user more guidelines
 
   ![](https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/arrow_animation.png)
