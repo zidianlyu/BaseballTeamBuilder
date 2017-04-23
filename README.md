@@ -55,9 +55,9 @@
   - navbar
   - main content
 
-    - intro
-    - build form page
-    - print form page
+    - intro section
+    - build form section
+    - print form section
 
 ### Component Managements
 
