@@ -3,16 +3,17 @@ import React from 'react';
 export default class PlayerInfo extends React.Component {
     constructor(props) {
         super(props);
+        // debugger;
         this.state = {
-            name: this.props.name,
-            p_bool: this.props.p_bool,
-            p_inning: this.props.p_inning,
-            pre1: this.props.pre[0],
-            pre2: this.props.pre[1],
-            pre3: this.props.pre[2],
-            avd1: this.props.avd[0],
-            avd2: this.props.avd[1],
-            avd3: this.props.avd[2]
+            name: this.props.info[this.props.idx].name,
+            p_bool: this.props.info[this.props.idx].p_bool,
+            p_inning: this.props.info[this.props.idx].p_inning,
+            pre1: this.props.info[this.props.idx].pre_pos[0],
+            pre2: this.props.info[this.props.idx].pre_pos[1],
+            pre3: this.props.info[this.props.idx].pre_pos[2],
+            avd1: this.props.info[this.props.idx].avd_pos[0],
+            avd2: this.props.info[this.props.idx].avd_pos[1],
+            avd3: this.props.info[this.props.idx].avd_pos[2]
         };
         this.updateName = this.updateName.bind(this);
         this.updateBool = this.updateBool.bind(this);
@@ -26,36 +27,48 @@ export default class PlayerInfo extends React.Component {
     }
 
     updateName(event) {
+        this.props.info[this.props.idx].name = event.target.value;
         this.setState({name: event.target.value});
     }
 
     updateBool(event) {
+        this.props.info[this.props.idx].p_bool = event.target.value;
         this.setState({p_bool: event.target.value});
     }
 
     updateInning(event) {
+        this.props.info[this.props.idx].p_inning = event.target.value;
         this.setState({p_inning: event.target.value});
     }
 
     updatePre1(event) {
+        this.props.info[this.props.idx].pre_pos[0] = event.target.value;
         this.setState({pre1: event.target.value});
     }
 
     updatePre2(event) {
+        this.props.info[this.props.idx].pre_pos[1] = event.target.value;
         this.setState({pre2: event.target.value});
     }
 
     updatePre3(event) {
+        this.props.info[this.props.idx].pre_pos[2] = event.target.value;
         this.setState({pre3: event.target.value});
     }
 
     updateAvd1(event) {
+        // debugger;
+        this.props.info[this.props.idx].avd_pos[0] = event.target.value;
         this.setState({avd1: event.target.value});
     }
     updateAvd2(event) {
+        // debugger;
+        this.props.info[this.props.idx].avd_pos[1] = event.target.value;
         this.setState({avd2: event.target.value});
     }
     updateAvd3(event) {
+        // debugger;
+        this.props.info[this.props.idx].avd_pos[2] = event.target.value;
         this.setState({avd3: event.target.value});
     }
 
@@ -178,14 +191,14 @@ export default class PlayerInfo extends React.Component {
                 </td>
 
                 <td>
-                  {preShow1}
-                  {preShow2}
-                  {preShow3}
+                    {preShow1}
+                    {preShow2}
+                    {preShow3}
                 </td>
                 <td>
-                  {avdShow1}
-                  {avdShow2}
-                  {avdShow3}
+                    {avdShow1}
+                    {avdShow2}
+                    {avdShow3}
                 </td>
             </tr>
         )

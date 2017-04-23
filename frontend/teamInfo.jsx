@@ -3,14 +3,31 @@ import React from 'react';
 export default class TeamInfo extends React.Component {
     constructor(props) {
         super(props);
+        let detail = this.props.detail;
         // debugger;
         this.state = {
-            name: this.props.detail.props.name,
-            p_inning: this.props.detail.props.p_inning,
-            inning_num: this.props.innings
+            name: detail.name,
+            p_bool: detail.p_bool,
+            p_inning: detail.p_inning,
+            avd1: detail.avd_pos[0],
+            avd2: detail.avd_pos[1],
+            avd3: detail.avd_pos[2],
+            total_innings: this.props.innings
         };
+        // debugger;
         this.removeAvd = this.removeAvd.bind(this);
         this.pickRandom = this.pickRandom.bind(this);
+    }
+
+    componentWillUpdate() {
+        let update = this.props.detail;
+        this.state.name = update.name;
+        this.state.p_bool = update.p_bool;
+        this.state.p_inning = update.p_inning;
+        this.state.avd1 = update.avd_pos[0];
+        this.state.avd2 = update.avd_pos[1];
+        this.state.avd3 = update.avd_pos[2];
+        // debugger;
     }
 
     removeAvd(i) {
@@ -27,17 +44,17 @@ export default class TeamInfo extends React.Component {
         ]);
 
         // remove Picth role from not application player
-        if (parseInt(this.state.p_inning) !== i) {
+        if (parseInt(this.state.p_bool) !== i) {
             set.delete('P');
         }
-        if (set.has(this.props.detail.props.avd[0])) {
-            set.delete(this.props.detail.props.avd[0]);
+        if (set.has(this.state.avd1)) {
+            set.delete(this.state.avd1);
         }
-        if (set.has(this.props.detail.props.avd[1])) {
-            set.delete(this.props.detail.props.avd[1]);
+        if (set.has(this.state.avd2)) {
+            set.delete(this.state.avd2);
         }
-        if (set.has(this.props.detail.props.avd[2])) {
-            set.delete(this.props.detail.props.avd[2]);
+        if (set.has(this.state.avd3)) {
+            set.delete(this.state.avd3);
         }
         return Array.from(set);
     }
@@ -48,9 +65,10 @@ export default class TeamInfo extends React.Component {
     }
 
     render() {
+        // debugger;
         let innings_num = []
-        for (let i = 0; i < parseInt(this.state.inning_num); i++){
-          innings_num.push(i + 1);
+        for (let i = 0; i < parseInt(this.state.total_innings); i++) {
+            innings_num.push(i + 1);
         }
 
         let row = innings_num.map((el, i) => {
@@ -80,3 +98,4 @@ export default class TeamInfo extends React.Component {
         )
     }
 }
+//

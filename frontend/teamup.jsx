@@ -7,15 +7,11 @@ export default class TeamUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            p_bool: '',
-            p_inning: '',
-            pre_pos: '',
-            avd_pos: '',
             originInfo: false,
             finalInfo: false,
             player_num: '',
-            inning_num: ''
+            inning_num: '',
+            player_lists:  ''
         };
         this.updateName = this.updateName.bind(this);
         this.updateBool = this.updateBool.bind(this);
@@ -31,6 +27,7 @@ export default class TeamUp extends React.Component {
         this.minRules = this.minRules.bind(this);
         this.optRules = this.optRules.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.teamLists = this.teamLists.bind(this);
     }
 
     updateName(event) {
@@ -63,6 +60,26 @@ export default class TeamUp extends React.Component {
 
     handleClick(event) {
         window.print();
+    }
+
+    teamLists(players) {
+        let teamLists = [];
+
+        for (let i = 0; i < players; i++) {
+            let pattern = {
+                'name': 'Player',
+                'p_bool': 'Yes',
+                'p_inning': '1',
+                'pre_pos': [
+                    'P', 'C', 'SS'
+                ],
+                'avd_pos': ['1B', '2B', '3B']
+            };
+            pattern['name'] += i + 1;
+            pattern['p_inning'] = i + 1;
+            teamLists.push(pattern);
+        }
+        return teamLists;
     }
 
     minRules() {
@@ -148,10 +165,14 @@ export default class TeamUp extends React.Component {
                 {this.optRules()}
             </div>
         );
+
         const playersInfo = [];
-        this.props.teaminfo.map((el, i) => {
-            playersInfo.push(<PlayerInfo key={i} name={el.name} p_bool={el.p_bool} p_inning={el.p_inning} pre={el.pre_pos} avd={el.avd_pos}/>);
+        this.state.player_lists = this.teamLists(parseInt(this.state.player_num));
+        this.state.player_lists.map((el, i) => {
+            // debugger;
+            playersInfo.push(<PlayerInfo key={i} info={this.state.player_lists} idx={i}/>);
         });
+
         return (
             <div>
                 <h1>Build Your Roster</h1>
@@ -184,10 +205,9 @@ export default class TeamUp extends React.Component {
             length: parseInt(this.state.inning_num)
         }).map(Number.call, Number);
 
-        let detail = this.originForm().props.children[1].props.children.props.children[1];
-
-        players_num.map((el, i) => {
-            finalInfo.push(<TeamInfo key={i} detail={detail[i]} innings={parseInt(this.state.inning_num)}/>);
+        let details = this.state.player_lists;
+        details.map((el, i) => {
+            finalInfo.push(<TeamInfo key={i} detail={el} innings={parseInt(this.state.inning_num)}/>);
         });
 
         let tableheader = [];
@@ -320,7 +340,7 @@ export default class TeamUp extends React.Component {
                 </div>
 
                 <footer className="footer">
-                    <p>© 2017 The Harker School</p>
+                    <p>© 2017 Zidian Lyu</p>
                 </footer>
             </div>
         )
