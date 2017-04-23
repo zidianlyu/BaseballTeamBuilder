@@ -3,10 +3,11 @@ import React from 'react';
 export default class TeamInfo extends React.Component {
     constructor(props) {
         super(props);
+        // debugger;
         this.state = {
             name: this.props.detail.props.name,
             p_inning: this.props.detail.props.p_inning,
-            innings: this.props.innings
+            inning_num: this.props.innings
         };
         this.removeAvd = this.removeAvd.bind(this);
         this.pickRandom = this.pickRandom.bind(this);
@@ -47,15 +48,12 @@ export default class TeamInfo extends React.Component {
     }
 
     render() {
-        let inning_th = [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6
-        ];
-        let row = inning_th.map((el, i) => {
+        let innings_num = []
+        for (let i = 0; i < parseInt(this.state.inning_num); i++){
+          innings_num.push(i + 1);
+        }
+
+        let row = innings_num.map((el, i) => {
             let pickableArr = this.removeAvd(el);
             if (parseInt(this.state.p_inning) === el) {
                 return (
