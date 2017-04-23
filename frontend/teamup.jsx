@@ -110,7 +110,7 @@ export default class TeamUp extends React.Component {
     selectPlayer() {
         return (
             <div className="selector">
-                <label>Numbers of Players:
+                <label>#Players:
                 </label>
                 <select className="selectpicker" data-style="btn-primary" value={this.state.player_num} onChange={this.updatePlayerNum}>
                     <option value="">Please Select</option>
@@ -128,7 +128,7 @@ export default class TeamUp extends React.Component {
     selectInning() {
         return (
             <div className="selector">
-                <label>How Many Innings:
+                <label>#Innings:
                 </label>
                 <select className="selectpicker" data-style="btn-primary" value={this.state.inning_num} onChange={this.updateInningNum}>
                     <option value="">Please Select</option>

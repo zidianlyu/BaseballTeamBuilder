@@ -11,7 +11,7 @@
 }
 
 .select-player {
-    margin: 20px auto;
+    margin: 20px 0 10px 0;
     display: flex;
     justify-content: center;
 }
@@ -24,7 +24,7 @@
 }
 
 .select-inning {
-    margin: 20px auto;
+    margin: 10px 0 20px 0;
     display: flex;
     justify-content: center;
 }
