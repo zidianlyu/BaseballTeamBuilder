@@ -1,19 +1,23 @@
 @import url('font.css');
-@import url('homepage.css');
-@import url('navbar.css');
-body {
-    margin: 0 40px;
-}
-
+@import url('teamup.css');
+@import url('rules.css');
 h1 {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Nunito', sans-serif !important;
 }
 
 p, input {
-    font-family: 'Varela Round', sans-serif;
+    /*font-family: 'Varela Round', sans-serif;*/
 }
 
-table, th, td {
-    border: 1px solid #aaa;
-    text-align: center;
+tbody {
+    position: relative;
+    padding: 1rem;
+    margin: 1rem -1rem;
+    border: solid #f7f7f9;
+}
+
+footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
 }

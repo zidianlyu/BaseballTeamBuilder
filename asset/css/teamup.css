@@ -1,0 +1,78 @@
+@-webkit-keyframes bounceRight {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateX(-20px);
+    }
+    80% {
+        -webkit-transform: translateX(-10px);
+    }
+}
+
+.select-player {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.select-player span {
+    margin: 0 5px 0 0;
+    font-size: 18px;
+    color: #f0ad4e;
+    -webkit-animation: bounceRight 2s infinite ease-in-out;
+}
+
+.select-inning {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.select-inning span {
+    margin: 0 5px 0 0;
+    font-size: 18px;
+    color: #f0ad4e;
+    -webkit-animation: bounceRight 2s infinite ease-in-out;
+}
+
+.selector label {
+    margin: 0 5px 0 0;
+}
+
+@-webkit-keyframes bounceUp {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateY(-20px);
+    }
+    80% {
+        -webkit-transform: translateY(-10px);
+    }
+}
+
+.build-player-output {
+    text-align: center;
+}
+
+.build-player-btn {
+    margin: 10px 0 0 0;
+    display: inline-grid;
+    text-align: center;
+}
+
+.build-player-btn span {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: #f0ad4e;
+    -webkit-animation: bounceUp 2s infinite ease-in-out;
+}
+
+.origin-form.print-btn {
+    text-align: right;
+}
+
+.final-form.print-btn {
+    text-align: right;
+}

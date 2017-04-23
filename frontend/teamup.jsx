@@ -109,9 +109,10 @@ export default class TeamUp extends React.Component {
 
     selectPlayer() {
         return (
-            <div>
-                <label>How Many Players</label>
-                <select value={this.state.player_num} onChange={this.updatePlayerNum}>
+            <div className="selector">
+                <label>Numbers of Players:
+                </label>
+                <select className="selectpicker" data-style="btn-primary" value={this.state.player_num} onChange={this.updatePlayerNum}>
                     <option value="">Please Select</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
@@ -126,9 +127,10 @@ export default class TeamUp extends React.Component {
 
     selectInning() {
         return (
-            <div>
-                <label>How Many Innings</label>
-                <select value={this.state.inning_num} onChange={this.updateInningNum}>
+            <div className="selector">
+                <label>How Many Innings:
+                </label>
+                <select className="selectpicker" data-style="btn-primary" value={this.state.inning_num} onChange={this.updateInningNum}>
                     <option value="">Please Select</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
@@ -141,7 +143,7 @@ export default class TeamUp extends React.Component {
 
     originForm() {
         let rules = (
-            <div>
+            <div className="rules">
                 {this.minRules()}
                 {this.optRules()}
             </div>
@@ -153,7 +155,7 @@ export default class TeamUp extends React.Component {
         return (
             <div>
                 <h1>Build Your Roster</h1>
-                <table>
+                <table className="table table-striped">
                     <tbody>
                         <tr>
                             <th>Name</th>
@@ -165,6 +167,7 @@ export default class TeamUp extends React.Component {
                         {playersInfo}
                     </tbody>
                 </table>
+
                 {rules}
             </div>
         );
@@ -197,7 +200,7 @@ export default class TeamUp extends React.Component {
         return (
             <div>
                 <h1>Your Lineups</h1>
-                <table>
+                <table className="table table-striped">
                     <tbody>
                         <tr>
                             <th>Player's Name</th>
@@ -214,11 +217,48 @@ export default class TeamUp extends React.Component {
         // debugger;
         let selectPlayer = this.selectPlayer();
         let selectInning = this.selectInning();
+        let buildOriginFormBtn = "";
+        if (this.state.player_num !== '' && this.state.inning_num !== '') {
+            buildOriginFormBtn = (
+                <div className="build-player-output">
+                    <div className="build-player-btn">
+                        <span className="fa fa-arrow-down"></span>
+                        <button className="btn btn-primary" onClick={this.buildOriginForm}>Build Player Form</button>
+                    </div>
+                </div>
+            );
+        }
+
+        let arrowRightAnimationPlayer = "";
+
+        let arrowRightAnimationInning = "";
+
+        if (this.state.player_num === '') {
+            arrowRightAnimationPlayer = (
+                <span className="fa fa-arrow-right"></span>
+            );
+            selectInning = "";
+        }
+
+        if (this.state.player_num !== '' && this.state.inning_num === '') {
+            arrowRightAnimationPlayer = "";
+            arrowRightAnimationInning = (
+                <span className="fa fa-arrow-right"></span>
+            );
+            selectInning = this.selectInning();
+        }
+
+        if (this.state.inning_num !== '') {
+            arrowRightAnimationInning = "";
+        }
+
         let selector = (
-            <div>
-                <h1>Build Your Roster</h1>
-                {selectPlayer}
-                {selectInning}
+            <div className="jumbotron">
+                <h1>Baseball Team Builder</h1>
+                <p>This is a gift for the lovely daughter who has a big baseball fans dad</p>
+                <div className="select-player">{arrowRightAnimationPlayer}{selectPlayer}</div>
+                <div className="select-inning">{arrowRightAnimationInning}{selectInning}</div>
+                {buildOriginFormBtn}
             </div>
         );
 
@@ -232,17 +272,10 @@ export default class TeamUp extends React.Component {
             finalForm = this.finalForm();
         }
 
-        let buildOriginFormBtn = "";
-        if (this.state.player_num !== '' && this.state.inning_num !== '') {
-            buildOriginFormBtn = (
-                <button onClick={this.buildOriginForm}>Build Player Form</button>
-            );
-        }
-
         let buildFinalFormBtn = "";
         if (originForm !== '') {
             buildFinalFormBtn = (
-                <button onClick={this.buildFinalForm}>Build Your Lineups</button>
+                <button className="btn btn-primary" onClick={this.buildFinalForm}>Build Your Lineups</button>
             );
         }
 
@@ -256,39 +289,33 @@ export default class TeamUp extends React.Component {
             originForm = "";
             buildFinalFormBtn = "";
             printBtn = (
-                <button onClick={this.handleClick}>Print Your Lineups</button>
+                <button className="btn btn-primary" onClick={this.handleClick}>Print Your Lineups</button>
             );
         }
 
         return (
-            <div>
-                <nav>
-                    <div className="navbar-left">
-                        <p>
-                            <a href="index.html">Home</a>
-                        </p>
-                    </div>
-                    <div className="navbar-right">
-                        <p>
-                            <a href="index.html">Sign Up</a>
-                            <a href="index.html">Login</a>
-                        </p>
-                    </div>
-                </nav>
+            <div className="container">
                 <div>
                     {selector}
                 </div>
 
-                <div>
-                    {buildOriginFormBtn}
+                <div className="origin-form">
                     {originForm}
+                    <div className="origin-form print-btn">
+                        {buildFinalFormBtn}
+                    </div>
                 </div>
 
-                <div>
-                    {buildFinalFormBtn}
+                <div className="final-form">
                     {finalForm}
-                    {printBtn}
+                    <div className="final-form print-btn">
+                        {printBtn}
+                    </div>
                 </div>
+
+                <footer className="footer">
+                    <p>© 2017 The Harker School</p>
+                </footer>
             </div>
         )
     }
