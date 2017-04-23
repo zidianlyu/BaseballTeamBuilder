@@ -9,15 +9,16 @@ https://zidianlyu.github.io/BaseballTeamBuilder/
 * Apr-2017
 
 ## Overviews
-  - Introduction Page
+
+### Introduction Page
 
     <img src="https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/intro.png" align="center" width="700" overflow="hidden">
 
-  - BuildForm Page
+### BuildForm Page
 
     <img src="https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/buildForm.png" align="center" width="700" overflow="hidden">
 
-  - PrintForm Page
+### PrintForm Page
 
     <img src="https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/printForm.png" align="center" width="700" overflow="hidden">
 
