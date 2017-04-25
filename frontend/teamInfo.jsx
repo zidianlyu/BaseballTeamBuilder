@@ -27,7 +27,6 @@ export default class TeamInfo extends React.Component {
         this.state.avd1 = update.avd_pos[0];
         this.state.avd2 = update.avd_pos[1];
         this.state.avd3 = update.avd_pos[2];
-        // debugger;
     }
 
     removeAvd(i) {
