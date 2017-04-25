@@ -72,6 +72,229 @@ export default class PlayerInfo extends React.Component {
         this.setState({avd3: event.target.value});
     }
 
+    pre1() {
+        let set = new Set([
+            'P',
+            'C',
+            'SS',
+            '1B',
+            '2B',
+            '3B',
+            'LF',
+            'CF',
+            'RF'
+        ]);
+        if (set.has(this.state.pre2)) {
+            set.delete(this.state.pre2);
+        }
+        if (set.has(this.state.pre3)) {
+            set.delete(this.state.pre3);
+        }
+        if (set.has(this.state.avd1)) {
+            set.delete(this.state.avd1);
+        }
+        if (set.has(this.state.avd2)) {
+            set.delete(this.state.avd2);
+        }
+        if (set.has(this.state.avd3)) {
+            set.delete(this.state.avd3);
+        }
+        let remain = Array.from(set);
+        let result = [];
+        remain.map((el, i) => {
+            result.push(
+                <option key={i} value={el}>{el}</option>
+            );
+        });
+        return result;
+    }
+
+    pre2() {
+        let set = new Set([
+            'P',
+            'C',
+            'SS',
+            '1B',
+            '2B',
+            '3B',
+            'LF',
+            'CF',
+            'RF'
+        ]);
+        if (set.has(this.state.pre1)) {
+            set.delete(this.state.pre1);
+        }
+        if (set.has(this.state.pre3)) {
+            set.delete(this.state.pre3);
+        }
+        if (set.has(this.state.avd1)) {
+            set.delete(this.state.avd1);
+        }
+        if (set.has(this.state.avd2)) {
+            set.delete(this.state.avd2);
+        }
+        if (set.has(this.state.avd3)) {
+            set.delete(this.state.avd3);
+        }
+        let remain = Array.from(set);
+        let result = [];
+        remain.map((el, i) => {
+            result.push(
+                <option key={i} value={el}>{el}</option>
+            );
+        });
+
+        return result;
+    }
+
+    pre3() {
+        let set = new Set([
+            'P',
+            'C',
+            'SS',
+            '1B',
+            '2B',
+            '3B',
+            'LF',
+            'CF',
+            'RF'
+        ]);
+        if (set.has(this.state.pre1)) {
+            set.delete(this.state.pre1);
+        }
+        if (set.has(this.state.pre2)) {
+            set.delete(this.state.pre2);
+        }
+        if (set.has(this.state.avd1)) {
+            set.delete(this.state.avd1);
+        }
+        if (set.has(this.state.avd2)) {
+            set.delete(this.state.avd2);
+        }
+        if (set.has(this.state.avd3)) {
+            set.delete(this.state.avd3);
+        }
+        let remain = Array.from(set);
+        let result = [];
+        remain.map((el, i) => {
+            result.push(
+                <option key={i} value={el}>{el}</option>
+            );
+        });
+        return result;
+    }
+
+    avd1() {
+        let set = new Set([
+            'P',
+            'C',
+            'SS',
+            '1B',
+            '2B',
+            '3B',
+            'LF',
+            'CF',
+            'RF'
+        ]);
+        if (set.has(this.state.pre1)) {
+            set.delete(this.state.pre1);
+        }
+        if (set.has(this.state.pre2)) {
+            set.delete(this.state.pre2);
+        }
+        if (set.has(this.state.pre3)) {
+            set.delete(this.state.pre3);
+        }
+        if (set.has(this.state.avd2)) {
+            set.delete(this.state.avd2);
+        }
+        if (set.has(this.state.avd3)) {
+            set.delete(this.state.avd3);
+        }
+        let remain = Array.from(set);
+        let result = [];
+        remain.map((el, i) => {
+            result.push(
+                <option key={i} value={el}>{el}</option>
+            );
+        });
+        return result;
+    }
+
+    avd2() {
+        let set = new Set([
+            'P',
+            'C',
+            'SS',
+            '1B',
+            '2B',
+            '3B',
+            'LF',
+            'CF',
+            'RF'
+        ]);
+        if (set.has(this.state.pre1)) {
+            set.delete(this.state.pre1);
+        }
+        if (set.has(this.state.pre2)) {
+            set.delete(this.state.pre2);
+        }
+        if (set.has(this.state.pre3)) {
+            set.delete(this.state.pre3);
+        }
+        if (set.has(this.state.avd1)) {
+            set.delete(this.state.avd1);
+        }
+        if (set.has(this.state.avd3)) {
+            set.delete(this.state.avd3);
+        }
+        let remain = Array.from(set);
+        let result = [];
+        remain.map((el, i) => {
+            result.push(
+                <option key={i} value={el}>{el}</option>
+            );
+        });
+        return result;
+    }
+
+    avd3() {
+        let set = new Set([
+            'P',
+            'C',
+            'SS',
+            '1B',
+            '2B',
+            '3B',
+            'LF',
+            'CF',
+            'RF'
+        ]);
+        if (set.has(this.state.pre1)) {
+            set.delete(this.state.pre1);
+        }
+        if (set.has(this.state.pre2)) {
+            set.delete(this.state.pre2);
+        }
+        if (set.has(this.state.pre3)) {
+            set.delete(this.state.pre3);
+        }
+        if (set.has(this.state.avd1)) {
+            set.delete(this.state.avd1);
+        }
+        if (set.has(this.state.avd2)) {
+            set.delete(this.state.avd2);
+        }
+        let remain = Array.from(set);
+        let result = [];
+        remain.map((el, i) => {
+            result.push(
+                <option key={i} value={el}>{el}</option>
+            );
+        });
+        return result;
+    }
+
     render() {
         // debugger;
 
@@ -93,85 +316,37 @@ export default class PlayerInfo extends React.Component {
 
         let preShow1 = (
             <select value={this.state.pre1} onChange={this.updatePre1}>
-                <option value="P">P</option>
-                <option value="C">C</option>
-                <option value="SS">SS</option>
-                <option value="1B">1B</option>
-                <option value="2B">2B</option>
-                <option value="3B">3B</option>
-                <option value="LF">LF</option>
-                <option value="CF">CF</option>
-                <option value="RF">RF</option>
+              {this.pre1()}
             </select>
         );
 
         let preShow2 = (
             <select value={this.state.pre2} onChange={this.updatePre2}>
-                <option value="P">P</option>
-                <option value="C">C</option>
-                <option value="SS">SS</option>
-                <option value="1B">1B</option>
-                <option value="2B">2B</option>
-                <option value="3B">3B</option>
-                <option value="LF">LF</option>
-                <option value="CF">CF</option>
-                <option value="RF">RF</option>
+              {this.pre2()}
             </select>
         );
 
         let preShow3 = (
             <select value={this.state.pre3} onChange={this.updatePre3}>
-                <option value="P">P</option>
-                <option value="C">C</option>
-                <option value="SS">SS</option>
-                <option value="1B">1B</option>
-                <option value="2B">2B</option>
-                <option value="3B">3B</option>
-                <option value="LF">LF</option>
-                <option value="CF">CF</option>
-                <option value="RF">RF</option>
+              {this.pre3()}
             </select>
         );
 
         let avdShow1 = (
             <select value={this.state.avd1} onChange={this.updateAvd1}>
-                <option value="P">P</option>
-                <option value="C">C</option>
-                <option value="SS">SS</option>
-                <option value="1B">1B</option>
-                <option value="2B">2B</option>
-                <option value="3B">3B</option>
-                <option value="LF">LF</option>
-                <option value="CF">CF</option>
-                <option value="RF">RF</option>
+              {this.avd1()}
             </select>
         );
 
         let avdShow2 = (
             <select value={this.state.avd2} onChange={this.updateAvd2}>
-                <option value="P">P</option>
-                <option value="C">C</option>
-                <option value="SS">SS</option>
-                <option value="1B">1B</option>
-                <option value="2B">2B</option>
-                <option value="3B">3B</option>
-                <option value="LF">LF</option>
-                <option value="CF">CF</option>
-                <option value="RF">RF</option>
+              {this.avd2()}
             </select>
         );
 
         let avdShow3 = (
             <select value={this.state.avd3} onChange={this.updateAvd3}>
-                <option value="P">P</option>
-                <option value="C">C</option>
-                <option value="SS">SS</option>
-                <option value="1B">1B</option>
-                <option value="2B">2B</option>
-                <option value="3B">3B</option>
-                <option value="LF">LF</option>
-                <option value="CF">CF</option>
-                <option value="RF">RF</option>
+              {this.avd3()}
             </select>
         );
 

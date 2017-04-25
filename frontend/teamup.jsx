@@ -219,7 +219,10 @@ export default class TeamUp extends React.Component {
 
         return (
             <div>
-                <h1>Your Lineups</h1>
+                <div className="build-page-header">
+                  <h1>Your Lineups</h1>
+                  <a className="btn btn-primary" href="index.html">Build Again</a>
+                </div>
                 <table className="table table-striped">
                     <tbody>
                         <tr>

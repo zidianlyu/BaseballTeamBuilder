@@ -9892,9 +9892,18 @@ var TeamUp = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Your Lineups'
+                    'div',
+                    { className: 'build-page-header' },
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Your Lineups'
+                    ),
+                    _react2.default.createElement(
+                        'a',
+                        { className: 'btn btn-primary', href: 'index.html' },
+                        'Build Again'
+                    )
                 ),
                 _react2.default.createElement(
                     'table',
@@ -10317,6 +10326,187 @@ var PlayerInfo = function (_React$Component) {
             this.setState({ avd3: event.target.value });
         }
     }, {
+        key: 'pre1',
+        value: function pre1() {
+            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
+            if (set.has(this.state.pre2)) {
+                set.delete(this.state.pre2);
+            }
+            if (set.has(this.state.pre3)) {
+                set.delete(this.state.pre3);
+            }
+            if (set.has(this.state.avd1)) {
+                set.delete(this.state.avd1);
+            }
+            if (set.has(this.state.avd2)) {
+                set.delete(this.state.avd2);
+            }
+            if (set.has(this.state.avd3)) {
+                set.delete(this.state.avd3);
+            }
+            var remain = Array.from(set);
+            var result = [];
+            remain.map(function (el, i) {
+                result.push(_react2.default.createElement(
+                    'option',
+                    { key: i, value: el },
+                    el
+                ));
+            });
+            return result;
+        }
+    }, {
+        key: 'pre2',
+        value: function pre2() {
+            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
+            if (set.has(this.state.pre1)) {
+                set.delete(this.state.pre1);
+            }
+            if (set.has(this.state.pre3)) {
+                set.delete(this.state.pre3);
+            }
+            if (set.has(this.state.avd1)) {
+                set.delete(this.state.avd1);
+            }
+            if (set.has(this.state.avd2)) {
+                set.delete(this.state.avd2);
+            }
+            if (set.has(this.state.avd3)) {
+                set.delete(this.state.avd3);
+            }
+            var remain = Array.from(set);
+            var result = [];
+            remain.map(function (el, i) {
+                result.push(_react2.default.createElement(
+                    'option',
+                    { key: i, value: el },
+                    el
+                ));
+            });
+
+            return result;
+        }
+    }, {
+        key: 'pre3',
+        value: function pre3() {
+            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
+            if (set.has(this.state.pre1)) {
+                set.delete(this.state.pre1);
+            }
+            if (set.has(this.state.pre2)) {
+                set.delete(this.state.pre2);
+            }
+            if (set.has(this.state.avd1)) {
+                set.delete(this.state.avd1);
+            }
+            if (set.has(this.state.avd2)) {
+                set.delete(this.state.avd2);
+            }
+            if (set.has(this.state.avd3)) {
+                set.delete(this.state.avd3);
+            }
+            var remain = Array.from(set);
+            var result = [];
+            remain.map(function (el, i) {
+                result.push(_react2.default.createElement(
+                    'option',
+                    { key: i, value: el },
+                    el
+                ));
+            });
+            return result;
+        }
+    }, {
+        key: 'avd1',
+        value: function avd1() {
+            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
+            if (set.has(this.state.pre1)) {
+                set.delete(this.state.pre1);
+            }
+            if (set.has(this.state.pre2)) {
+                set.delete(this.state.pre2);
+            }
+            if (set.has(this.state.pre3)) {
+                set.delete(this.state.pre3);
+            }
+            if (set.has(this.state.avd2)) {
+                set.delete(this.state.avd2);
+            }
+            if (set.has(this.state.avd3)) {
+                set.delete(this.state.avd3);
+            }
+            var remain = Array.from(set);
+            var result = [];
+            remain.map(function (el, i) {
+                result.push(_react2.default.createElement(
+                    'option',
+                    { key: i, value: el },
+                    el
+                ));
+            });
+            return result;
+        }
+    }, {
+        key: 'avd2',
+        value: function avd2() {
+            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
+            if (set.has(this.state.pre1)) {
+                set.delete(this.state.pre1);
+            }
+            if (set.has(this.state.pre2)) {
+                set.delete(this.state.pre2);
+            }
+            if (set.has(this.state.pre3)) {
+                set.delete(this.state.pre3);
+            }
+            if (set.has(this.state.avd1)) {
+                set.delete(this.state.avd1);
+            }
+            if (set.has(this.state.avd3)) {
+                set.delete(this.state.avd3);
+            }
+            var remain = Array.from(set);
+            var result = [];
+            remain.map(function (el, i) {
+                result.push(_react2.default.createElement(
+                    'option',
+                    { key: i, value: el },
+                    el
+                ));
+            });
+            return result;
+        }
+    }, {
+        key: 'avd3',
+        value: function avd3() {
+            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
+            if (set.has(this.state.pre1)) {
+                set.delete(this.state.pre1);
+            }
+            if (set.has(this.state.pre2)) {
+                set.delete(this.state.pre2);
+            }
+            if (set.has(this.state.pre3)) {
+                set.delete(this.state.pre3);
+            }
+            if (set.has(this.state.avd1)) {
+                set.delete(this.state.avd1);
+            }
+            if (set.has(this.state.avd2)) {
+                set.delete(this.state.avd2);
+            }
+            var remain = Array.from(set);
+            var result = [];
+            remain.map(function (el, i) {
+                result.push(_react2.default.createElement(
+                    'option',
+                    { key: i, value: el },
+                    el
+                ));
+            });
+            return result;
+        }
+    }, {
         key: 'render',
         value: function render() {
             // debugger;
@@ -10364,301 +10554,37 @@ var PlayerInfo = function (_React$Component) {
             var preShow1 = _react2.default.createElement(
                 'select',
                 { value: this.state.pre1, onChange: this.updatePre1 },
-                _react2.default.createElement(
-                    'option',
-                    { value: 'P' },
-                    'P'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'C' },
-                    'C'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'SS' },
-                    'SS'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '1B' },
-                    '1B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '2B' },
-                    '2B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '3B' },
-                    '3B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'LF' },
-                    'LF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'CF' },
-                    'CF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'RF' },
-                    'RF'
-                )
+                this.pre1()
             );
 
             var preShow2 = _react2.default.createElement(
                 'select',
                 { value: this.state.pre2, onChange: this.updatePre2 },
-                _react2.default.createElement(
-                    'option',
-                    { value: 'P' },
-                    'P'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'C' },
-                    'C'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'SS' },
-                    'SS'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '1B' },
-                    '1B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '2B' },
-                    '2B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '3B' },
-                    '3B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'LF' },
-                    'LF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'CF' },
-                    'CF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'RF' },
-                    'RF'
-                )
+                this.pre2()
             );
 
             var preShow3 = _react2.default.createElement(
                 'select',
                 { value: this.state.pre3, onChange: this.updatePre3 },
-                _react2.default.createElement(
-                    'option',
-                    { value: 'P' },
-                    'P'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'C' },
-                    'C'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'SS' },
-                    'SS'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '1B' },
-                    '1B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '2B' },
-                    '2B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '3B' },
-                    '3B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'LF' },
-                    'LF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'CF' },
-                    'CF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'RF' },
-                    'RF'
-                )
+                this.pre3()
             );
 
             var avdShow1 = _react2.default.createElement(
                 'select',
                 { value: this.state.avd1, onChange: this.updateAvd1 },
-                _react2.default.createElement(
-                    'option',
-                    { value: 'P' },
-                    'P'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'C' },
-                    'C'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'SS' },
-                    'SS'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '1B' },
-                    '1B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '2B' },
-                    '2B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '3B' },
-                    '3B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'LF' },
-                    'LF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'CF' },
-                    'CF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'RF' },
-                    'RF'
-                )
+                this.avd1()
             );
 
             var avdShow2 = _react2.default.createElement(
                 'select',
                 { value: this.state.avd2, onChange: this.updateAvd2 },
-                _react2.default.createElement(
-                    'option',
-                    { value: 'P' },
-                    'P'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'C' },
-                    'C'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'SS' },
-                    'SS'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '1B' },
-                    '1B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '2B' },
-                    '2B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '3B' },
-                    '3B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'LF' },
-                    'LF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'CF' },
-                    'CF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'RF' },
-                    'RF'
-                )
+                this.avd2()
             );
 
             var avdShow3 = _react2.default.createElement(
                 'select',
                 { value: this.state.avd3, onChange: this.updateAvd3 },
-                _react2.default.createElement(
-                    'option',
-                    { value: 'P' },
-                    'P'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'C' },
-                    'C'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'SS' },
-                    'SS'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '1B' },
-                    '1B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '2B' },
-                    '2B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: '3B' },
-                    '3B'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'LF' },
-                    'LF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'CF' },
-                    'CF'
-                ),
-                _react2.default.createElement(
-                    'option',
-                    { value: 'RF' },
-                    'RF'
-                )
+                this.avd3()
             );
 
             return _react2.default.createElement(
@@ -10746,10 +10672,10 @@ var TeamInfo = function (_React$Component) {
     function TeamInfo(props) {
         _classCallCheck(this, TeamInfo);
 
+        // debugger;
         var _this = _possibleConstructorReturn(this, (TeamInfo.__proto__ || Object.getPrototypeOf(TeamInfo)).call(this, props));
 
         var detail = _this.props.detail;
-        // debugger;
         _this.state = {
             name: detail.name,
             p_bool: detail.p_bool,
@@ -10779,13 +10705,58 @@ var TeamInfo = function (_React$Component) {
         }
     }, {
         key: 'removeAvd',
-        value: function removeAvd(i) {
-            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
+        value: function removeAvd(turn, role_stack) {
+            // debugger;
+            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF', 'BN']);
+
+            var infield = new Set(['P', 'C', 'SS', '1B', '2B', '3B']);
+
+            var outfield = new Set(['LF', 'CF', 'RF']);
+
+            // handle min rule 1 - outfield requirement first
+            if (turn === 2) {
+                if (!role_stack.includes('LF')) {
+                    if (!role_stack.includes('CF')) {
+                        if (!role_stack.includes('RF')) {
+                            return Array.from(outfield);
+                        }
+                    }
+                }
+            }
+
+            // handle min rule 1 - infield requirement first
+            if (turn === 3) {
+                var infield_check = 0;
+                role_stack.map(function (el, i) {
+                    if (infield.has(el)) {
+                        infield_check += 1;
+                    }
+                });
+                if (infield_check === 0) {
+                    if (role_stack[turn - 1] === 'P') {
+                        infield.delete('P');
+                    }
+                    return Array.from(infield);
+                }
+            }
+
+            // handle min rule 1 - infield requirement second
+            if (turn === 4) {
+                var _infield_check = 0;
+                role_stack.map(function (el, i) {
+                    if (infield.has(el)) {
+                        _infield_check += 1;
+                    }
+                });
+                if (_infield_check === 1) {
+                    if (role_stack[turn - 1] === 'P') {
+                        infield.delete('P');
+                    }
+                    return Array.from(infield);
+                }
+            }
 
             // remove Picth role from not application player
-            if (parseInt(this.state.p_bool) !== i) {
-                set.delete('P');
-            }
             if (set.has(this.state.avd1)) {
                 set.delete(this.state.avd1);
             }
@@ -10795,12 +10766,34 @@ var TeamInfo = function (_React$Component) {
             if (set.has(this.state.avd3)) {
                 set.delete(this.state.avd3);
             }
+
+            // pick from random
+            var repeat = {};
+            role_stack.map(function (el, i) {
+                if (repeat[el] > 0) {
+                    repeat[el] += 1;
+                    if (repeat[el] === 2) {
+                        set.delete(el);
+                    }
+                } else {
+                    repeat[el] = 1;
+                }
+            });
+            if (role_stack[turn - 1] === 'P') {
+                set.delete('P');
+            }
             return Array.from(set);
         }
     }, {
         key: 'pickRandom',
-        value: function pickRandom(arr) {
+        value: function pickRandom(arr, role_stack, turn) {
             var num = Math.floor(Math.random() * arr.length);
+            role_stack.push(arr[num]);
+            if (turn === 6) {
+                console.log(this.state.name);
+                console.log("role stack: ", role_stack);
+                // debugger;
+            }
             return arr[num];
         }
     }, {
@@ -10809,14 +10802,17 @@ var TeamInfo = function (_React$Component) {
             var _this2 = this;
 
             // debugger;
+            var role_stack = [];
             var innings_num = [];
             for (var i = 0; i < parseInt(this.state.total_innings); i++) {
                 innings_num.push(i + 1);
             }
 
-            var row = innings_num.map(function (el, i) {
-                var pickableArr = _this2.removeAvd(el);
-                if (parseInt(_this2.state.p_inning) === el) {
+            var row = innings_num.map(function (turn, i) {
+                var pickableArr = _this2.removeAvd(turn, role_stack);
+
+                if (parseInt(_this2.state.p_inning) === turn) {
+                    role_stack.push('P');
                     return _react2.default.createElement(
                         'td',
                         { key: i },
@@ -10826,7 +10822,7 @@ var TeamInfo = function (_React$Component) {
                     return _react2.default.createElement(
                         'td',
                         { key: i },
-                        _this2.pickRandom(pickableArr)
+                        _this2.pickRandom(pickableArr, role_stack, turn)
                     );
                 }
             });
@@ -10846,8 +10842,6 @@ var TeamInfo = function (_React$Component) {
 
     return TeamInfo;
 }(_react2.default.Component);
-//
-
 
 exports.default = TeamInfo;
 
