@@ -9520,21 +9520,25 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(25);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _playerinfo = __webpack_require__(84);
+var _playerInfo = __webpack_require__(84);
 
-var _playerinfo2 = _interopRequireDefault(_playerinfo);
+var _playerInfo2 = _interopRequireDefault(_playerInfo);
 
-var _teaminfo = __webpack_require__(85);
+var _teamInfo = __webpack_require__(85);
 
-var _teaminfo2 = _interopRequireDefault(_teaminfo);
+var _teamInfo2 = _interopRequireDefault(_teamInfo);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9545,94 +9549,154 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var TeamUp = function (_React$Component) {
     _inherits(TeamUp, _React$Component);
 
-    function TeamUp(props) {
+    function TeamUp() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
         _classCallCheck(this, TeamUp);
 
-        var _this = _possibleConstructorReturn(this, (TeamUp.__proto__ || Object.getPrototypeOf(TeamUp)).call(this, props));
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
 
-        _this.state = {
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TeamUp.__proto__ || Object.getPrototypeOf(TeamUp)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+            playerNum: '',
+            inningNum: '',
             originInfo: false,
             finalInfo: false,
-            player_num: '',
-            inning_num: '',
-            player_lists: ''
-        };
-        _this.updateName = _this.updateName.bind(_this);
-        _this.updateBool = _this.updateBool.bind(_this);
-        _this.updateInning = _this.updateInning.bind(_this);
-        _this.updatePlayerNum = _this.updatePlayerNum.bind(_this);
-        _this.updateInningNum = _this.updateInningNum.bind(_this);
-        _this.buildOriginForm = _this.buildOriginForm.bind(_this);
-        _this.buildFinalForm = _this.buildFinalForm.bind(_this);
-        _this.originForm = _this.originForm.bind(_this);
-        _this.finalForm = _this.finalForm.bind(_this);
-        _this.selectPlayer = _this.selectPlayer.bind(_this);
-        _this.selectInning = _this.selectInning.bind(_this);
-        _this.minRules = _this.minRules.bind(_this);
-        _this.optRules = _this.optRules.bind(_this);
-        _this.handleClick = _this.handleClick.bind(_this);
-        _this.teamLists = _this.teamLists.bind(_this);
-        return _this;
+            availablePitchInnings: [1, 2, 3, 4, 5, 6],
+            playerLists: _this.constructTeamLists(3)
+        }, _this.updatePosition = function (rowIdx, type) {
+            var fieldName = _this.getPositionField(type);
+
+            return function (fieldIdx, selection) {
+                var players = _this.state.players;
+                players[rowIdx]['' + fieldName][fieldIdx] = selection;
+
+                _this.setState({ players: players });
+            };
+        }, _this.updateName = function (idx) {
+            return function (newName) {
+                var newPlayers = _this.state.players;
+                newPlayers[idx].name = newName;
+                _this.setState({ players: newPlayers });
+            };
+        }, _this.updatePlayerNum = function (event) {
+            debugger;
+            return function (playerNumber) {
+                debugger;
+                _this.setState({ playerNum: playerNumber });
+            };
+        }, _this.updateInningNum = function (event) {
+            debugger;
+            return function (inningNumber) {
+                _this.setState({ inningNum: inningNumber });
+            };
+        }, _this.updateIsPitcher = function (idx) {
+            return function (value) {
+                var players = _this.state.players;
+                var availablePitchInnings = _this.state.availablePitchInnings;
+
+                players[idx].isPitcher = value;
+
+                if (!value) {
+                    availablePitchInnings.push(players[idx].selectedPitchInning);
+                    players[idx].selectedPitchInning = 'Not Applicable';
+                } else {
+                    players[idx].selectedPitchInning = availablePitchInnings[0];
+                    availablePitchInnings.shift();
+                }
+
+                _this.setState({ players: players, availablePitchInnings: availablePitchInnings });
+            };
+        }, _this.updatePitchInning = function (idx) {
+            return function (newSelection) {
+                var newPlayers = _this.state.players;
+                var newInnings = [].concat(_toConsumableArray(_this.state.availablePitchInnings));
+
+                if (newSelection !== 'Not Applicable') {
+                    newSelection = parseInt(newSelection);
+                    var oldIndex = _this.state.availablePitchInnings.indexOf(newSelection);
+                    newInnings = [].concat(_toConsumableArray(newInnings.slice(0, oldIndex)), _toConsumableArray(newInnings.slice(oldIndex + 1)));
+                }
+
+                if (newPlayers[idx].selectedPitchInning !== 'Not Applicable') {
+                    newInnings.push(newPlayers[idx].selectedPitchInning);
+                }
+
+                newPlayers[idx].selectedPitchInning = newSelection;
+
+                _this.setState({ players: newPlayers, availablePitchInnings: newInnings.sort() });
+            };
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(TeamUp, [{
-        key: 'updateName',
-        value: function updateName(event) {
-            this.setState({ name: event.target.value });
-        }
-    }, {
-        key: 'updateBool',
-        value: function updateBool(event) {
-            this.setState({ p_bool: event.target.value });
-        }
-    }, {
-        key: 'updateInning',
-        value: function updateInning(event) {
-            this.setState({ p_inning: event.target.value });
-        }
-    }, {
-        key: 'updatePlayerNum',
-        value: function updatePlayerNum(event) {
-            this.setState({ player_num: event.target.value });
-        }
-    }, {
-        key: 'updateInningNum',
-        value: function updateInningNum(event) {
-            this.setState({ inning_num: event.target.value });
-        }
-    }, {
-        key: 'buildFinalForm',
-        value: function buildFinalForm(event) {
-            this.setState({ finalInfo: true });
-        }
-    }, {
-        key: 'buildOriginForm',
-        value: function buildOriginForm(event) {
-            this.setState({ originInfo: true });
-        }
-    }, {
         key: 'handleClick',
+
+
+        // updatePlayerNum(event) {
+        //     debugger;
+        //     // this.state.playerLists = this.constructTeamLists(parseInt(event.target.value));
+        //     this.setState({player_num: event.target.value});
+        // }
+        //
+        // updateInningNum(event) {
+        //     debugger;
+        //     // this.state.availablePitchInnings = Array.from(new Array(parseInt(event.target.value)), (val, idx) => idx + 1);
+        //     this.setState({inning_num: event.target.value});
+        // }
+        //
+        // buildFinalForm(event) {
+        //     this.setState({finalInfo: true});
+        // }
+        //
+        // buildOriginForm(event) {
+        //     this.setState({originInfo: true});
+        // }
+
         value: function handleClick(event) {
             window.print();
         }
     }, {
-        key: 'teamLists',
-        value: function teamLists(players) {
+        key: 'constructTeamLists',
+        value: function constructTeamLists(playerLists) {
             var teamLists = [];
 
-            for (var i = 0; i < players; i++) {
+            for (var i = 0; i < playerLists; i++) {
                 var pattern = {
-                    'name': 'Player',
-                    'p_bool': 'Yes',
-                    'p_inning': '1',
-                    'pre_pos': ['P', 'C', 'SS'],
-                    'avd_pos': ['1B', '2B', '3B']
+                    name: 'Player ' + (i + 1),
+                    isPitcher: true,
+                    selectedPitchInning: '' + (i + 1),
+                    preferredPositions: [],
+                    avoidPositions: []
                 };
-                pattern['name'] += i + 1;
-                pattern['p_inning'] = i + 1;
+                var allPositions = ['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF', 'BN'];
+                for (var j = 0; j < 3; j++) {
+                    var prePos = allPositions[Math.floor(Math.random() * allPositions.length)];
+                    allPositions.splice(allPositions.indexOf(prePos), 1);
+                    pattern['preferredPositions'].push(prePos);
+
+                    var avdPos = allPositions[Math.floor(Math.random() * allPositions.length)];
+                    allPositions.splice(allPositions.indexOf(avdPos), 1);
+                    pattern['avoidPositions'].push(avdPos);
+                }
                 teamLists.push(pattern);
             }
             return teamLists;
+        }
+    }, {
+        key: 'getPositionField',
+        value: function getPositionField(type) {
+            switch (type) {
+                case "preferred":
+                    return "preferredPositions";
+                case "avoid":
+                    return "avoidPositions";
+                default:
+                    throw 'Error in TeamUp#getPositionField: given type \'' + type + '\' does not match a case';
+            }
         }
     }, {
         key: 'minRules',
@@ -9709,7 +9773,50 @@ var TeamUp = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'select',
-                    { className: 'selectpicker', 'data-style': 'btn-primary', value: this.state.player_num, onChange: this.updatePlayerNum },
+                    { className: 'selectpicker', 'data-style': 'btn-primary', value: this.state.playerNum, onChange: this.updatePlayerNum },
+                    _react2.default.createElement(
+                        'option',
+                        { value: '' },
+                        'Please Select'
+                    ),
+                    _react2.default.createElement(
+                        'option',
+                        { value: '6' },
+                        '6'
+                    ),
+                    _react2.default.createElement(
+                        'option',
+                        { value: '7' },
+                        '7'
+                    ),
+                    _react2.default.createElement(
+                        'option',
+                        { value: '8' },
+                        '8'
+                    ),
+                    _react2.default.createElement(
+                        'option',
+                        { value: '9' },
+                        '9'
+                    )
+                )
+            );
+        }
+    }, {
+        key: 'selectInning',
+        value: function selectInning() {
+            debugger;
+            return _react2.default.createElement(
+                'div',
+                { className: 'selector' },
+                _react2.default.createElement(
+                    'label',
+                    null,
+                    '#Innings:'
+                ),
+                _react2.default.createElement(
+                    'select',
+                    { className: 'selectpicker', 'data-style': 'btn-primary', value: this.state.inningNum, onChange: this.updateInningNum },
                     _react2.default.createElement(
                         'option',
                         { value: '' },
@@ -9749,48 +9856,6 @@ var TeamUp = function (_React$Component) {
             );
         }
     }, {
-        key: 'selectInning',
-        value: function selectInning() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'selector' },
-                _react2.default.createElement(
-                    'label',
-                    null,
-                    '#Innings:'
-                ),
-                _react2.default.createElement(
-                    'select',
-                    { className: 'selectpicker', 'data-style': 'btn-primary', value: this.state.inning_num, onChange: this.updateInningNum },
-                    _react2.default.createElement(
-                        'option',
-                        { value: '' },
-                        'Please Select'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '4' },
-                        '4'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '5' },
-                        '5'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '6' },
-                        '6'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '7' },
-                        '7'
-                    )
-                )
-            );
-        }
-    }, {
         key: 'originForm',
         value: function originForm() {
             var _this2 = this;
@@ -9802,11 +9867,8 @@ var TeamUp = function (_React$Component) {
                 this.optRules()
             );
 
-            var playersInfo = [];
-            this.state.player_lists = this.teamLists(parseInt(this.state.player_num));
-            this.state.player_lists.map(function (el, i) {
-                // debugger;
-                playersInfo.push(_react2.default.createElement(_playerinfo2.default, { key: i, info: _this2.state.player_lists, idx: i }));
+            var playersInfo = this.state.players.map(function (el, rowIdx) {
+                return _react2.default.createElement(_playerInfo2.default, _extends({ key: rowIdx, availablePitchInnings: _this2.state.availablePitchInnings, updatePitchInning: _this2.updatePitchInning(rowIdx), updatePreferredPosition: _this2.updatePosition(rowIdx, "preferred"), updateAvoidPosition: _this2.updatePosition(rowIdx, "avoid"), updateName: _this2.updateName(rowIdx), updateIsPitcher: _this2.updateIsPitcher(rowIdx) }, _this2.state.players[rowIdx]));
             });
 
             return _react2.default.createElement(
@@ -9861,31 +9923,19 @@ var TeamUp = function (_React$Component) {
     }, {
         key: 'finalForm',
         value: function finalForm() {
-            var _this3 = this;
-
-            var finalInfo = [];
-
-            var players_num = Array.apply(null, {
-                length: parseInt(this.state.player_num)
-            }).map(Number.call, Number);
-
-            var innings_num = Array.apply(null, {
-                length: parseInt(this.state.inning_num)
-            }).map(Number.call, Number);
-
-            var details = this.state.player_lists;
-            details.map(function (el, i) {
-                finalInfo.push(_react2.default.createElement(_teaminfo2.default, { key: i, detail: el, innings: parseInt(_this3.state.inning_num) }));
+            var finalInfo = this.state.playerLists.map(function (el, i) {
+                return _react2.default.createElement(_teamInfo2.default, { key: i, detail: el, innings: innings });
             });
 
-            var tableheader = [];
-            innings_num.map(function (el, i) {
-                tableheader.push(_react2.default.createElement(
+            var tableheader = Array.from(new Array(parseInt(this.state.inning_num)), function (val, idx) {
+                return idx + 1;
+            }).map(function (el, i) {
+                return _react2.default.createElement(
                     'th',
                     { key: i },
                     'Inning ',
-                    el + 1
-                ));
+                    el
+                );
             });
 
             return _react2.default.createElement(
@@ -9905,6 +9955,7 @@ var TeamUp = function (_React$Component) {
                         'Build Again'
                     )
                 ),
+                _react2.default.createElement('div', { className: 'final-form reset-btn' }),
                 _react2.default.createElement(
                     'table',
                     { className: 'table table-striped' },
@@ -9929,7 +9980,7 @@ var TeamUp = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            // debugger;
+            debugger;
             var selectPlayer = this.selectPlayer();
             var selectInning = this.selectInning();
             var buildOriginFormBtn = "";
@@ -10222,422 +10273,163 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(25);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var PlayerInfo = function PlayerInfo(props) {
+    var positions = ['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF'];
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    var updateName = function updateName(event) {
+        props.updateName(event.target.value);
+    };
 
-var PlayerInfo = function (_React$Component) {
-    _inherits(PlayerInfo, _React$Component);
+    var updateIsPitcher = function updateIsPitcher(event) {
+        var parsedBool = JSON.parse(event.target.value);
+        props.updateIsPitcher(parsedBool);
+    };
 
-    function PlayerInfo(props) {
-        _classCallCheck(this, PlayerInfo);
+    var updatePitchInning = function updatePitchInning(event) {
+        props.updatePitchInning(event.target.value);
+    };
 
-        // debugger;
-        var _this = _possibleConstructorReturn(this, (PlayerInfo.__proto__ || Object.getPrototypeOf(PlayerInfo)).call(this, props));
-
-        _this.state = {
-            name: _this.props.info[_this.props.idx].name,
-            p_bool: _this.props.info[_this.props.idx].p_bool,
-            p_inning: _this.props.info[_this.props.idx].p_inning,
-            pre1: _this.props.info[_this.props.idx].pre_pos[0],
-            pre2: _this.props.info[_this.props.idx].pre_pos[1],
-            pre3: _this.props.info[_this.props.idx].pre_pos[2],
-            avd1: _this.props.info[_this.props.idx].avd_pos[0],
-            avd2: _this.props.info[_this.props.idx].avd_pos[1],
-            avd3: _this.props.info[_this.props.idx].avd_pos[2]
+    var updatePreferredPosition = function updatePreferredPosition(fieldIdx) {
+        return function (event) {
+            props.updatePreferredPosition(fieldIdx, event.target.value);
         };
-        _this.updateName = _this.updateName.bind(_this);
-        _this.updateBool = _this.updateBool.bind(_this);
-        _this.updateInning = _this.updateInning.bind(_this);
-        _this.updatePre1 = _this.updatePre1.bind(_this);
-        _this.updatePre2 = _this.updatePre2.bind(_this);
-        _this.updatePre3 = _this.updatePre3.bind(_this);
-        _this.updateAvd1 = _this.updateAvd1.bind(_this);
-        _this.updateAvd2 = _this.updateAvd2.bind(_this);
-        _this.updateAvd3 = _this.updateAvd3.bind(_this);
-        return _this;
-    }
+    };
 
-    _createClass(PlayerInfo, [{
-        key: 'updateName',
-        value: function updateName(event) {
-            this.props.info[this.props.idx].name = event.target.value;
-            this.setState({ name: event.target.value });
-        }
-    }, {
-        key: 'updateBool',
-        value: function updateBool(event) {
-            this.props.info[this.props.idx].p_bool = event.target.value;
-            this.setState({ p_bool: event.target.value });
-        }
-    }, {
-        key: 'updateInning',
-        value: function updateInning(event) {
-            this.props.info[this.props.idx].p_inning = event.target.value;
-            this.setState({ p_inning: event.target.value });
-        }
-    }, {
-        key: 'updatePre1',
-        value: function updatePre1(event) {
-            this.props.info[this.props.idx].pre_pos[0] = event.target.value;
-            this.setState({ pre1: event.target.value });
-        }
-    }, {
-        key: 'updatePre2',
-        value: function updatePre2(event) {
-            this.props.info[this.props.idx].pre_pos[1] = event.target.value;
-            this.setState({ pre2: event.target.value });
-        }
-    }, {
-        key: 'updatePre3',
-        value: function updatePre3(event) {
-            this.props.info[this.props.idx].pre_pos[2] = event.target.value;
-            this.setState({ pre3: event.target.value });
-        }
-    }, {
-        key: 'updateAvd1',
-        value: function updateAvd1(event) {
-            // debugger;
-            this.props.info[this.props.idx].avd_pos[0] = event.target.value;
-            this.setState({ avd1: event.target.value });
-        }
-    }, {
-        key: 'updateAvd2',
-        value: function updateAvd2(event) {
-            // debugger;
-            this.props.info[this.props.idx].avd_pos[1] = event.target.value;
-            this.setState({ avd2: event.target.value });
-        }
-    }, {
-        key: 'updateAvd3',
-        value: function updateAvd3(event) {
-            // debugger;
-            this.props.info[this.props.idx].avd_pos[2] = event.target.value;
-            this.setState({ avd3: event.target.value });
-        }
-    }, {
-        key: 'pre1',
-        value: function pre1() {
-            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
-            if (set.has(this.state.pre2)) {
-                set.delete(this.state.pre2);
-            }
-            if (set.has(this.state.pre3)) {
-                set.delete(this.state.pre3);
-            }
-            if (set.has(this.state.avd1)) {
-                set.delete(this.state.avd1);
-            }
-            if (set.has(this.state.avd2)) {
-                set.delete(this.state.avd2);
-            }
-            if (set.has(this.state.avd3)) {
-                set.delete(this.state.avd3);
-            }
-            var remain = Array.from(set);
-            var result = [];
-            remain.map(function (el, i) {
-                result.push(_react2.default.createElement(
-                    'option',
-                    { key: i, value: el },
-                    el
-                ));
-            });
-            return result;
-        }
-    }, {
-        key: 'pre2',
-        value: function pre2() {
-            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
-            if (set.has(this.state.pre1)) {
-                set.delete(this.state.pre1);
-            }
-            if (set.has(this.state.pre3)) {
-                set.delete(this.state.pre3);
-            }
-            if (set.has(this.state.avd1)) {
-                set.delete(this.state.avd1);
-            }
-            if (set.has(this.state.avd2)) {
-                set.delete(this.state.avd2);
-            }
-            if (set.has(this.state.avd3)) {
-                set.delete(this.state.avd3);
-            }
-            var remain = Array.from(set);
-            var result = [];
-            remain.map(function (el, i) {
-                result.push(_react2.default.createElement(
-                    'option',
-                    { key: i, value: el },
-                    el
-                ));
-            });
+    var updateAvoidPosition = function updateAvoidPosition(fieldIdx) {
+        return function (event) {
+            props.updateAvoidPosition(fieldIdx, event.target.value);
+        };
+    };
 
-            return result;
-        }
-    }, {
-        key: 'pre3',
-        value: function pre3() {
-            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
-            if (set.has(this.state.pre1)) {
-                set.delete(this.state.pre1);
-            }
-            if (set.has(this.state.pre2)) {
-                set.delete(this.state.pre2);
-            }
-            if (set.has(this.state.avd1)) {
-                set.delete(this.state.avd1);
-            }
-            if (set.has(this.state.avd2)) {
-                set.delete(this.state.avd2);
-            }
-            if (set.has(this.state.avd3)) {
-                set.delete(this.state.avd3);
-            }
-            var remain = Array.from(set);
-            var result = [];
-            remain.map(function (el, i) {
-                result.push(_react2.default.createElement(
-                    'option',
-                    { key: i, value: el },
-                    el
-                ));
-            });
-            return result;
-        }
-    }, {
-        key: 'avd1',
-        value: function avd1() {
-            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
-            if (set.has(this.state.pre1)) {
-                set.delete(this.state.pre1);
-            }
-            if (set.has(this.state.pre2)) {
-                set.delete(this.state.pre2);
-            }
-            if (set.has(this.state.pre3)) {
-                set.delete(this.state.pre3);
-            }
-            if (set.has(this.state.avd2)) {
-                set.delete(this.state.avd2);
-            }
-            if (set.has(this.state.avd3)) {
-                set.delete(this.state.avd3);
-            }
-            var remain = Array.from(set);
-            var result = [];
-            remain.map(function (el, i) {
-                result.push(_react2.default.createElement(
-                    'option',
-                    { key: i, value: el },
-                    el
-                ));
-            });
-            return result;
-        }
-    }, {
-        key: 'avd2',
-        value: function avd2() {
-            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
-            if (set.has(this.state.pre1)) {
-                set.delete(this.state.pre1);
-            }
-            if (set.has(this.state.pre2)) {
-                set.delete(this.state.pre2);
-            }
-            if (set.has(this.state.pre3)) {
-                set.delete(this.state.pre3);
-            }
-            if (set.has(this.state.avd1)) {
-                set.delete(this.state.avd1);
-            }
-            if (set.has(this.state.avd3)) {
-                set.delete(this.state.avd3);
-            }
-            var remain = Array.from(set);
-            var result = [];
-            remain.map(function (el, i) {
-                result.push(_react2.default.createElement(
-                    'option',
-                    { key: i, value: el },
-                    el
-                ));
-            });
-            return result;
-        }
-    }, {
-        key: 'avd3',
-        value: function avd3() {
-            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF']);
-            if (set.has(this.state.pre1)) {
-                set.delete(this.state.pre1);
-            }
-            if (set.has(this.state.pre2)) {
-                set.delete(this.state.pre2);
-            }
-            if (set.has(this.state.pre3)) {
-                set.delete(this.state.pre3);
-            }
-            if (set.has(this.state.avd1)) {
-                set.delete(this.state.avd1);
-            }
-            if (set.has(this.state.avd2)) {
-                set.delete(this.state.avd2);
-            }
-            var remain = Array.from(set);
-            var result = [];
-            remain.map(function (el, i) {
-                result.push(_react2.default.createElement(
-                    'option',
-                    { key: i, value: el },
-                    el
-                ));
-            });
-            return result;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            // debugger;
+    var positionPreferences = function positionPreferences(type, fieldIdx) {
+        var set = new Set(positions);
 
-            var pitchInning = void 0;
-            if (this.state.p_bool === 'No') {
-                pitchInning = "Not Applicable";
-            } else {
-                pitchInning = _react2.default.createElement(
-                    'select',
-                    { value: this.state.p_inning, onChange: this.updateInning },
-                    _react2.default.createElement(
-                        'option',
-                        { value: '1' },
-                        '1'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '2' },
-                        '2'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '3' },
-                        '3'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '4' },
-                        '4'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '5' },
-                        '5'
-                    ),
-                    _react2.default.createElement(
-                        'option',
-                        { value: '6' },
-                        '6'
-                    )
-                );
-            }
+        props.preferredPositions.forEach(function (position) {
+            set.delete(position);
+        });
 
-            var preShow1 = _react2.default.createElement(
-                'select',
-                { value: this.state.pre1, onChange: this.updatePre1 },
-                this.pre1()
-            );
+        props.avoidPositions.forEach(function (position) {
+            set.delete(position);
+        });
+        var options = Array.from(set).sort();
 
-            var preShow2 = _react2.default.createElement(
-                'select',
-                { value: this.state.pre2, onChange: this.updatePre2 },
-                this.pre2()
-            );
+        if (type === "preferred") options.unshift(props.preferredPositions[fieldIdx]);
+        if (type === "avoid") options.unshift(props.avoidPositions[fieldIdx]);
 
-            var preShow3 = _react2.default.createElement(
-                'select',
-                { value: this.state.pre3, onChange: this.updatePre3 },
-                this.pre3()
-            );
-
-            var avdShow1 = _react2.default.createElement(
-                'select',
-                { value: this.state.avd1, onChange: this.updateAvd1 },
-                this.avd1()
-            );
-
-            var avdShow2 = _react2.default.createElement(
-                'select',
-                { value: this.state.avd2, onChange: this.updateAvd2 },
-                this.avd2()
-            );
-
-            var avdShow3 = _react2.default.createElement(
-                'select',
-                { value: this.state.avd3, onChange: this.updateAvd3 },
-                this.avd3()
-            );
-
+        return options.map(function (position, idx) {
             return _react2.default.createElement(
-                'tr',
-                null,
-                _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement('input', { type: 'text', value: this.state.name, onChange: this.updateName, placeholder: "Enter name" })
-                ),
-                _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement(
-                        'select',
-                        { value: this.state.p_bool, onChange: this.updateBool },
-                        _react2.default.createElement(
-                            'option',
-                            { value: 'Yes' },
-                            'Yes'
-                        ),
-                        _react2.default.createElement(
-                            'option',
-                            { value: 'No' },
-                            'No'
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'td',
-                    null,
-                    pitchInning
-                ),
-                _react2.default.createElement(
-                    'td',
-                    null,
-                    preShow1,
-                    preShow2,
-                    preShow3
-                ),
-                _react2.default.createElement(
-                    'td',
-                    null,
-                    avdShow1,
-                    avdShow2,
-                    avdShow3
-                )
+                'option',
+                { key: idx, value: position },
+                position
             );
-        }
-    }]);
+        });
+    };
 
-    return PlayerInfo;
-}(_react2.default.Component);
+    var preferredPositions = function preferredPositions(fieldIdx) {
+        // debugger;
+        return _react2.default.createElement(
+            'select',
+            { value: props.preferredPositions[fieldIdx], onChange: updatePreferredPosition(fieldIdx) },
+            positionPreferences("preferred", fieldIdx)
+        );
+    };
+
+    var avoidPositions = function avoidPositions(fieldIdx) {
+        return _react2.default.createElement(
+            'select',
+            { value: props.avoidPositions[fieldIdx], onChange: updateAvoidPosition(fieldIdx) },
+            positionPreferences("avoid", fieldIdx)
+        );
+    };
+
+    var mapBoolToYesNo = function mapBoolToYesNo(bool) {
+        if (bool) return "Yes";
+        return "No";
+    };
+
+    var availablePitchInnings = function availablePitchInnings() {
+        var innings = [props.selectedPitchInning].concat(_toConsumableArray(props.availablePitchInnings.sort()));
+
+        return innings.map(function (inning, idx) {
+            return _react2.default.createElement(
+                'option',
+                { key: idx, value: inning },
+                inning
+            );
+        });
+    };
+
+    // Returns 'Not Applicable' if props.selectedPitchInning is 'Not Applicable'.
+    // Else renders a dropdown selection of available innings.
+    var pitchInningComponent = function pitchInningComponent() {
+        if (props.selectedPitchInning === 'Not Applicable') {
+            return "Not Applicable";
+        }
+
+        return _react2.default.createElement(
+            'select',
+            { value: props.selectedPitchInning, onChange: updatePitchInning },
+            availablePitchInnings()
+        );
+    };
+
+    // console.log(mapBoolToYesNo(props.isPitcher));
+
+    return _react2.default.createElement(
+        'tr',
+        null,
+        _react2.default.createElement(
+            'td',
+            null,
+            _react2.default.createElement('input', { type: 'text', value: props.name, onChange: updateName, placeholder: 'Enter name' })
+        ),
+        _react2.default.createElement(
+            'td',
+            null,
+            _react2.default.createElement(
+                'select',
+                { value: props.isPitcher, onChange: updateIsPitcher },
+                _react2.default.createElement(
+                    'option',
+                    { value: true },
+                    'Yes'
+                ),
+                _react2.default.createElement(
+                    'option',
+                    { value: false },
+                    'No'
+                )
+            )
+        ),
+        _react2.default.createElement(
+            'td',
+            null,
+            pitchInningComponent()
+        ),
+        _react2.default.createElement(
+            'td',
+            null,
+            preferredPositions(0),
+            preferredPositions(1),
+            preferredPositions(2)
+        ),
+        _react2.default.createElement(
+            'td',
+            null,
+            avoidPositions(0),
+            avoidPositions(1),
+            avoidPositions(2)
+        )
+    );
+};
 
 exports.default = PlayerInfo;
 
@@ -10652,196 +10444,127 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(25);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var TeamInfo = function TeamInfo(props) {
+    var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF', 'BN']);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+    var infield = new Set(['P', 'C', 'SS', '1B', '2B', '3B']);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    var outfield = new Set(['LF', 'CF', 'RF']);
 
-var TeamInfo = function (_React$Component) {
-    _inherits(TeamInfo, _React$Component);
-
-    function TeamInfo(props) {
-        _classCallCheck(this, TeamInfo);
-
-        // debugger;
-        var _this = _possibleConstructorReturn(this, (TeamInfo.__proto__ || Object.getPrototypeOf(TeamInfo)).call(this, props));
-
-        var detail = _this.props.detail;
-        _this.state = {
-            name: detail.name,
-            p_bool: detail.p_bool,
-            p_inning: detail.p_inning,
-            avd1: detail.avd_pos[0],
-            avd2: detail.avd_pos[1],
-            avd3: detail.avd_pos[2],
-            total_innings: _this.props.innings
-        };
-        // debugger;
-        _this.removeAvd = _this.removeAvd.bind(_this);
-        _this.pickRandom = _this.pickRandom.bind(_this);
-        return _this;
-    }
-
-    _createClass(TeamInfo, [{
-        key: 'componentWillUpdate',
-        value: function componentWillUpdate() {
-            var update = this.props.detail;
-            this.state.name = update.name;
-            this.state.p_bool = update.p_bool;
-            this.state.p_inning = update.p_inning;
-            this.state.avd1 = update.avd_pos[0];
-            this.state.avd2 = update.avd_pos[1];
-            this.state.avd3 = update.avd_pos[2];
-            // debugger;
+    var removeAvd = function removeAvd(turn, playerPositionHistory) {
+        // handle min rule 1 - outfield requirement first
+        if (turn === 2) {
+            if (!playerPositionHistory.includes('LF')) {
+                if (!playerPositionHistory.includes('CF')) {
+                    if (!playerPositionHistory.includes('RF')) {
+                        return Array.from(outfield);
+                    }
+                }
+            }
         }
-    }, {
-        key: 'removeAvd',
-        value: function removeAvd(turn, role_stack) {
-            // debugger;
-            var set = new Set(['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF', 'BN']);
 
-            var infield = new Set(['P', 'C', 'SS', '1B', '2B', '3B']);
-
-            var outfield = new Set(['LF', 'CF', 'RF']);
-
-            // handle min rule 1 - outfield requirement first
-            if (turn === 2) {
-                if (!role_stack.includes('LF')) {
-                    if (!role_stack.includes('CF')) {
-                        if (!role_stack.includes('RF')) {
-                            return Array.from(outfield);
-                        }
-                    }
-                }
-            }
-
-            // handle min rule 1 - infield requirement first
-            if (turn === 3) {
-                var infield_check = 0;
-                role_stack.map(function (el, i) {
-                    if (infield.has(el)) {
-                        infield_check += 1;
-                    }
-                });
-                if (infield_check === 0) {
-                    if (role_stack[turn - 1] === 'P') {
-                        infield.delete('P');
-                    }
-                    return Array.from(infield);
-                }
-            }
-
-            // handle min rule 1 - infield requirement second
-            if (turn === 4) {
-                var _infield_check = 0;
-                role_stack.map(function (el, i) {
-                    if (infield.has(el)) {
-                        _infield_check += 1;
-                    }
-                });
-                if (_infield_check === 1) {
-                    if (role_stack[turn - 1] === 'P') {
-                        infield.delete('P');
-                    }
-                    return Array.from(infield);
-                }
-            }
-
-            // remove Picth role from not application player
-            if (set.has(this.state.avd1)) {
-                set.delete(this.state.avd1);
-            }
-            if (set.has(this.state.avd2)) {
-                set.delete(this.state.avd2);
-            }
-            if (set.has(this.state.avd3)) {
-                set.delete(this.state.avd3);
-            }
-
-            // pick from random
-            var repeat = {};
-            role_stack.map(function (el, i) {
-                if (repeat[el] > 0) {
-                    repeat[el] += 1;
-                    if (repeat[el] === 2) {
-                        set.delete(el);
-                    }
-                } else {
-                    repeat[el] = 1;
+        // handle min rule 1 - infield requirement first
+        if (turn === 3) {
+            var infield_check = 0;
+            playerPositionHistory.map(function (el, i) {
+                if (infield.has(el)) {
+                    infield_check += 1;
                 }
             });
-            if (role_stack[turn - 1] === 'P') {
-                set.delete('P');
+            if (infield_check === 0) {
+                if (playerPositionHistory[turn - 1] === 'P') {
+                    infield.delete('P');
+                }
+                return Array.from(infield);
             }
-            return Array.from(set);
         }
-    }, {
-        key: 'pickRandom',
-        value: function pickRandom(arr, role_stack, turn) {
-            var num = Math.floor(Math.random() * arr.length);
-            role_stack.push(arr[num]);
-            if (turn === 6) {
-                console.log(this.state.name);
-                console.log("role stack: ", role_stack);
-                // debugger;
-            }
-            return arr[num];
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
 
-            // debugger;
-            var role_stack = [];
-            var innings_num = [];
-            for (var i = 0; i < parseInt(this.state.total_innings); i++) {
-                innings_num.push(i + 1);
-            }
-
-            var row = innings_num.map(function (turn, i) {
-                var pickableArr = _this2.removeAvd(turn, role_stack);
-
-                if (parseInt(_this2.state.p_inning) === turn) {
-                    role_stack.push('P');
-                    return _react2.default.createElement(
-                        'td',
-                        { key: i },
-                        'P'
-                    );
-                } else {
-                    return _react2.default.createElement(
-                        'td',
-                        { key: i },
-                        _this2.pickRandom(pickableArr, role_stack, turn)
-                    );
+        // handle min rule 1 - infield requirement second
+        if (turn === 4) {
+            var _infield_check = 0;
+            playerPositionHistory.map(function (el, i) {
+                if (infield.has(el)) {
+                    _infield_check += 1;
                 }
             });
+            if (_infield_check === 1) {
+                if (playerPositionHistory[turn - 1] === 'P') {
+                    infield.delete('P');
+                }
+                return Array.from(infield);
+            }
+        }
 
-            return _react2.default.createElement(
-                'tr',
-                null,
-                _react2.default.createElement(
+        // remove Picth role from not application player
+        props.detail.avoidPositions.forEach(function (el) {
+            set.delete(el);
+        });
+
+        // pick from random
+        var repeat = {};
+        playerPositionHistory.map(function (el, i) {
+            if (repeat[el] > 0) {
+                repeat[el] += 1;
+                if (repeat[el] === 2) {
+                    set.delete(el);
+                }
+            } else {
+                repeat[el] = 1;
+            }
+        });
+        if (playerPositionHistory[turn - 1] === 'P') {
+            set.delete('P');
+        }
+        return Array.from(set);
+    };
+
+    var pickRandom = function pickRandom(arr, playerPositionHistory, turn) {
+        var num = Math.floor(Math.random() * arr.length);
+        playerPositionHistory.push(arr[num]);
+        return arr[num];
+    };
+
+    var row = function row() {
+        // debugger;
+        var playerPositionHistory = [];
+
+        return props.innings.map(function (turn, i) {
+            var pickableArr = removeAvd(turn, playerPositionHistory);
+
+            if (parseInt(props.detail.selectedPitchInning) === turn) {
+                playerPositionHistory.push('P');
+                return _react2.default.createElement(
                     'td',
-                    null,
-                    this.state.name
-                ),
-                row
-            );
-        }
-    }]);
+                    { key: i },
+                    'P'
+                );
+            } else {
+                return _react2.default.createElement(
+                    'td',
+                    { key: i },
+                    pickRandom(pickableArr, playerPositionHistory, turn)
+                );
+            }
+        });
+    };
 
-    return TeamInfo;
-}(_react2.default.Component);
+    return _react2.default.createElement(
+        'tr',
+        null,
+        _react2.default.createElement(
+            'td',
+            null,
+            props.detail.name
+        ),
+        row()
+    );
+};
 
 exports.default = TeamInfo;
 

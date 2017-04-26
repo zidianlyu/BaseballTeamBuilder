@@ -1,85 +1,171 @@
 import React from 'react';
 
-import PlayerInfo from './playerinfo';
-import TeamInfo from './teaminfo';
+import PlayerInfo from './playerInfo';
+import TeamInfo from './teamInfo';
 
 export default class TeamUp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            originInfo: false,
-            finalInfo: false,
-            player_num: '',
-            inning_num: '',
-            player_lists:  ''
-        };
-        this.updateName = this.updateName.bind(this);
-        this.updateBool = this.updateBool.bind(this);
-        this.updateInning = this.updateInning.bind(this);
-        this.updatePlayerNum = this.updatePlayerNum.bind(this);
-        this.updateInningNum = this.updateInningNum.bind(this);
-        this.buildOriginForm = this.buildOriginForm.bind(this);
-        this.buildFinalForm = this.buildFinalForm.bind(this);
-        this.originForm = this.originForm.bind(this);
-        this.finalForm = this.finalForm.bind(this);
-        this.selectPlayer = this.selectPlayer.bind(this);
-        this.selectInning = this.selectInning.bind(this);
-        this.minRules = this.minRules.bind(this);
-        this.optRules = this.optRules.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-        this.teamLists = this.teamLists.bind(this);
-    }
+    state = {
+        playerNum: '',
+        inningNum: '',
+        originInfo: false,
+        finalInfo: false,
+        availablePitchInnings: [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+        ],
+        playerLists: this.constructTeamLists(3)
+    };
 
-    updateName(event) {
-        this.setState({name: event.target.value});
-    }
-
-    updateBool(event) {
-        this.setState({p_bool: event.target.value});
-    }
-
-    updateInning(event) {
-        this.setState({p_inning: event.target.value});
-    }
-
-    updatePlayerNum(event) {
-        this.setState({player_num: event.target.value});
-    }
-
-    updateInningNum(event) {
-        this.setState({inning_num: event.target.value});
-    }
-
-    buildFinalForm(event) {
-        this.setState({finalInfo: true});
-    }
-
-    buildOriginForm(event) {
-        this.setState({originInfo: true});
-    }
+    // updatePlayerNum(event) {
+    //     debugger;
+    //     // this.state.playerLists = this.constructTeamLists(parseInt(event.target.value));
+    //     this.setState({player_num: event.target.value});
+    // }
+    //
+    // updateInningNum(event) {
+    //     debugger;
+    //     // this.state.availablePitchInnings = Array.from(new Array(parseInt(event.target.value)), (val, idx) => idx + 1);
+    //     this.setState({inning_num: event.target.value});
+    // }
+    //
+    // buildFinalForm(event) {
+    //     this.setState({finalInfo: true});
+    // }
+    //
+    // buildOriginForm(event) {
+    //     this.setState({originInfo: true});
+    // }
 
     handleClick(event) {
         window.print();
     }
 
-    teamLists(players) {
+    constructTeamLists(playerLists) {
         let teamLists = [];
 
-        for (let i = 0; i < players; i++) {
+        for (let i = 0; i < playerLists; i++) {
             let pattern = {
-                'name': 'Player',
-                'p_bool': 'Yes',
-                'p_inning': '1',
-                'pre_pos': [
-                    'P', 'C', 'SS'
-                ],
-                'avd_pos': ['1B', '2B', '3B']
+                name: `Player ${i + 1}`,
+                isPitcher: true,
+                selectedPitchInning: `${i + 1}`,
+                preferredPositions: [],
+                avoidPositions: []
             };
-            pattern['name'] += i + 1;
-            pattern['p_inning'] = i + 1;
+            const allPositions = [
+                'P',
+                'C',
+                'SS',
+                '1B',
+                '2B',
+                '3B',
+                'LF',
+                'CF',
+                'RF',
+                'BN'
+            ];
+            for (let j = 0; j < 3; j++) {
+                let prePos = allPositions[Math.floor(Math.random() * allPositions.length)];
+                allPositions.splice(allPositions.indexOf(prePos), 1);
+                pattern['preferredPositions'].push(prePos)
+
+                let avdPos = allPositions[Math.floor(Math.random() * allPositions.length)];
+                allPositions.splice(allPositions.indexOf(avdPos), 1);
+                pattern['avoidPositions'].push(avdPos)
+            }
             teamLists.push(pattern);
         }
         return teamLists;
+    }
+
+    getPositionField(type) {
+        switch (type) {
+            case "preferred":
+                return "preferredPositions";
+            case "avoid":
+                return "avoidPositions";
+            default:
+                throw `Error in TeamUp#getPositionField: given type '${type}' does not match a case`;
+        }
+    }
+
+    updatePosition = (rowIdx, type) => {
+        const fieldName = this.getPositionField(type);
+
+        return ((fieldIdx, selection) => {
+            const players = this.state.players;
+            players[rowIdx][`${fieldName}`][fieldIdx] = selection;
+
+            this.setState({players});
+        })
+    }
+
+    updateName = (idx) => {
+        return ((newName) => {
+            const newPlayers = this.state.players;
+            newPlayers[idx].name = newName;
+            this.setState({players: newPlayers});
+        });
+    }
+
+    updatePlayerNum = (event) => {
+        debugger;
+        return ((playerNumber) => {
+          debugger;
+            this.setState({playerNum: playerNumber});
+        });
+    }
+    updateInningNum = (event) => {
+        debugger;
+        return ((inningNumber) => {
+            this.setState({inningNum: inningNumber});
+        });
+    }
+
+    updateIsPitcher = (idx) => {
+        return ((value) => {
+            const players = this.state.players;
+            const availablePitchInnings = this.state.availablePitchInnings;
+
+            players[idx].isPitcher = value;
+
+            if (!value) {
+                availablePitchInnings.push(players[idx].selectedPitchInning);
+                players[idx].selectedPitchInning = 'Not Applicable';
+            } else {
+                players[idx].selectedPitchInning = availablePitchInnings[0];
+                availablePitchInnings.shift();
+            }
+
+            this.setState({players, availablePitchInnings});
+        })
+    }
+
+    updatePitchInning = (idx) => {
+        return ((newSelection) => {
+            const newPlayers = this.state.players;
+            let newInnings = [...this.state.availablePitchInnings];
+
+            if (newSelection !== 'Not Applicable') {
+                newSelection = parseInt(newSelection);
+                let oldIndex = this.state.availablePitchInnings.indexOf(newSelection);
+                newInnings = [
+                    ...newInnings.slice(0, oldIndex),
+                    ...newInnings.slice(oldIndex + 1)
+                ];
+            }
+
+            if (newPlayers[idx].selectedPitchInning !== 'Not Applicable') {
+                newInnings.push(newPlayers[idx].selectedPitchInning);
+            }
+
+            newPlayers[idx].selectedPitchInning = newSelection;
+
+            this.setState({players: newPlayers, availablePitchInnings: newInnings.sort()});
+        });
     }
 
     minRules() {
@@ -129,10 +215,8 @@ export default class TeamUp extends React.Component {
             <div className="selector">
                 <label>#Players:
                 </label>
-                <select className="selectpicker" data-style="btn-primary" value={this.state.player_num} onChange={this.updatePlayerNum}>
+                <select className="selectpicker" data-style="btn-primary" value={this.state.playerNum} onChange={this.updatePlayerNum}>
                     <option value="">Please Select</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
                     <option value="6">6</option>
                     <option value="7">7</option>
                     <option value="8">8</option>
@@ -143,16 +227,19 @@ export default class TeamUp extends React.Component {
     }
 
     selectInning() {
+        debugger;
         return (
             <div className="selector">
                 <label>#Innings:
                 </label>
-                <select className="selectpicker" data-style="btn-primary" value={this.state.inning_num} onChange={this.updateInningNum}>
+                <select className="selectpicker" data-style="btn-primary" value={this.state.inningNum} onChange={this.updateInningNum}>
                     <option value="">Please Select</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="6">6</option>
                     <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
                 </select>
             </div>
         );
@@ -166,12 +253,7 @@ export default class TeamUp extends React.Component {
             </div>
         );
 
-        const playersInfo = [];
-        this.state.player_lists = this.teamLists(parseInt(this.state.player_num));
-        this.state.player_lists.map((el, i) => {
-            // debugger;
-            playersInfo.push(<PlayerInfo key={i} info={this.state.player_lists} idx={i}/>);
-        });
+        const playersInfo = this.state.players.map((el, rowIdx) => (<PlayerInfo key={rowIdx} availablePitchInnings={this.state.availablePitchInnings} updatePitchInning={this.updatePitchInning(rowIdx)} updatePreferredPosition={this.updatePosition(rowIdx, "preferred")} updateAvoidPosition={this.updatePosition(rowIdx, "avoid")} updateName={this.updateName(rowIdx)} updateIsPitcher={this.updateIsPitcher(rowIdx)} {...this.state.players[rowIdx]}/>));
 
         return (
             <div>
@@ -188,41 +270,25 @@ export default class TeamUp extends React.Component {
                         {playersInfo}
                     </tbody>
                 </table>
-
                 {rules}
             </div>
         );
     }
 
     finalForm() {
-        const finalInfo = [];
+        const finalInfo = this.state.playerLists.map((el, i) => (<TeamInfo key={i} detail={el} innings={innings}/>));
 
-        let players_num = Array.apply(null, {
-            length: parseInt(this.state.player_num)
-        }).map(Number.call, Number);
-
-        let innings_num = Array.apply(null, {
-            length: parseInt(this.state.inning_num)
-        }).map(Number.call, Number);
-
-        let details = this.state.player_lists;
-        details.map((el, i) => {
-            finalInfo.push(<TeamInfo key={i} detail={el} innings={parseInt(this.state.inning_num)}/>);
-        });
-
-        let tableheader = [];
-        innings_num.map((el, i) => {
-            tableheader.push(
-                <th key={i}>Inning {el + 1}</th>
-            );
-        });
+        const tableheader = Array.from(new Array(parseInt(this.state.inning_num)), (val, idx) => idx + 1).map((el, i) => (
+            <th key={i}>Inning {el}</th>
+        ));
 
         return (
             <div>
                 <div className="build-page-header">
-                  <h1>Your Lineups</h1>
-                  <a className="btn btn-primary" href="index.html">Build Again</a>
+                    <h1>Your Lineups</h1>
+                    <a className="btn btn-primary" href="index.html">Build Again</a>
                 </div>
+                <div className="final-form reset-btn"></div>
                 <table className="table table-striped">
                     <tbody>
                         <tr>
@@ -237,7 +303,7 @@ export default class TeamUp extends React.Component {
     }
 
     render() {
-        // debugger;
+        debugger;
         let selectPlayer = this.selectPlayer();
         let selectInning = this.selectInning();
         let buildOriginFormBtn = "";
