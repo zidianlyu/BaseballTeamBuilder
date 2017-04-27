@@ -10690,7 +10690,6 @@ var TeamInfo = function TeamInfo(props) {
     };
 
     var row = function row() {
-        // debugger;
         var playerPositionHistory = [];
 
         return props.innings.map(function (turn, i) {

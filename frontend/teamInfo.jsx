@@ -99,7 +99,6 @@ const TeamInfo = (props) => {
     }
 
     const row = () => {
-        // debugger;
         let playerPositionHistory = [];
 
         return (props.innings.map((turn, i) => {

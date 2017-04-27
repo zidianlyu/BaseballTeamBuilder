@@ -38,6 +38,7 @@
   "babel-loader": "^7.0.0",
   "babel-preset-es2015": "^6.24.1",
   "babel-preset-react": "^6.24.1",
+  "babel-preset-stage-1": "^6.24.1",
   "lodash": "^4.17.4",
   "react": "^15.5.4",
   "react-dom": "^15.5.4",
@@ -200,15 +201,18 @@ this is achieve by random select role from array for each player exclude it from
     }
     ```
 
-
 #### Generate Print Form
 
 - handle the minimum rule 1
+
   - Applying Pigeon Hole Principle:
+
     - satisfy the outfield minimum requirement
+
       - up to inning turn 2, if the player still not have a outfield role, assign it to the player
 
     - satisfy the infield minimum requirement
+
       - up to inning turn 3, if the player still not have any infield role, assign one to him
       - up to inning turn 4, if the player have less than 2 infield roles, assign one more
 
@@ -227,6 +231,7 @@ this is achieve by random select role from array for each player exclude it from
     ```
 
 - handle the minimum rule 2
+
   - check the player's previous innings role
   - if find a role that was assign by twice, then remove that role from the assignable list
 
@@ -245,17 +250,20 @@ this is achieve by random select role from array for each player exclude it from
   ```
 
 - handle the option rule 1
+
   - check the bench inning in player's previous role, if bench role exists for more than twice, then remove it from the assignable list
 
 - handle the option rule 2
-  - check the player's previous assigned role, if the last role is 'BN', then remove it from the assignable list
 
+  - check the player's previous assigned role, if the last role is 'BN', then remove it from the assignable list
 
 ### Styling
 
 - Applied styling elements from [Bootstrap](http://getbootstrap.com/)
 
 - Designed page icon
+
+  ![](https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/logo.png)
 
 - Designed page loader and pick random random page-loader
 
