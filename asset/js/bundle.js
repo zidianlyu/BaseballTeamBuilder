@@ -9669,16 +9669,15 @@ var TeamUp = function (_React$Component) {
                     preferredPositions: [],
                     avoidPositions: []
                 };
-                // selectedPitchInning: `${i + 1}`,
                 var allPositions = ['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF'];
                 for (var j = 0; j < 3; j++) {
                     var prePos = allPositions[Math.floor(Math.random() * allPositions.length)];
                     allPositions.splice(allPositions.indexOf(prePos), 1);
                     pattern['preferredPositions'].push(prePos);
 
-                    if (allPositions.includes('P')) {
-                        allPositions.splice(allPositions.indexOf('P'), 1);
-                    }
+                    // if (allPositions.includes('P')) {
+                    //     allPositions.splice(allPositions.indexOf('P'), 1);
+                    // }
                     var avdPos = allPositions[Math.floor(Math.random() * allPositions.length)];
                     allPositions.splice(allPositions.indexOf(avdPos), 1);
                     pattern['avoidPositions'].push(avdPos);
@@ -9776,7 +9775,6 @@ var TeamUp = function (_React$Component) {
                 return _react2.default.createElement(_playerInfo2.default, _extends({ key: rowIdx, availablePitchInnings: _this3.state.availablePitchInnings, updatePitchInning: _this3.updatePitchInning(rowIdx), updatePreferredPosition: _this3.updatePosition(rowIdx, "preferred"), updateAvoidPosition: _this3.updatePosition(rowIdx, "avoid"), updateName: _this3.updateName(rowIdx), updateIsPitcher: _this3.updateIsPitcher(rowIdx) }, _this3.state.playerLists[rowIdx]));
             });
 
-            // {this.loader()}
             return _react2.default.createElement(
                 'div',
                 null,
@@ -9877,22 +9875,22 @@ var TeamUp = function (_React$Component) {
                             _react2.default.createElement(
                                 'th',
                                 null,
-                                'Picth?'
+                                'Pitcher?'
                             ),
                             _react2.default.createElement(
                                 'th',
                                 null,
-                                'Picth Inning'
+                                'Inning Pitching'
                             ),
                             _react2.default.createElement(
                                 'th',
                                 null,
-                                'Preferred Position'
+                                'Preferred Position(s)'
                             ),
                             _react2.default.createElement(
                                 'th',
                                 null,
-                                'Position to Avoid'
+                                'Positions to Avoid'
                             )
                         ),
                         playersInfo
@@ -9923,7 +9921,6 @@ var TeamUp = function (_React$Component) {
                 );
             });
 
-            // {this.loader()}
             return _react2.default.createElement(
                 'div',
                 null,
@@ -10497,7 +10494,6 @@ var PlayerInfo = function PlayerInfo(props) {
     };
 
     var preferredPositions = function preferredPositions(fieldIdx) {
-        // debugger;
         return _react2.default.createElement(
             'select',
             { value: props.preferredPositions[fieldIdx], onChange: updatePreferredPosition(fieldIdx) },

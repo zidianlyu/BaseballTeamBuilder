@@ -18,13 +18,13 @@
 
 - Page View
 
-  ![](https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/buildForm.png)
+  ![](https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/build_form.png)
 
 ### PrintForm
 
 - Page View
 
-  ![](https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/printForm.png)
+  ![](https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/print_form.png)
 
 ## Features && Implementations
 
@@ -84,11 +84,11 @@
 
 #### Selector
 
-- 1. Update the player number and inning number from user input
+- Update the player number and inning number from user input
 
-- 1. Pass Back to the parent elements
+- Pass Back to the parent elements
 
-- 1. Update the parent state (props)
+- Update the parent state (props)
 
 ```javascript
 //trigger the update in option tag
@@ -113,66 +113,143 @@ updateSelectPlayer = () => {
 
 #### Build Player Form
 
+- Assign Pitcher
+
+  - if yes, then active the Inning Pitching
+  - if no, return "Not Applicable"
+  - Selection-exclude algorithm
+
+    - update the selected pitching
+
+    - update the available pitch innings stack
+
+    - display the current selection at the top
+
+    - put the remaining at the bottom and sort
+
+    ```javascript
+    return ((newSelection) => {
+        const newPlayers = this.state.playerLists;
+        let newInnings = [...this.state.availablePitchInnings];
+
+        if (newSelection !== 'Not Applicable') {
+            newSelection = parseInt(newSelection);
+            let oldIndex = this.state.availablePitchInnings.indexOf(newSelection);
+            newInnings = [
+                ...newInnings.slice(0, oldIndex),
+                ...newInnings.slice(oldIndex + 1)
+            ];
+        }
+
+        if (newPlayers[idx].selectedPitchInning !== 'Not Applicable') {
+            newInnings.push(newPlayers[idx].selectedPitchInning);
+        }
+
+        newPlayers[idx].selectedPitchInning = newSelection;
+
+        this.setState({playerLists: newPlayers, availablePitchInnings: newInnings.sort()});
+    });
+    ```
+
+    - exclude taken options
+
+    ![](https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/select_exclude.png)
+
 - Initialize the player form by assigning random preferred roles and avoid rules
 
   ![](https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/build_form_1.png)
 
   ![](https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/build_form_2.png)
-```javascript
 
+this is achieve by random select role from array for each player exclude it from stack if picked to ensure no repeat can happen
+
+```javascript
+  const allPositions = ['P','C',...];
+  let prePos = allPositions[Math.floor(Math.random() * allPositions.length)];
+  allPositions.splice(allPositions.indexOf(prePos), 1);
 ```
 
+- For Updates on specific position
 
+  - Locate the change; return the index and content
 
+  - update the state
 
+```javascript
+  const fieldName = this.getPositionField(type);
+  return ((fieldIdx, selection) => {
+      const playerLists = this.state.playerLists;
+      playerLists[rowIdx][`${fieldName}`][fieldIdx] = selection;
+      this.setState({playerLists});
+  })
+```
 
 - Ensure the modified data is updated
 
-  - update the player_lists in BuildForm
+  - update the playerLists in BuildForm
+  - update according to the input data change
+  - construct the team lists with player details
 
     ```javascript
-    componentWillUpdate() {
-      let update = this.props.detail;
-      this.state... = update....;
-    }
-````
-
-- Use algorithm to assign roles to player
-
-  - make 'P' a must:
-
-    ```javascript
-    if (parseInt(this.state.p_bool) !== i) {
-      set.delete('P');
-    }
-    // render()
-      if (parseInt(this.state.p_inning) === el) {
-        return (
-            <td key={i}>
-                P
-            </td>
-        );
+    updateSelectPlayer = () => {
+        return ((value) => {
+            let playerLists = this.state.playerLists;
+            playerLists = this.constructTeamLists(parseInt(value));
+            this.setState({playerNum: value, playerLists: playerLists});
+        });
     }
     ```
 
-  - exclude avoid positions:
-
-    ```javascript
-    if (set.has(avoid_position)) {
-      set.delete(avoid_position);
-    }
-    ```
-
-  - assign position by random:
-
-    ```javascript
-    pickRandom(available_positions) {
-        let num = Math.floor(Math.random() * (available_positions.length));
-        return available_positions[num];
-    }
-    ```
 
 #### Generate Print Form
+
+- handle the minimum rule 1
+  - Applying Pigeon Hole Principle:
+    - satisfy the outfield minimum requirement
+      - up to inning turn 2, if the player still not have a outfield role, assign it to the player
+
+    - satisfy the infield minimum requirement
+      - up to inning turn 3, if the player still not have any infield role, assign one to him
+      - up to inning turn 4, if the player have less than 2 infield roles, assign one more
+
+    - sample code:
+
+    ```javascript
+    if (turn === 2) {
+      if (!playerPositionHistory.includes('LF')) {
+        if (!playerPositionHistory.includes('CF')) {
+          if (!playerPositionHistory.includes('RF')) {
+            return Array.from(outfield);
+          }
+        }
+      }
+    }
+    ```
+
+- handle the minimum rule 2
+  - check the player's previous innings role
+  - if find a role that was assign by twice, then remove that role from the assignable list
+
+  ```javascript
+  let repeat = {};
+  playerPositionHistory.map((el, i) => {
+      if (repeat[el] > 0) {
+          repeat[el] += 1;
+          if (repeat[el] === 2) {
+              assignableList.delete(el);
+          }
+      } else {
+          repeat[el] = 1;
+      }
+  });
+  ```
+
+- handle the option rule 1
+  - check the bench inning in player's previous role, if bench role exists for more than twice, then remove it from the assignable list
+
+- handle the option rule 2
+  - check the player's previous assigned role, if the last role is 'BN', then remove it from the assignable list
+
 
 ### Styling
 

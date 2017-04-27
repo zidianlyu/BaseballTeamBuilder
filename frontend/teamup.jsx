@@ -56,7 +56,6 @@ export default class TeamUp extends React.Component {
                 preferredPositions: [],
                 avoidPositions: []
             };
-            // selectedPitchInning: `${i + 1}`,
             const allPositions = [
                 'P',
                 'C',
@@ -73,9 +72,9 @@ export default class TeamUp extends React.Component {
                 allPositions.splice(allPositions.indexOf(prePos), 1);
                 pattern['preferredPositions'].push(prePos)
 
-                if (allPositions.includes('P')) {
-                    allPositions.splice(allPositions.indexOf('P'), 1);
-                }
+                // if (allPositions.includes('P')) {
+                //     allPositions.splice(allPositions.indexOf('P'), 1);
+                // }
                 let avdPos = allPositions[Math.floor(Math.random() * allPositions.length)];
                 allPositions.splice(allPositions.indexOf(avdPos), 1);
                 pattern['avoidPositions'].push(avdPos)
@@ -208,9 +207,7 @@ export default class TeamUp extends React.Component {
         );
         const playersInfo = this.state.playerLists.map((el, rowIdx) => (<PlayerInfo key={rowIdx} availablePitchInnings={this.state.availablePitchInnings} updatePitchInning={this.updatePitchInning(rowIdx)} updatePreferredPosition={this.updatePosition(rowIdx, "preferred")} updateAvoidPosition={this.updatePosition(rowIdx, "avoid")} updateName={this.updateName(rowIdx)} updateIsPitcher={this.updateIsPitcher(rowIdx)} {...this.state.playerLists[rowIdx]}/>));
 
-        // {this.loader()}
         return (
-
             <div>
                 <h1>Build Your Roster</h1>
                 <div className="roles-header">
@@ -238,10 +235,10 @@ export default class TeamUp extends React.Component {
                     <tbody>
                         <tr>
                             <th>Name</th>
-                            <th>Picth?</th>
-                            <th>Picth Inning</th>
-                            <th>Preferred Position</th>
-                            <th>Position to Avoid</th>
+                            <th>Pitcher?</th>
+                            <th>Inning Pitching</th>
+                            <th>Preferred Position(s)</th>
+                            <th>Positions to Avoid</th>
                         </tr>
                         {playersInfo}
                     </tbody>
@@ -260,7 +257,6 @@ export default class TeamUp extends React.Component {
             <th key={i}>Inning {el}</th>
         ));
 
-        // {this.loader()}
         return (
             <div>
                 <div className="build-page-header">

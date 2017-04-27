@@ -61,7 +61,6 @@ const PlayerInfo = (props) => {
     }
 
     const preferredPositions = (fieldIdx) => {
-        // debugger;
         return (
             <select value={props.preferredPositions[fieldIdx]} onChange={updatePreferredPosition(fieldIdx)}>
                 {positionPreferences("preferred", fieldIdx)}
