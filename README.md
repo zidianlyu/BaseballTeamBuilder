@@ -263,7 +263,7 @@ this is achieve by random select role from array for each player exclude it from
 
 - Designed page icon
 
-  <img src="https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/logo.png" align="center" width="300" overflow="hidden">
+  <img src="https://github.com/zidianlyu/BaseballTeamBuilder/blob/master/asset/img/logo.png" align="center" width="200" overflow="hidden">
 
 - Designed page loader and pick random random page-loader
 
