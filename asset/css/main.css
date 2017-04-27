@@ -1,8 +1,8 @@
 @import url('font.css');
+@import url('intro.css');
 @import url('teamup.css');
 @import url('rules.css');
 @import url('loader.css');
-
 h1 {
     font-family: 'Nunito', sans-serif !important;
 }
@@ -16,10 +16,4 @@ tbody {
     padding: 1rem;
     margin: 1rem -1rem;
     border: solid #f7f7f9;
-}
-
-footer {
-    padding-top: 19px;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
 }

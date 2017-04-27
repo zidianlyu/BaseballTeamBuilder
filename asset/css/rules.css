@@ -1,1 +1,3 @@
-.rules {}
+.min-rules.toggle span {
+    color: green;
+}

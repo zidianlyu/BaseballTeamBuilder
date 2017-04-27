@@ -160,7 +160,7 @@ export default class TeamUp extends React.Component {
         return (
             <div className="min-rules">
                 <h1>Minimum Play Rules</h1>
-                <p>
+                <p className="min-rules toggle">
                     <span className="fa fa-toggle-on"></span>
                     AA Division
                 </p>
@@ -295,8 +295,16 @@ export default class TeamUp extends React.Component {
         let selector = (
             <div>
                 <div className="jumbotron">
-                    <h1>Baseball Team Builder</h1>
-                    <p>This is a gift for the lovely daughter who has a big baseball fans dad</p>
+                    <h1>Baseball Roster Builder</h1>
+
+                    <blockquote className="blockquote">
+                        <div className="intro-page-motto">
+                          <img src="./asset/img/baseball_coach.png"></img>
+                          <p className="mb-0">We help your lovely daughter to build a baseball roster</p>
+                        </div>
+                        <footer className="blockquote-footer">Zidian Lyu from <cite title="Source Title">Sport School</cite>
+                        </footer>
+                    </blockquote>
                     <NumSelector updateSelectPlayer={this.updateSelectPlayer()} updateSelectInning={this.updateSelectInning()} numPlayers={this.state.playerNum} numInnings={this.state.inningNum}/>
                     <div>
                         {buildOriginFormBtn}

@@ -9711,7 +9711,7 @@ var TeamUp = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'p',
-                    null,
+                    { className: 'min-rules toggle' },
                     _react2.default.createElement('span', { className: 'fa fa-toggle-on' }),
                     'AA Division'
                 ),
@@ -9992,12 +9992,31 @@ var TeamUp = function (_React$Component) {
                     _react2.default.createElement(
                         'h1',
                         null,
-                        'Baseball Team Builder'
+                        'Baseball Roster Builder'
                     ),
                     _react2.default.createElement(
-                        'p',
-                        null,
-                        'This is a gift for the lovely daughter who has a big baseball fans dad'
+                        'blockquote',
+                        { className: 'blockquote' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'intro-page-motto' },
+                            _react2.default.createElement('img', { src: './asset/img/baseball_coach.png' }),
+                            _react2.default.createElement(
+                                'p',
+                                { className: 'mb-0' },
+                                'We help your lovely daughter to build a baseball roster'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'footer',
+                            { className: 'blockquote-footer' },
+                            'Zidian Lyu from ',
+                            _react2.default.createElement(
+                                'cite',
+                                { title: 'Source Title' },
+                                'Sport School'
+                            )
+                        )
                     ),
                     _react2.default.createElement(_numSelector2.default, { updateSelectPlayer: this.updateSelectPlayer(), updateSelectInning: this.updateSelectInning(), numPlayers: this.state.playerNum, numInnings: this.state.inningNum }),
                     _react2.default.createElement(
