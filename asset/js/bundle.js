@@ -9637,7 +9637,12 @@ var TeamUp = function (_React$Component) {
 
                 newPlayers[idx].selectedPitchInning = newSelection;
 
-                _this.setState({ playerLists: newPlayers, availablePitchInnings: newInnings.sort() });
+                _this.setState({
+                    playerLists: newPlayers,
+                    availablePitchInnings: newInnings.sort(function (a, b) {
+                        return a - b;
+                    })
+                });
             };
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
@@ -9896,6 +9901,12 @@ var TeamUp = function (_React$Component) {
                         playersInfo
                     )
                 ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'roles-img' },
+                    _react2.default.createElement('img', { className: 'roles-img one', src: 'asset/img/baseball_field.png' }),
+                    _react2.default.createElement('img', { className: 'roles-img two', src: 'asset/img/baseball_field_fun.jpg' })
+                ),
                 rules
             );
         }
@@ -10010,11 +10021,11 @@ var TeamUp = function (_React$Component) {
                         _react2.default.createElement(
                             'footer',
                             { className: 'blockquote-footer' },
-                            'Zidian Lyu from ',
+                            'Zidian Lyu from',
                             _react2.default.createElement(
                                 'cite',
                                 { title: 'Source Title' },
-                                'Sport School'
+                                ' Sport School'
                             )
                         )
                     ),
@@ -10534,7 +10545,9 @@ var PlayerInfo = function PlayerInfo(props) {
     };
 
     var availablePitchInnings = function availablePitchInnings() {
-        var innings = [props.selectedPitchInning].concat(_toConsumableArray(props.availablePitchInnings.sort()));
+        var innings = [props.selectedPitchInning].concat(_toConsumableArray(props.availablePitchInnings)).sort(function (a, b) {
+            return a - b;
+        });
 
         return innings.map(function (inning, idx) {
             return _react2.default.createElement(

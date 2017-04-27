@@ -152,7 +152,10 @@ export default class TeamUp extends React.Component {
 
             newPlayers[idx].selectedPitchInning = newSelection;
 
-            this.setState({playerLists: newPlayers, availablePitchInnings: newInnings.sort()});
+            this.setState({
+                playerLists: newPlayers,
+                availablePitchInnings: newInnings.sort((a, b) => a - b)
+            });
         });
     }
 
@@ -210,6 +213,7 @@ export default class TeamUp extends React.Component {
         return (
             <div>
                 <h1>Build Your Roster</h1>
+
                 <div className="roles-header">
                     <h3>Baseball Roles</h3>
                 </div>
@@ -243,6 +247,10 @@ export default class TeamUp extends React.Component {
                         {playersInfo}
                     </tbody>
                 </table>
+                <div className="roles-img">
+                  <img className="roles-img one" src="asset/img/baseball_field.png"></img>
+                  <img className="roles-img two" src="asset/img/baseball_field_fun.jpg"></img>
+                </div>
                 {rules}
             </div>
         );
@@ -299,10 +307,11 @@ export default class TeamUp extends React.Component {
 
                     <blockquote className="blockquote">
                         <div className="intro-page-motto">
-                          <img src="./asset/img/baseball_coach.png"></img>
-                          <p className="mb-0">We help your lovely daughter to build a baseball roster</p>
+                            <img src="./asset/img/baseball_coach.png"></img>
+                            <p className="mb-0">We help your lovely daughter to build a baseball roster</p>
                         </div>
-                        <footer className="blockquote-footer">Zidian Lyu from <cite title="Source Title">Sport School</cite>
+                        <footer className="blockquote-footer">Zidian Lyu from
+                            <cite title="Source Title"> Sport School</cite>
                         </footer>
                     </blockquote>
                     <NumSelector updateSelectPlayer={this.updateSelectPlayer()} updateSelectInning={this.updateSelectInning()} numPlayers={this.state.playerNum} numInnings={this.state.inningNum}/>

@@ -1,3 +1,30 @@
+.roles-header {
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 27px;
+}
+
+.roles-img {
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
+.roles-img img {
+    margin: 10px;
+}
+
+.roles-img.one {
+    border-radius: 5px 5px 300px 300px;
+    width: 324px;
+}
+
+.roles-img.two {
+    border-radius: 5px 5px 300px 300px;
+    width: 292px;
+    -webkit-filter: contrast(120%);
+    filter: contrast(120%);
+}
+
 .min-rules.toggle span {
     color: green;
 }

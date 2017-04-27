@@ -84,8 +84,10 @@ const PlayerInfo = (props) => {
 
     const availablePitchInnings = () => {
         const innings = [
-            props.selectedPitchInning, ...props.availablePitchInnings.sort()
-        ];
+            props.selectedPitchInning, ...props.availablePitchInnings
+        ].sort((a, b) => (a - b));
+
+
 
         return (innings.map((inning, idx) => (
             <option key={idx} value={inning}>{inning}</option>
