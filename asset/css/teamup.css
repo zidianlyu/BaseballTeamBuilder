@@ -71,6 +71,7 @@
 
 .build-final-form-output {
     text-align: right;
+    margin: 0 0 8px 0;
 }
 
 .origin-form.print-btn {
@@ -86,15 +87,20 @@
     -webkit-animation: bounceUp 2s infinite ease-in-out;
 }
 
-.build-page-header{
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+.build-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin: 0 0 8px 0px;
 }
 
+.build-page-header a {
+    content: none;
+}
 
 .build-print-output {
     text-align: right;
+    margin: 0 0 8px 0;
 }
 
 .final-form.print-btn {
@@ -108,4 +114,10 @@
     font-size: 18px;
     color: #f0ad4e;
     -webkit-animation: bounceUp 2s infinite ease-in-out;
+}
+
+.roles-header {
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 27px;
 }

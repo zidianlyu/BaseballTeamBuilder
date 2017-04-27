@@ -52,6 +52,7 @@
 
 - Homepage
 
+  - loader
   - navbar
   - main content
 
@@ -120,6 +121,7 @@
     ```
 
   - assign position by random:
+
     ```javascript
     pickRandom(available_positions) {
         let num = Math.floor(Math.random() * (available_positions.length));
@@ -132,6 +134,12 @@
 - Applied styling elements from [Bootstrap](http://getbootstrap.com/)
 
 - Designed page icon
+
+- Designed page loader and pick random random page-loader
+
+```javascript
+loader[Math.floor(Math.random() * loader.length)]
+```
 
 - Designed animation to give the user more guidelines
 
