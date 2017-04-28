@@ -58,15 +58,21 @@
 
 .build-player-btn {
     margin: 10px 0 0 0;
-    display: inline-grid;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .build-player-btn span {
+    width: 150px;
     margin: 0 0 5px 0;
     font-size: 18px;
     color: #f0ad4e;
     -webkit-animation: bounceUp 2s infinite ease-in-out;
+}
+
+.build-player-btn button {
+    width: 150px;
 }
 
 .build-final-form-output {
