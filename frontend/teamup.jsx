@@ -193,7 +193,7 @@ export default class TeamUp extends React.Component {
                     No innings consecutively on bench
                 </p>
                 <p>
-                    <span className="fa fa-square-o"></span>
+                    <span className="fa fa-check-square-o"></span>
                     No innings consecutively in outfield
                 </p>
             </div>

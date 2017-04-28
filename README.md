@@ -203,32 +203,41 @@ this is achieve by random select role from array for each player exclude it from
 
 #### Generate Print Form
 
+- Generate the form by using Backtracking Algorithm (simular to Sudoku)
+
+  - keep tracking until satisfy all the rules (all return true)
+
+- handle basic rule
+
+  - there shouldn't be any repetitive role in each inning
+
+  - render the board, return false if find any repetitive
+
+  ```javascript
+  for (let row = 0; row < props.playerLists.length; row++) {
+      if (board[row][j] == c) {
+          return false;
+      }
+  }
+  ```
+
 - handle the minimum rule 1
 
   - Applying Pigeon Hole Principle:
 
-    - satisfy the outfield minimum requirement
+  - satisfy the both infield and outfield minimum requirement without counting the Bench Player
 
-      - up to inning turn 2, if the player still not have a outfield role, assign it to the player
-
-    - satisfy the infield minimum requirement
-
-      - up to inning turn 3, if the player still not have any infield role, assign one to him
-      - up to inning turn 4, if the player have less than 2 infield roles, assign one more
-
-    - sample code:
-
-    ```javascript
-    if (turn === 2) {
-      if (!playerPositionHistory.includes('LF')) {
-        if (!playerPositionHistory.includes('CF')) {
-          if (!playerPositionHistory.includes('RF')) {
-            return Array.from(outfield);
-          }
-        }
-      }
-    }
-    ```
+  ```javascript
+  if (min1CheckIn > 1) {
+      min1CheckIn = 2;
+  }
+  if (min1CheckOut > 0) {
+      min1CheckOut = 1;
+  }
+  if (min1CheckIn + min1CheckOut < 3) {
+      return false;
+  }
+  ```
 
 - handle the minimum rule 2
 

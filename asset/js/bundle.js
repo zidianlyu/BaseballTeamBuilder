@@ -9760,7 +9760,7 @@ var TeamUp = function (_React$Component) {
                 _react2.default.createElement(
                     'p',
                     null,
-                    _react2.default.createElement('span', { className: 'fa fa-square-o' }),
+                    _react2.default.createElement('span', { className: 'fa fa-check-square-o' }),
                     'No innings consecutively in outfield'
                 )
             );
