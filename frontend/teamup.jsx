@@ -57,7 +57,6 @@ export default class TeamUp extends React.Component {
                 avoidPositions: []
             };
             const allPositions = [
-                'P',
                 'C',
                 'SS',
                 '1B',
@@ -248,8 +247,8 @@ export default class TeamUp extends React.Component {
                     </tbody>
                 </table>
                 <div className="roles-img">
-                  <img className="roles-img one" src="asset/img/baseball_field.png"></img>
-                  <img className="roles-img two" src="asset/img/baseball_field_fun.jpg"></img>
+                    <img className="roles-img one" src="asset/img/baseball_field.png"></img>
+                    <img className="roles-img two" src="asset/img/baseball_field_fun.jpg"></img>
                 </div>
                 {rules}
             </div>
@@ -259,11 +258,7 @@ export default class TeamUp extends React.Component {
     finalForm() {
         let inningTurn = Array.from(new Array(parseInt(this.state.inningNum)), (val, idx) => idx + 1);
 
-        const finalInfo = this.state.playerLists.map((el, i) => (<TeamInfo key={i} detail={el} innings={inningTurn}/>));
-
-        const tableheader = Array.from(new Array(parseInt(this.state.inningNum)), (val, idx) => idx + 1).map((el, i) => (
-            <th key={i}>Inning {el}</th>
-        ));
+        const finalInfo = (<TeamInfo playerLists={this.state.playerLists} innings={inningTurn}/>);
 
         return (
             <div>
@@ -271,16 +266,7 @@ export default class TeamUp extends React.Component {
                     <h1>Your Lineups</h1>
                     <a className="btn btn-primary" href="index.html">Build Again</a>
                 </div>
-                <div className="final-form reset-btn"></div>
-                <table className="table table-striped">
-                    <tbody>
-                        <tr>
-                            <th>Player's Name</th>
-                            {tableheader}
-                        </tr>
-                        {finalInfo}
-                    </tbody>
-                </table>
+                {finalInfo}
             </div>
         );
     }

@@ -2,7 +2,6 @@ import React from 'react';
 
 const PlayerInfo = (props) => {
     const positions = [
-        'P',
         'C',
         'SS',
         '1B',

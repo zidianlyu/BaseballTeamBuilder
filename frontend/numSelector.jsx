@@ -56,7 +56,26 @@ const NumSelector = (props) => {
 
     const availableInningCounts = () => {
         let minNum = parseInt(props.numPlayers);
-        const availableInningCountsArray = Array.from(new Array(3), (val, idx) => (idx + minNum).toString());
+        // debugger;
+        let availableInningCountsArray;
+        if (minNum === 6) {
+            availableInningCountsArray = [
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9',
+                '10',
+                '11'
+            ];
+        } else if (minNum === 7) {
+            availableInningCountsArray = ['4', '5', '6', '7', '8'];
+        } else if (minNum === 8) {
+            availableInningCountsArray = ['4', '5', '6'];
+        } else {
+            availableInningCountsArray = ['4'];
+        }
         // console.log("availableInningCountsArray is: ", availableInningCountsArray);
         if (props.numInnings === "") {
             return [
@@ -98,7 +117,11 @@ const NumSelector = (props) => {
     let secondPopAnimation = "";
 
     if (props.numPlayers !== '') {
+        firstPop = (
+          <label>#Players: {props.numPlayers}</label>
+        );
         firstPopAnimation = "";
+        // debugger;
         secondPopAnimation = (
             <span className="fa fa-arrow-right"></span>
         );
@@ -108,6 +131,9 @@ const NumSelector = (props) => {
     if (props.numInnings !== '' && props.numPlayers !== '') {
         firstPopAnimation = "";
         secondPopAnimation = "";
+        secondPop = (
+          <label>#Innings: {props.numInnings}</label>
+        );
     }
 
     return (

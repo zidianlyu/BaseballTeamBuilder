@@ -9674,7 +9674,7 @@ var TeamUp = function (_React$Component) {
                     preferredPositions: [],
                     avoidPositions: []
                 };
-                var allPositions = ['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF'];
+                var allPositions = ['C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF'];
                 for (var j = 0; j < 3; j++) {
                     var prePos = allPositions[Math.floor(Math.random() * allPositions.length)];
                     allPositions.splice(allPositions.indexOf(prePos), 1);
@@ -9917,20 +9917,7 @@ var TeamUp = function (_React$Component) {
                 return idx + 1;
             });
 
-            var finalInfo = this.state.playerLists.map(function (el, i) {
-                return _react2.default.createElement(_teamInfo2.default, { key: i, detail: el, innings: inningTurn });
-            });
-
-            var tableheader = Array.from(new Array(parseInt(this.state.inningNum)), function (val, idx) {
-                return idx + 1;
-            }).map(function (el, i) {
-                return _react2.default.createElement(
-                    'th',
-                    { key: i },
-                    'Inning ',
-                    el
-                );
-            });
+            var finalInfo = _react2.default.createElement(_teamInfo2.default, { playerLists: this.state.playerLists, innings: inningTurn });
 
             return _react2.default.createElement(
                 'div',
@@ -9949,26 +9936,7 @@ var TeamUp = function (_React$Component) {
                         'Build Again'
                     )
                 ),
-                _react2.default.createElement('div', { className: 'final-form reset-btn' }),
-                _react2.default.createElement(
-                    'table',
-                    { className: 'table table-striped' },
-                    _react2.default.createElement(
-                        'tbody',
-                        null,
-                        _react2.default.createElement(
-                            'tr',
-                            null,
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                'Player\'s Name'
-                            ),
-                            tableheader
-                        ),
-                        finalInfo
-                    )
-                )
+                finalInfo
             );
         }
     }, {
@@ -10376,9 +10344,17 @@ var NumSelector = function NumSelector(props) {
 
     var availableInningCounts = function availableInningCounts() {
         var minNum = parseInt(props.numPlayers);
-        var availableInningCountsArray = Array.from(new Array(3), function (val, idx) {
-            return (idx + minNum).toString();
-        });
+        // debugger;
+        var availableInningCountsArray = void 0;
+        if (minNum === 6) {
+            availableInningCountsArray = ['4', '5', '6', '7', '8', '9', '10', '11'];
+        } else if (minNum === 7) {
+            availableInningCountsArray = ['4', '5', '6', '7', '8'];
+        } else if (minNum === 8) {
+            availableInningCountsArray = ['4', '5', '6'];
+        } else {
+            availableInningCountsArray = ['4'];
+        }
         // console.log("availableInningCountsArray is: ", availableInningCountsArray);
         if (props.numInnings === "") {
             return ["Please Select"].concat(_toConsumableArray(availableInningCountsArray));
@@ -10422,7 +10398,14 @@ var NumSelector = function NumSelector(props) {
     var secondPopAnimation = "";
 
     if (props.numPlayers !== '') {
+        firstPop = _react2.default.createElement(
+            "label",
+            null,
+            "#Players: ",
+            props.numPlayers
+        );
         firstPopAnimation = "";
+        // debugger;
         secondPopAnimation = _react2.default.createElement("span", { className: "fa fa-arrow-right" });
         secondPop = selectInning();
     }
@@ -10430,6 +10413,12 @@ var NumSelector = function NumSelector(props) {
     if (props.numInnings !== '' && props.numPlayers !== '') {
         firstPopAnimation = "";
         secondPopAnimation = "";
+        secondPop = _react2.default.createElement(
+            "label",
+            null,
+            "#Innings: ",
+            props.numInnings
+        );
     }
 
     return _react2.default.createElement(
@@ -10472,7 +10461,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var PlayerInfo = function PlayerInfo(props) {
-    var positions = ['P', 'C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF'];
+    var positions = ['C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF'];
 
     var updateName = function updateName(event) {
         props.updateName(event.target.value);
@@ -10648,111 +10637,217 @@ var TeamInfo = function TeamInfo(props) {
 
     var outfield = new Set(['LF', 'CF', 'RF']);
 
-    var removeAvd = function removeAvd(turn, playerPositionHistory) {
-        // handle min rule 1 - outfield requirement first
-        if (turn === 2) {
-            if (!playerPositionHistory.includes('LF')) {
-                if (!playerPositionHistory.includes('CF')) {
-                    if (!playerPositionHistory.includes('RF')) {
-                        return Array.from(outfield);
+    //build the printForm into a two dimensional array
+    var printForm = [];
+    props.playerLists.map(function (row, i) {
+        printForm.push(Array.from(new Array(props.innings.length), function (el, i) {
+            return '.';
+        }));
+    });
+
+    // update the 'P' position from the selection
+    props.playerLists.map(function (row, i) {
+        if (row.isPitcher) {
+            printForm[i][parseInt(row.selectedPitchInning) - 1] = 'P';
+        }
+    });
+
+    // debugger;
+    var shuffleArray = function shuffleArray(arr) {
+        for (var i = arr.length; i; i--) {
+            var j = Math.floor(Math.random() * i);
+            var _ref = [arr[j], arr[i - 1]];
+            arr[i - 1] = _ref[0];
+            arr[j] = _ref[1];
+        }
+        return arr;
+    };
+
+    var isValid = function isValid(board, i, j, c) {
+        // rowCheck, In each inning the role cannot be duplicate
+        for (var row = 0; row < props.playerLists.length; row++) {
+            if (board[row][j] == c) {
+                return false;
+            }
+        }
+
+        //colCheck min rule 1
+        if (j === 3) {
+            // console.log("board is: ", board[i]);
+            // console.log("c is: ", c);
+            // debugger;
+            var min1CheckIn = 0;
+            var min1CheckOut = 0;
+            var min1CheckBn = 0;
+            for (var col = 0; col < 3; col++) {
+                if (infield.has(board[i][col])) {
+                    min1CheckIn += 1;
+                }
+                if (outfield.has(board[i][col])) {
+                    min1CheckOut += 1;
+                }
+                // if (board[i][col] === 'BN') {
+                //     min1CheckBn += 1;
+                // }
+            }
+            if (infield.has(c)) {
+                min1CheckIn += 1;
+            }
+            if (outfield.has(c)) {
+                min1CheckOut += 1;
+            }
+            // if (c === 'BN') {
+            //     min1CheckBn += 1;
+            // }
+            if (min1CheckIn > 1) {
+                min1CheckIn = 2;
+            }
+            if (min1CheckOut > 0) {
+                min1CheckOut = 1;
+            }
+            if (min1CheckIn + min1CheckOut < 3) {
+                return false;
+            }
+            // console.log("pass check");
+        }
+
+        // colCheck min rule 2
+        var min2Check = 0;
+        for (var _col = 0; _col < props.innings.length; _col++) {
+            if (board[i][_col] == c) {
+                min2Check += 1;
+            }
+            if (min2Check === 2) {
+                return false;
+            }
+        }
+
+        // colCheck opt rule 1
+        var opt1check = 0;
+        for (var _col2 = 0; _col2 < props.innings.length; _col2++) {
+            if (board[i][_col2] === 'BN') {
+                opt1check += 1;
+            }
+            if (opt1check > 2) {
+                return false;
+            }
+        }
+
+        // colCheck opt rule 2
+        for (var _col3 = 1; _col3 < props.innings.length; _col3++) {
+            if (board[i][_col3] == 'BN' && board[i][_col3 - 1] == 'BN') {
+                return false;
+            }
+        }
+
+        // colCheck opt rule 3
+        for (var _col4 = 1; _col4 < props.innings.length; _col4++) {
+            if (outfield.has(board[i][_col4]) && outfield.has(board[i][_col4 - 1])) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    // let message;
+
+    var update = function update(printForm) {
+        // console.log("update printForm: ", printForm);
+        // debugger;
+        for (var row = 0; row < props.playerLists.length; row++) {
+            for (var col = 0; col < props.innings.length; col++) {
+                if (printForm[row][col] === '.') {
+                    var available = ['C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF', 'BN'];
+                    available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][0]), 1);
+                    available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][1]), 1);
+                    available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][2]), 1);
+                    available = shuffleArray(available);
+                    for (var idx = 0; idx < available.length; idx++) {
+                        if (isValid(printForm, row, col, available[idx])) {
+                            printForm[row][col] = available[idx];
+                            if (update(printForm)) {
+                                // console.log(`cood: [${row}][${col}]`);
+
+                                if (row === 0 && col === 1) {
+                                    // debugger;
+                                    // console.log("finish! at [0][1]");
+                                    return printForm;
+                                }
+                                if (row === 0 && col === 0) {
+                                    //here ends the backtracking
+                                    // console.log("finish! at [0][0]");
+                                    return printForm;
+                                }
+
+                                return true;
+                            } else {
+                                printForm[row][col] = '.';
+                            }
+                        }
                     }
+                    // return false if the entire line is wrong
+                    return false;
                 }
             }
         }
-
-        // handle min rule 1 - infield requirement first
-        if (turn === 3) {
-            var infield_check = 0;
-            playerPositionHistory.map(function (el, i) {
-                if (infield.has(el)) {
-                    infield_check += 1;
-                }
-            });
-            if (infield_check === 0) {
-                if (playerPositionHistory[turn - 1] === 'P') {
-                    infield.delete('P');
-                }
-                return Array.from(infield);
-            }
-        }
-
-        // handle min rule 1 - infield requirement second
-        if (turn === 4) {
-            var _infield_check = 0;
-            playerPositionHistory.map(function (el, i) {
-                if (infield.has(el)) {
-                    _infield_check += 1;
-                }
-            });
-            if (_infield_check === 1) {
-                if (playerPositionHistory[turn - 1] === 'P') {
-                    infield.delete('P');
-                }
-                return Array.from(infield);
-            }
-        }
-
-        // remove Picth role from not application player
-        props.detail.avoidPositions.forEach(function (el) {
-            set.delete(el);
-        });
-
-        // pick from random
-        var repeat = {};
-        playerPositionHistory.map(function (el, i) {
-            if (repeat[el] > 0) {
-                repeat[el] += 1;
-                if (repeat[el] === 2) {
-                    set.delete(el);
-                }
-            } else {
-                repeat[el] = 1;
-            }
-        });
-        if (playerPositionHistory[turn - 1] === 'P') {
-            set.delete('P');
-        }
-        return Array.from(set);
+        return true;
     };
 
-    var pickRandom = function pickRandom(arr, playerPositionHistory, turn) {
-        var num = Math.floor(Math.random() * arr.length);
-        playerPositionHistory.push(arr[num]);
-        return arr[num];
-    };
+    printForm = update(printForm);
+    // debugger;
 
-    var row = function row() {
-        var playerPositionHistory = [];
-
-        return props.innings.map(function (turn, i) {
-            var pickableArr = removeAvd(turn, playerPositionHistory);
-
-            if (parseInt(props.detail.selectedPitchInning) === turn) {
-                playerPositionHistory.push('P');
-                return _react2.default.createElement(
-                    'td',
-                    { key: i },
-                    'P'
-                );
-            } else {
-                return _react2.default.createElement(
-                    'td',
-                    { key: i },
-                    pickRandom(pickableArr, playerPositionHistory, turn)
-                );
-            }
+    var entireTable = [];
+    printForm.map(function (row, i) {
+        var sub = [];
+        row.map(function (col, j) {
+            sub.push(_react2.default.createElement(
+                'td',
+                { key: j },
+                col
+            ));
         });
-    };
+        // debugger;
+        entireTable.push(_react2.default.createElement(
+            'tr',
+            { key: i },
+            _react2.default.createElement(
+                'td',
+                null,
+                props.playerLists[i].name
+            ),
+            sub
+        ));
+    });
+
+    var tableheader = props.innings.map(function (el, i) {
+        return _react2.default.createElement(
+            'th',
+            { key: i },
+            'Inning ',
+            el
+        );
+    });
+
+    // debugger;
 
     return _react2.default.createElement(
-        'tr',
-        null,
+        'table',
+        { className: 'table table-striped' },
         _react2.default.createElement(
-            'td',
+            'tbody',
             null,
-            props.detail.name
-        ),
-        row()
+            _react2.default.createElement(
+                'tr',
+                null,
+                _react2.default.createElement(
+                    'th',
+                    null,
+                    'Player\'s Name'
+                ),
+                tableheader
+            ),
+            entireTable
+        )
     );
 };
 
