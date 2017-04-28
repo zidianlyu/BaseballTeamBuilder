@@ -10746,13 +10746,12 @@ var TeamInfo = function TeamInfo(props) {
                 return false;
             }
         }
+
+        // return true if passing all checks
         return true;
     };
 
-    // let message;
-
     var update = function update(printForm) {
-        // console.log("update printForm: ", printForm);
         // debugger;
         for (var row = 0; row < props.playerLists.length; row++) {
             for (var col = 0; col < props.innings.length; col++) {
@@ -10806,7 +10805,7 @@ var TeamInfo = function TeamInfo(props) {
                 col
             ));
         });
-        // debugger;
+
         entireTable.push(_react2.default.createElement(
             'tr',
             { key: i },
@@ -10827,8 +10826,6 @@ var TeamInfo = function TeamInfo(props) {
             el
         );
     });
-
-    // debugger;
 
     return _react2.default.createElement(
         'table',

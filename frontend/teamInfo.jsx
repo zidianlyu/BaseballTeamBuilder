@@ -136,13 +136,12 @@ const TeamInfo = (props) => {
                 return false;
             }
         }
+
+        // return true if passing all checks
         return true;
     }
 
-    // let message;
-
     let update = (printForm) => {
-        // console.log("update printForm: ", printForm);
         // debugger;
         for (let row = 0; row < props.playerLists.length; row++) {
             for (let col = 0; col < props.innings.length; col++) {
@@ -205,7 +204,7 @@ const TeamInfo = (props) => {
                 <td key={j}>{col}</td>
             );
         });
-        // debugger;
+
         entireTable.push(
             <tr key={i}>
                 <td>{props.playerLists[i].name}</td>
@@ -217,8 +216,6 @@ const TeamInfo = (props) => {
     const tableheader = props.innings.map((el, i) => (
         <th key={i}>Inning {el}</th>
     ));
-
-    // debugger;
 
     return (
         <table className="table table-striped">

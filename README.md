@@ -83,6 +83,16 @@
 
 ### Logic and Tests
 
+#### Scaling and time complexity matter
+
+- Due to the limitations to satisfy all the rules, the innings number should be limited by the player numbers selected
+
+- With that being said, player numbers, innings numbers and satisfy roles requirements can contradict to each other
+
+  - therefore, in order to satisfy all the roles, I tested and set the upper bound to each playerNum and inningNum combination
+
+  - for example, for 8 players to satisfy all the rules and guarantee the program works efficiently, there should have maximum 6 innings
+
 #### Selector
 
 - Update the player number and inning number from user input
@@ -242,29 +252,59 @@ this is achieve by random select role from array for each player exclude it from
 - handle the minimum rule 2
 
   - check the player's previous innings role
-  - if find a role that was assign by twice, then remove that role from the assignable list
+
+  - if find a role that have been assigned twice, return false and backtrack
 
   ```javascript
-  let repeat = {};
-  playerPositionHistory.map((el, i) => {
-      if (repeat[el] > 0) {
-          repeat[el] += 1;
-          if (repeat[el] === 2) {
-              assignableList.delete(el);
-          }
-      } else {
-          repeat[el] = 1;
+  let min2Check = 0;
+  for (let col = 0; col < props.innings.length; col++) {
+      if (board[i][col] == c) {
+          min2Check += 1;
       }
-  });
+      if (min2Check === 2) {
+          return false;
+      }
+  }
   ```
 
 - handle the option rule 1
 
-  - check the bench inning in player's previous role, if bench role exists for more than twice, then remove it from the assignable list
+  - if find two bench player, return false
+
+  ```javascript
+  let opt1check = 0;
+  for (let col = 0; col < props.innings.length; col++) {
+      if (board[i][col] === 'BN') {
+          opt1check += 1;
+      }
+      if (opt1check > 2) {
+          return false;
+      }
+  }
+  ```
 
 - handle the option rule 2
 
-  - check the player's previous assigned role, if the last role is 'BN', then remove it from the assignable list
+  - keep check on the current role and the previous, return false if both are BN
+
+  ```javascript
+  for (let col = 1; col < props.innings.length; col++) {
+      if (board[i][col] == 'BN' && board[i][col - 1] == 'BN') {
+          return false;
+      }
+  }
+  ```
+- handle the option rule 3
+
+  - simular to rule 2, except for outfield
+
+  ```javascript
+  for (let col = 1; col < props.innings.length; col++) {
+      if (outfield.has(board[i][col]) && outfield.has(board[i][col - 1])) {
+          return false;
+      }
+  }
+  ```
 
 ### Styling
 
