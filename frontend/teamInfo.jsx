@@ -160,7 +160,7 @@ const TeamInfo = (props) => {
                     available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][0]), 1);
                     available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][1]), 1);
                     available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][2]), 1);
-                    available = shuffleArray(available);
+                    // available = shuffleArray(available);
                     for (let idx = 0; idx < available.length; idx++) {
                         if (isValid(printForm, row, col, available[idx])) {
                             printForm[row][col] = available[idx];
