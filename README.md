@@ -99,6 +99,8 @@
 
 - Pass Back to the parent elements
 
+  - the pitcher('P') option should be excluded from the preferredPositions and avoidPositions options, because the user already have rights to identify each player should pitch or not
+
 - Update the parent state (props)
 
 ```javascript
