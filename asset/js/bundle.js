@@ -9748,19 +9748,19 @@ var TeamUp = function (_React$Component) {
                 _react2.default.createElement(
                     'p',
                     null,
-                    _react2.default.createElement('span', { className: 'fa fa-check-square-o' }),
+                    _react2.default.createElement('input', { type: 'checkbox', name: '', value: '' }),
                     'No more than two innings on bench'
                 ),
                 _react2.default.createElement(
                     'p',
                     null,
-                    _react2.default.createElement('span', { className: 'fa fa-check-square-o' }),
+                    _react2.default.createElement('input', { type: 'checkbox', name: '', value: '' }),
                     'No innings consecutively on bench'
                 ),
                 _react2.default.createElement(
                     'p',
                     null,
-                    _react2.default.createElement('span', { className: 'fa fa-check-square-o' }),
+                    _react2.default.createElement('input', { type: 'checkbox', name: '', value: '' }),
                     'No innings consecutively in outfield'
                 )
             );

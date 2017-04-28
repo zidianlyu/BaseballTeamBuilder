@@ -185,15 +185,15 @@ export default class TeamUp extends React.Component {
             <div className="opt-rules">
                 <h1>Optional Roster Rules</h1>
                 <p>
-                    <span className="fa fa-check-square-o"></span>
+                    <input type="checkbox" name="" value=""></input>
                     No more than two innings on bench
                 </p>
                 <p>
-                    <span className="fa fa-check-square-o"></span>
+                    <input type="checkbox" name="" value=""></input>
                     No innings consecutively on bench
                 </p>
                 <p>
-                    <span className="fa fa-check-square-o"></span>
+                    <input type="checkbox" name="" value=""></input>
                     No innings consecutively in outfield
                 </p>
             </div>
