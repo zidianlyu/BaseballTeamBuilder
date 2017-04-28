@@ -307,6 +307,7 @@ export default class TeamUp extends React.Component {
                 </div>
             </div>
         );
+
         let originForm = "";
         if (this.state.originInfo !== false) {
             originForm = this.originForm();

@@ -10005,6 +10005,7 @@ var TeamUp = function (_React$Component) {
                     )
                 )
             );
+
             var originForm = "";
             if (this.state.originInfo !== false) {
                 originForm = this.originForm();
@@ -10255,7 +10256,7 @@ var Root = function (_React$Component) {
                 { className: 'team' },
                 loader[Math.floor(Math.random() * loader.length)],
                 navbar,
-                _react2.default.createElement(_teamup2.default, null)
+                _react2.default.createElement(_teamup2.default, { loader: loader })
             );
         }
     }]);

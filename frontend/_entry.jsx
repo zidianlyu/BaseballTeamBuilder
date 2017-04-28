@@ -72,7 +72,7 @@ class Root extends React.Component {
             <div className="team">
                 {loader[Math.floor(Math.random() * loader.length)]}
                 {navbar}
-                <TeamUp/>
+                <TeamUp loader={loader}/>
             </div>
         );
     }

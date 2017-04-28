@@ -115,3 +115,8 @@
     color: #f0ad4e;
     -webkit-animation: bounceUp 2s infinite ease-in-out;
 }
+
+#rotator {
+    height: 100px;
+    width: 100px;
+}
