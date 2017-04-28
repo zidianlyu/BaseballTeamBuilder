@@ -75,16 +75,23 @@
 }
 
 .origin-form.print-btn {
-    display: inline-grid;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .origin-form.print-btn span {
+    display: block;
+    width: 150px;
     text-align: center;
     margin: 0 0 5px 0;
     font-size: 18px;
     color: #f0ad4e;
     -webkit-animation: bounceUp 2s infinite ease-in-out;
+}
+
+.origin-form.print-btn button {
+    width: 150px;
 }
 
 .build-page-header {
@@ -104,16 +111,23 @@
 }
 
 .final-form.print-btn {
-    display: inline-grid;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .final-form.print-btn span {
+    display: block;
+    width: 150px;
     text-align: center;
     margin: 0 0 5px 0;
     font-size: 18px;
     color: #f0ad4e;
     -webkit-animation: bounceUp 2s infinite ease-in-out;
+}
+
+.final-form.print-btn button {
+    width: 150px;
 }
 
 #rotator {
