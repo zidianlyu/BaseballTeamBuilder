@@ -69,15 +69,15 @@ export default class TeamUp extends React.Component {
             for (let j = 0; j < 3; j++) {
                 let prePos = allPositions[Math.floor(Math.random() * allPositions.length)];
                 allPositions.splice(allPositions.indexOf(prePos), 1);
-                pattern['preferredPositions'].push(prePos)
-
-                // if (allPositions.includes('P')) {
-                //     allPositions.splice(allPositions.indexOf('P'), 1);
-                // }
-                let avdPos = allPositions[Math.floor(Math.random() * allPositions.length)];
-                allPositions.splice(allPositions.indexOf(avdPos), 1);
-                pattern['avoidPositions'].push(avdPos)
+                pattern['preferredPositions'].push(prePos);
             }
+
+            for (let k = 0; k < 2; k++) {
+              let avdPos = allPositions[Math.floor(Math.random() * allPositions.length)];
+              allPositions.splice(allPositions.indexOf(avdPos), 1);
+              pattern['avoidPositions'].push(avdPos);
+            }
+
             teamLists.push(pattern);
         }
         return teamLists;

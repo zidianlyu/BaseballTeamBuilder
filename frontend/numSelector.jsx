@@ -67,14 +67,16 @@ const NumSelector = (props) => {
                 '8',
                 '9',
                 '10',
-                '11'
+                '11',
+                '12',
+                '13'
             ];
         } else if (minNum === 7) {
-            availableInningCountsArray = ['4', '5', '6', '7', '8'];
+            availableInningCountsArray = ['4', '5', '6', '7', '8', '9', '10', '11', '12'];
         } else if (minNum === 8) {
-            availableInningCountsArray = ['4', '5', '6'];
+            availableInningCountsArray = ['4', '5', '6', '7', '8','9'];
         } else {
-            availableInningCountsArray = ['4'];
+            availableInningCountsArray = ['4', '5'];
         }
         // console.log("availableInningCountsArray is: ", availableInningCountsArray);
         if (props.numInnings === "") {

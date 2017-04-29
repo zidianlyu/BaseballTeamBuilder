@@ -63,9 +63,6 @@ const TeamInfo = (props) => {
 
         //colCheck min rule 1
         if (j === 3) {
-            // console.log("board is: ", board[i]);
-            // console.log("c is: ", c);
-            // debugger;
             let min1CheckIn = 0;
             let min1CheckOut = 0;
             let min1CheckBn = 0;
@@ -76,9 +73,6 @@ const TeamInfo = (props) => {
                 if (outfield.has(board[i][col])) {
                     min1CheckOut += 1;
                 }
-                // if (board[i][col] === 'BN') {
-                //     min1CheckBn += 1;
-                // }
             }
             if (infield.has(c)) {
                 min1CheckIn += 1;
@@ -86,9 +80,6 @@ const TeamInfo = (props) => {
             if (outfield.has(c)) {
                 min1CheckOut += 1;
             }
-            // if (c === 'BN') {
-            //     min1CheckBn += 1;
-            // }
             if (min1CheckIn > 1) {
                 min1CheckIn = 2;
             }
@@ -98,7 +89,6 @@ const TeamInfo = (props) => {
             if (min1CheckIn + min1CheckOut < 3) {
                 return false;
             }
-            // console.log("pass check");
         }
 
         // colCheck min rule 2
@@ -159,7 +149,7 @@ const TeamInfo = (props) => {
                     ];
                     available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][0]), 1);
                     available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][1]), 1);
-                    available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][2]), 1);
+                    // available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][2]), 1);
                     available = shuffleArray(available);
                     for (let idx = 0; idx < available.length; idx++) {
                         if (isValid(printForm, row, col, available[idx])) {
@@ -168,13 +158,11 @@ const TeamInfo = (props) => {
                                 // console.log(`cood: [${row}][${col}]`);
 
                                 if (row === 0 && col === 1) {
-                                    // debugger;
                                     // console.log("finish! at [0][1]");
                                     return printForm;
 
                                 }
                                 if (row === 0 && col === 0) {
-                                    //here ends the backtracking
                                     // console.log("finish! at [0][0]");
                                     return printForm;
                                 }
@@ -194,7 +182,6 @@ const TeamInfo = (props) => {
     };
 
     printForm = update(printForm);
-    // debugger;
 
     let entireTable = [];
     printForm.map((row, i) => {

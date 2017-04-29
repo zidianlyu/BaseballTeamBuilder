@@ -107,8 +107,6 @@ const PlayerInfo = (props) => {
         );
     }
 
-    // console.log(mapBoolToYesNo(props.isPitcher));
-
     return (
         <tr>
             <td>
@@ -132,7 +130,6 @@ const PlayerInfo = (props) => {
             <td>
                 {avoidPositions(0)}
                 {avoidPositions(1)}
-                {avoidPositions(2)}
             </td>
         </tr>
     );
