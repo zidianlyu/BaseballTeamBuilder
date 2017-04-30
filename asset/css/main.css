@@ -8,13 +8,23 @@ h1 {
     font-family: 'Nunito', sans-serif !important;
 }
 
-p, input {
-    /*font-family: 'Varela Round', sans-serif;*/
-}
-
 tbody {
     position: relative;
     padding: 1rem;
     margin: 1rem -1rem;
     border: solid #f7f7f9;
+}
+
+tbody th {
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}
+
+input {
+    border: 1px solid #eee;
+    border-radius: 2px;
+    padding: 2px 7px;
 }

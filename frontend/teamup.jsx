@@ -280,8 +280,8 @@ export default class TeamUp extends React.Component {
                 ? <td>Yes</td>
                 : <td>No</td>;
             const selectedPitchInning = <td>{info.selectedPitchInning}</td>
-            const prePos = <td>{info.preferredPositions.join('   ')}</td>
-            const avdPos = <td>{info.avoidPositions.join('   ')}</td>
+            const prePos = <th>{info.preferredPositions.join('   ')}</th>
+            const avdPos = <th>{info.avoidPositions.join('   ')}</th>
             playersConfirmedInfo.push(
                 <tr key={i}>
                     {name}
@@ -292,8 +292,6 @@ export default class TeamUp extends React.Component {
                 </tr>
             );
         })
-
-        // debugger;
 
         return (
             <div>

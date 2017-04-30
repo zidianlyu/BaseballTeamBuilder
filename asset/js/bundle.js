@@ -9963,12 +9963,12 @@ var TeamUp = function (_React$Component) {
                     info.selectedPitchInning
                 );
                 var prePos = _react2.default.createElement(
-                    'td',
+                    'th',
                     null,
                     info.preferredPositions.join('   ')
                 );
                 var avdPos = _react2.default.createElement(
-                    'td',
+                    'th',
                     null,
                     info.avoidPositions.join('   ')
                 );
@@ -9982,8 +9982,6 @@ var TeamUp = function (_React$Component) {
                     avdPos
                 ));
             });
-
-            // debugger;
 
             return _react2.default.createElement(
                 'div',
