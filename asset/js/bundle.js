@@ -9718,78 +9718,179 @@ var TeamUp = function (_React$Component) {
     }, {
         key: 'minRules',
         value: function minRules() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'min-rules' },
-                _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Minimum Play Rules'
-                ),
-                _react2.default.createElement(
-                    'p',
-                    { className: 'min-rules toggle' },
-                    _react2.default.createElement('span', { className: 'fa fa-toggle-on' }),
-                    'AA Division',
+            if (parseInt(this.state.playerNum) < 8) {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'min-rules' },
                     _react2.default.createElement(
-                        'label',
+                        'h1',
                         null,
-                        'only applied to 6 or 7 players'
+                        'Minimum Play Rules'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'min-rules-title' },
+                        _react2.default.createElement(
+                            'label',
+                            { className: 'switch' },
+                            _react2.default.createElement('input', { type: 'checkbox', onChange: this.updateToggle }),
+                            _react2.default.createElement('div', { className: 'slider round' })
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            'AA Division'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'min-rules-body' },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            _react2.default.createElement('span', { className: 'fa fa-dot-circle-o' }),
+                            'Rule 1: Players must play a minimum of 2 innings in the infield and 1 inning in the outfield for games lasting 4+ innings'
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            _react2.default.createElement('span', { className: 'fa fa-dot-circle-o' }),
+                            'Rule 2: Players cannot play in the same position more than two times in a game'
+                        )
                     )
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    _react2.default.createElement('span', { className: 'fa fa-dot-circle-o' }),
-                    'Rule 1 Players must play a minimum of 2 innings in the infield and 1 inning in the outfield for games lasting 4+ innings'
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    _react2.default.createElement('span', { className: 'fa fa-dot-circle-o' }),
-                    'Rule 2 Players cannot play in the same position more than two times in a game'
-                )
-            );
+                );
+            } else {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'min-rules' },
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Minimum Play Rules'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'min-rules-title' },
+                        _react2.default.createElement('span', { className: 'fa fa-toggle-off' }),
+                        _react2.default.createElement(
+                            'p',
+                            { className: 'rules-grey' },
+                            'AA Division',
+                            _react2.default.createElement(
+                                'label',
+                                null,
+                                'only apply to 7 players or less'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'rules-grey' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'min-rules-body' },
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'Rule 1: Players must play a minimum of 2 innings in the infield and 1 inning in the outfield for games lasting 4+ innings'
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'Rule 2: Players cannot play in the same position more than two times in a game'
+                            )
+                        )
+                    )
+                );
+            }
         }
     }, {
         key: 'optRules',
         value: function optRules() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'opt-rules' },
-                _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Optional Roster Rules'
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
+            if (parseInt(this.state.playerNum) < 8) {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'opt-rules' },
                     _react2.default.createElement(
-                        'label',
+                        'h1',
                         null,
-                        'Only applied to 6 or 7 players'
+                        'Optional Roster Rules'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'opt-rules-title' },
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'Please Select:'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'opt-rules-body' },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            _react2.default.createElement('input', { type: 'checkbox', name: '', value: '' }),
+                            'Rule 1: No more than two innings on bench'
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            _react2.default.createElement('input', { type: 'checkbox', name: '', value: '' }),
+                            'Rule 2: No innings consecutively on bench'
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            _react2.default.createElement('input', { type: 'checkbox', name: '', value: '' }),
+                            'Rule 3: No innings consecutively in outfield'
+                        )
                     )
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    _react2.default.createElement('input', { type: 'checkbox', name: '', value: '' }),
-                    'No more than two innings on bench'
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    _react2.default.createElement('input', { type: 'checkbox', name: '', value: '' }),
-                    'No innings consecutively on bench'
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    _react2.default.createElement('input', { type: 'checkbox', name: '', value: '' }),
-                    'No innings consecutively in outfield'
-                )
-            );
+                );
+            } else {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'opt-rules' },
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Optional Roster Rules'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'opt-rules-title' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            'Only apply to 7 players or less'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'rules-grey' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'opt-rules-body' },
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'Rule 1: No more than two innings on bench'
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'Rule 2: No innings consecutively on bench'
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'Rule 3: No innings consecutively in outfield'
+                            )
+                        )
+                    )
+                );
+            }
         }
     }, {
         key: 'originForm',
@@ -9893,7 +9994,7 @@ var TeamUp = function (_React$Component) {
                     'table',
                     { className: 'table table-striped' },
                     _react2.default.createElement(
-                        'tbody',
+                        'thead',
                         null,
                         _react2.default.createElement(
                             'tr',
@@ -9923,15 +10024,27 @@ var TeamUp = function (_React$Component) {
                                 null,
                                 'Positions to Avoid'
                             )
-                        ),
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'tbody',
+                        null,
                         playersInfo
                     )
                 ),
                 _react2.default.createElement(
                     'div',
                     { className: 'roles-img' },
-                    _react2.default.createElement('img', { className: 'roles-img one', src: 'asset/img/baseball_field.png' }),
-                    _react2.default.createElement('img', { className: 'roles-img two', src: 'asset/img/baseball_field_fun.jpg' })
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'roles-img-crop' },
+                        _react2.default.createElement('img', { src: 'asset/img/deploy_roles.png' })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'roles-img-crop' },
+                        _react2.default.createElement('img', { src: 'asset/img/deploy_kids.png' })
+                    )
                 ),
                 rules
             );
@@ -9993,18 +10106,13 @@ var TeamUp = function (_React$Component) {
                         'h1',
                         null,
                         'Your Input'
-                    ),
-                    _react2.default.createElement(
-                        'a',
-                        { className: 'btn btn-primary', href: 'index.html' },
-                        'Back To Home'
                     )
                 ),
                 _react2.default.createElement(
                     'table',
                     { className: 'table table-striped' },
                     _react2.default.createElement(
-                        'tbody',
+                        'thead',
                         null,
                         _react2.default.createElement(
                             'tr',
@@ -10034,7 +10142,11 @@ var TeamUp = function (_React$Component) {
                                 null,
                                 'Positions to Avoid'
                             )
-                        ),
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'tbody',
+                        null,
                         playersConfirmedInfo
                     )
                 )
@@ -10060,8 +10172,8 @@ var TeamUp = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         'button',
-                        { className: 'btn btn-primary', onClick: this.buildFinalForm() },
-                        'Various Options'
+                        { className: 'btn btn-danger', onClick: this.buildFinalForm() },
+                        'Check Various Solution'
                     )
                 ),
                 finalInfo,
@@ -10304,16 +10416,7 @@ var navbar = _react2.default.createElement(
                     _react2.default.createElement(
                         'a',
                         { href: 'index.html' },
-                        'Sign Up'
-                    )
-                ),
-                _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                        'a',
-                        { href: 'index.html' },
-                        'Login'
+                        'Rebuild'
                     )
                 )
             )
@@ -10980,7 +11083,7 @@ var TeamInfo = function TeamInfo(props) {
         _react2.default.createElement(
             'p',
             { className: 'algo-runtime' },
-            'Render Algorithm',
+            'Rendered Algorithm',
             _react2.default.createElement(
                 'label',
                 null,
@@ -10992,7 +11095,7 @@ var TeamInfo = function TeamInfo(props) {
             'table',
             { className: 'table table-striped' },
             _react2.default.createElement(
-                'tbody',
+                'thead',
                 null,
                 _react2.default.createElement(
                     'tr',
@@ -11003,7 +11106,11 @@ var TeamInfo = function TeamInfo(props) {
                         'Player\'s Name'
                     ),
                     tableheader
-                ),
+                )
+            ),
+            _react2.default.createElement(
+                'tbody',
+                null,
                 entireTable
             )
         )

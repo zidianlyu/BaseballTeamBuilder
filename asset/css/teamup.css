@@ -1,3 +1,27 @@
+.navbar-brand span {
+    font-size: 22px;
+    color: #2f70b1;
+    transition: 0.8s all;
+}
+
+.navbar-brand span:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.8s all;
+}
+
+.navbar-nav li a {
+    color: #2f70b1 !important;
+    font-size: 18px;
+    transition: 0.8s all;
+}
+
+.navbar-nav li a:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.8s all;
+}
+
 @-webkit-keyframes bounceRight {
     0%, 20%, 60%, 100% {
         -webkit-transform: translateY(0);

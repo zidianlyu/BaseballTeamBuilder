@@ -170,49 +170,105 @@ export default class TeamUp extends React.Component {
     }
 
     minRules() {
-        return (
-            <div className="min-rules">
-                <h1>Minimum Play Rules</h1>
-                <p className="min-rules toggle">
-                    <span className="fa fa-toggle-on"></span>
-                    AA Division
-                    <label>only applied to 6 or 7 players</label>
-                </p>
+        if (parseInt(this.state.playerNum) < 8) {
+            return (
+                <div className="min-rules">
+                    <h1>Minimum Play Rules</h1>
+                    <div className="min-rules-title">
+                        <label className="switch">
+                            <input type="checkbox" onChange={this.updateToggle}></input>
+                            <div className="slider round"></div>
+                        </label>
+                        <p>AA Division
+                        </p>
+                    </div>
+                    <div className="min-rules-body">
+                        <p>
+                            <span className="fa fa-dot-circle-o"></span>
+                            Rule 1: Players must play a minimum of 2 innings in the infield and 1 inning in the outfield for games lasting 4+ innings
+                        </p>
 
-                <p>
-                    <span className="fa fa-dot-circle-o"></span>
-                    Rule 1 Players must play a minimum of 2 innings in the infield and 1 inning in the outfield for games lasting 4+ innings
-                </p>
+                        <p>
+                            <span className="fa fa-dot-circle-o"></span>
+                            Rule 2: Players cannot play in the same position more than two times in a game
+                        </p>
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className="min-rules">
+                    <h1>Minimum Play Rules</h1>
+                    <div className="min-rules-title">
+                        <span className="fa fa-toggle-off"></span>
+                        <p className="rules-grey">AA Division
+                            <label>only apply to 7 players or less</label>
+                        </p>
+                    </div>
+                    <div className="rules-grey">
+                        <div className="min-rules-body">
+                            <p>
+                                Rule 1: Players must play a minimum of 2 innings in the infield and 1 inning in the outfield for games lasting 4+ innings
+                            </p>
 
-                <p>
-                    <span className="fa fa-dot-circle-o"></span>
-                    Rule 2 Players cannot play in the same position more than two times in a game
-                </p>
-            </div>
-        );
+                            <p>
+                                Rule 2: Players cannot play in the same position more than two times in a game
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 
     optRules() {
-        return (
-            <div className="opt-rules">
-                <h1>Optional Roster Rules</h1>
-                <p>
-                    <label>Only applied to 6 or 7 players</label>
-                </p>
-                <p>
-                    <input type="checkbox" name="" value=""></input>
-                    No more than two innings on bench
-                </p>
-                <p>
-                    <input type="checkbox" name="" value=""></input>
-                    No innings consecutively on bench
-                </p>
-                <p>
-                    <input type="checkbox" name="" value=""></input>
-                    No innings consecutively in outfield
-                </p>
-            </div>
-        );
+        if (parseInt(this.state.playerNum) < 8) {
+            return (
+                <div className="opt-rules">
+                    <h1>Optional Roster Rules</h1>
+                    <div className="opt-rules-title">
+                        <h3>Please Select:
+                        </h3>
+                    </div>
+                    <div className="opt-rules-body">
+                        <p>
+                            <input type="checkbox" name="" value=""></input>
+                            Rule 1: No more than two innings on bench
+                        </p>
+                        <p>
+                            <input type="checkbox" name="" value=""></input>
+                            Rule 2: No innings consecutively on bench
+                        </p>
+                        <p>
+                            <input type="checkbox" name="" value=""></input>
+                            Rule 3: No innings consecutively in outfield
+                        </p>
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className="opt-rules">
+                    <h1>Optional Roster Rules</h1>
+                    <div className="opt-rules-title">
+                        <label>Only apply to 7 players or less</label>
+                    </div>
+                    <div className="rules-grey">
+                        <div className="opt-rules-body">
+                            <p>
+                                Rule 1: No more than two innings on bench
+                            </p>
+                            <p>
+                                Rule 2: No innings consecutively on bench
+                            </p>
+                            <p>
+                                Rule 3: No innings consecutively in outfield
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 
     originForm() {
@@ -250,7 +306,7 @@ export default class TeamUp extends React.Component {
                     </tbody>
                 </table>
                 <table className="table table-striped">
-                    <tbody>
+                    <thead>
                         <tr>
                             <th>Name</th>
                             <th>Pitcher?</th>
@@ -258,12 +314,18 @@ export default class TeamUp extends React.Component {
                             <th>Preferred Position(s)</th>
                             <th>Positions to Avoid</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         {playersInfo}
                     </tbody>
                 </table>
                 <div className="roles-img">
-                    <img className="roles-img one" src="asset/img/baseball_field.png"></img>
-                    <img className="roles-img two" src="asset/img/baseball_field_fun.jpg"></img>
+                    <div className="roles-img-crop">
+                        <img src="asset/img/deploy_roles.png"></img>
+                    </div>
+                    <div className="roles-img-crop">
+                        <img src="asset/img/deploy_kids.png"></img>
+                    </div>
                 </div>
                 {rules}
             </div>
@@ -297,10 +359,9 @@ export default class TeamUp extends React.Component {
             <div>
                 <div className="build-page-header">
                     <h1>Your Input</h1>
-                    <a className="btn btn-primary" href="index.html">Back To Home</a>
                 </div>
                 <table className="table table-striped">
-                    <tbody>
+                    <thead>
                         <tr>
                             <th>Name</th>
                             <th>Pitcher?</th>
@@ -308,6 +369,8 @@ export default class TeamUp extends React.Component {
                             <th>Preferred Position(s)</th>
                             <th>Positions to Avoid</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         {playersConfirmedInfo}
                     </tbody>
                 </table>
@@ -322,7 +385,7 @@ export default class TeamUp extends React.Component {
             <div>
                 <div className="build-page-header">
                     <h1>Your Lineups</h1>
-                    <button className="btn btn-primary" onClick={this.buildFinalForm()}>Various Options</button>
+                    <button className="btn btn-danger" onClick={this.buildFinalForm()}>Check Various Solution</button>
                 </div>
                 {finalInfo}
                 {this.userConfirmInput()}

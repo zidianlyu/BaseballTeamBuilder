@@ -225,15 +225,17 @@ const TeamInfo = (props) => {
 
     return (
         <div>
-            <p className="algo-runtime">Render Algorithm
+            <p className="algo-runtime">Rendered Algorithm
                 <label>{renderTurn}</label>
                 times!!</p>
             <table className="table table-striped">
-                <tbody>
+                <thead>
                     <tr>
                         <th>Player's Name</th>
                         {tableheader}
                     </tr>
+                </thead>
+                <tbody>
                     {entireTable}
                 </tbody>
             </table>

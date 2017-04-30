@@ -5,44 +5,80 @@
 }
 
 .roles-img {
-    text-align: center;
     margin: 0 0 20px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.roles-img-crop {
+    width: 47%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .roles-img img {
-    margin: 10px;
+    width: 135%;
 }
 
-.roles-img.one {
-    border-radius: 5px 5px 300px 300px;
-    width: 324px;
+
+/*minimum rules*/
+
+.min-rules-title {
+    display: flex;
+    align-items: flex-end;
 }
 
-.roles-img.two {
-    border-radius: 5px 5px 300px 300px;
-    width: 292px;
-    -webkit-filter: contrast(120%);
-    filter: contrast(120%);
+.min-rules-title span {
+    font-size: 35px;
+    color: #ccc;
 }
 
-.min-rules.toggle span {
-    color: green;
+.min-rules-title p {
+    font-size: 24px;
+    margin: 0 0 0 10px;
 }
 
-.min-rules p {
+.min-rules-title label {
     font-size: 16px;
+    margin: 0 0 0 10px;
+    color: #fd9343;
 }
 
-.opt-rules p {
+.min-rules-body {
+    padding: 14px 0 0 22px;
+}
+
+.min-rules-body p span {
+    margin: 0 4px 0 0;
+}
+
+
+/*optional rules*/
+
+.opt-rules {
+    margin: 5px 0 0 0;
+}
+
+.opt-rules-title label {
     font-size: 16px;
+    margin: 0 0 0 10px;
+    color: #fd9343;
 }
 
-.min-rules label {
-    margin: 0 3px;
-    font-size: 12px;
+.opt-rules-title h3 {
+    margin: 0 0 0 11px;
 }
 
-.opt-rules label {
-    margin: 0 3px;
-    font-size: 12px;
+.opt-rules-body {
+    padding: 14px 0 0 22px;
+}
+
+.opt-rules-body p input {
+    margin: 0 4px 0 0;
+}
+
+.rules-grey {
+    color: #ccc;
 }

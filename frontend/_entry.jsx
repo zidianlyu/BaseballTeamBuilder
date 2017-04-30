@@ -20,10 +20,7 @@ const navbar = (
             <div id="navbar" className="navbar-collapse collapse">
                 <ul className="nav navbar-nav navbar-right">
                     <li>
-                        <a href="index.html">Sign Up</a>
-                    </li>
-                    <li>
-                        <a href="index.html">Login</a>
+                        <a href="index.html">Rebuild</a>
                     </li>
                 </ul>
             </div>

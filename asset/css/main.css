@@ -4,6 +4,7 @@
 @import url('teaminfo.css');
 @import url('rules.css');
 @import url('loader.css');
+@import url('toggle.css');
 h1 {
     font-family: 'Nunito', sans-serif !important;
 }
@@ -16,6 +17,14 @@ tbody {
 }
 
 tbody th {
+    text-align: center;
+}
+
+thead {
+    background-color: #eceeef;
+}
+
+thead th {
     text-align: center;
 }
 
