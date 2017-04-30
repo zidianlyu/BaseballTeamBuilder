@@ -86,8 +86,6 @@ const PlayerInfo = (props) => {
             props.selectedPitchInning, ...props.availablePitchInnings
         ].sort((a, b) => (a - b));
 
-
-
         return (innings.map((inning, idx) => (
             <option key={idx} value={inning}>{inning}</option>
         )));
@@ -107,31 +105,47 @@ const PlayerInfo = (props) => {
         );
     }
 
-    return (
-        <tr>
-            <td>
-                <input type="text" value={props.name} onChange={updateName} placeholder="Enter name"></input>
-            </td>
-            <td>
-                <select value={props.isPitcher} onChange={updateIsPitcher}>
-                    <option value={true}>Yes</option>
-                    <option value={false}>No</option>
-                </select>
-            </td>
-            <td>
-                {pitchInningComponent()}
-            </td>
+    const avoidPositionsRender = (playerNum) => {
+        // debugger;
+        playerNum = parseInt(playerNum);
+        if (playerNum === 6 || playerNum === 7) {
+            return (
+                <td>
+                    {avoidPositions(0)}
+                    {avoidPositions(1)}
+                </td>
+            );
+        } else if (playerNum === 8 || playerNum === 9) {
+            return (
+                <td>
+                    {avoidPositions(0)}
+                </td>
+            );
+        }
+    }
 
-            <td>
-                {preferredPositions(0)}
-                {preferredPositions(1)}
-                {preferredPositions(2)}
-            </td>
-            <td>
-                {avoidPositions(0)}
-                {avoidPositions(1)}
-            </td>
-        </tr>
+    return (
+      <tr>
+          <td>
+              <input type="text" value={props.name} onChange={updateName} placeholder="Enter name"></input>
+          </td>
+          <td>
+              <select value={props.isPitcher} onChange={updateIsPitcher}>
+                  <option value={true}>Yes</option>
+                  <option value={false}>No</option>
+              </select>
+          </td>
+          <td>
+              {pitchInningComponent()}
+          </td>
+
+          <td>
+              {preferredPositions(0)}
+              {preferredPositions(1)}
+              {preferredPositions(2)}
+          </td>
+          {avoidPositionsRender(props.playerNum)}
+      </tr>
     );
 }
 

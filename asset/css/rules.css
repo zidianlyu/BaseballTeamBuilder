@@ -28,3 +28,21 @@
 .min-rules.toggle span {
     color: green;
 }
+
+.min-rules p {
+    font-size: 16px;
+}
+
+.opt-rules p {
+    font-size: 16px;
+}
+
+.min-rules label {
+    margin: 0 3px;
+    font-size: 12px;
+}
+
+.opt-rules label {
+    margin: 0 3px;
+    font-size: 12px;
+}

@@ -45,10 +45,10 @@ export default class TeamUp extends React.Component {
         window.print();
     }
 
-    constructTeamLists(playerLists) {
+    constructTeamLists(playerNumbers) {
         let teamLists = [];
 
-        for (let i = 0; i < playerLists; i++) {
+        for (let i = 0; i < playerNumbers; i++) {
             let pattern = {
                 name: `Player ${i + 1}`,
                 isPitcher: false,
@@ -72,10 +72,17 @@ export default class TeamUp extends React.Component {
                 pattern['preferredPositions'].push(prePos);
             }
 
-            for (let k = 0; k < 2; k++) {
-              let avdPos = allPositions[Math.floor(Math.random() * allPositions.length)];
-              allPositions.splice(allPositions.indexOf(avdPos), 1);
-              pattern['avoidPositions'].push(avdPos);
+            let avoidCol;
+            if (playerNumbers === 6 || playerNumbers === 7) {
+                avoidCol = 2;
+            } else if (playerNumbers === 8 || playerNumbers === 9) {
+                avoidCol = 1;
+            }
+
+            for (let k = 0; k < avoidCol; k++) {
+                let avdPos = allPositions[Math.floor(Math.random() * allPositions.length)];
+                allPositions.splice(allPositions.indexOf(avdPos), 1);
+                pattern['avoidPositions'].push(avdPos);
             }
 
             teamLists.push(pattern);
@@ -158,6 +165,10 @@ export default class TeamUp extends React.Component {
         });
     }
 
+    handbleRebuilt() {
+        return this.finalForm();
+    }
+
     minRules() {
         return (
             <div className="min-rules">
@@ -165,6 +176,7 @@ export default class TeamUp extends React.Component {
                 <p className="min-rules toggle">
                     <span className="fa fa-toggle-on"></span>
                     AA Division
+                    <label>only applied to 6 or 7 players</label>
                 </p>
 
                 <p>
@@ -184,6 +196,9 @@ export default class TeamUp extends React.Component {
         return (
             <div className="opt-rules">
                 <h1>Optional Roster Rules</h1>
+                <p>
+                    <label>Only applied to 6 or 7 players</label>
+                </p>
                 <p>
                     <input type="checkbox" name="" value=""></input>
                     No more than two innings on bench
@@ -207,7 +222,7 @@ export default class TeamUp extends React.Component {
                 {this.optRules()}
             </div>
         );
-        const playersInfo = this.state.playerLists.map((el, rowIdx) => (<PlayerInfo key={rowIdx} availablePitchInnings={this.state.availablePitchInnings} updatePitchInning={this.updatePitchInning(rowIdx)} updatePreferredPosition={this.updatePosition(rowIdx, "preferred")} updateAvoidPosition={this.updatePosition(rowIdx, "avoid")} updateName={this.updateName(rowIdx)} updateIsPitcher={this.updateIsPitcher(rowIdx)} {...this.state.playerLists[rowIdx]}/>));
+        const playersInfo = this.state.playerLists.map((el, rowIdx) => (<PlayerInfo key={rowIdx} playerNum={this.state.playerNum} availablePitchInnings={this.state.availablePitchInnings} updatePitchInning={this.updatePitchInning(rowIdx)} updatePreferredPosition={this.updatePosition(rowIdx, "preferred")} updateAvoidPosition={this.updatePosition(rowIdx, "avoid")} updateName={this.updateName(rowIdx)} updateIsPitcher={this.updateIsPitcher(rowIdx)} {...this.state.playerLists[rowIdx]}/>));
 
         return (
             <div>
@@ -255,18 +270,64 @@ export default class TeamUp extends React.Component {
         );
     }
 
-    finalForm() {
-        let inningTurn = Array.from(new Array(parseInt(this.state.inningNum)), (val, idx) => idx + 1);
+    userConfirmInput() {
+        let playersConfirmedInfo = [];
 
-        const finalInfo = (<TeamInfo playerLists={this.state.playerLists} innings={inningTurn}/>);
+        this.state.playerLists.map((info, i) => {
+            // debugger;
+            const name = <td>{info.name}</td>;
+            const isPitcher = info.isPitcher
+                ? <td>Yes</td>
+                : <td>No</td>;
+            const selectedPitchInning = <td>{info.selectedPitchInning}</td>
+            const prePos = <td>{info.preferredPositions.join('   ')}</td>
+            const avdPos = <td>{info.avoidPositions.join('   ')}</td>
+            playersConfirmedInfo.push(
+                <tr key={i}>
+                    {name}
+                    {isPitcher}
+                    {selectedPitchInning}
+                    {prePos}
+                    {avdPos}
+                </tr>
+            );
+        })
+
+        // debugger;
 
         return (
             <div>
                 <div className="build-page-header">
+                    <h1>Your Input</h1>
+                    <a className="btn btn-primary" href="index.html">Back To Home</a>
+                </div>
+                <table className="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <th>Pitcher?</th>
+                            <th>Inning Pitching</th>
+                            <th>Preferred Position(s)</th>
+                            <th>Positions to Avoid</th>
+                        </tr>
+                        {playersConfirmedInfo}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+
+    finalForm() {
+        const inningTurn = Array.from(new Array(parseInt(this.state.inningNum)), (val, idx) => idx + 1);
+        const finalInfo = (<TeamInfo playerLists={this.state.playerLists} innings={inningTurn}/>);
+        return (
+            <div>
+                <div className="build-page-header">
                     <h1>Your Lineups</h1>
-                    <a className="btn btn-primary" href="index.html">Build Again</a>
+                    <button className="btn btn-primary" onClick={this.buildFinalForm()}>Various Options</button>
                 </div>
                 {finalInfo}
+                {this.userConfirmInput()}
             </div>
         );
     }
@@ -297,7 +358,8 @@ export default class TeamUp extends React.Component {
                             <p className="mb-0">We help your lovely daughter to build a baseball roster</p>
                         </div>
                         <footer className="blockquote-footer">Zidian Lyu from
-                            <cite title="Source Title"> Sport School</cite>
+                            <cite title="Source Title">
+                                Sport School</cite>
                         </footer>
                     </blockquote>
                     <NumSelector updateSelectPlayer={this.updateSelectPlayer()} updateSelectInning={this.updateSelectInning()} numPlayers={this.state.playerNum} numInnings={this.state.inningNum}/>

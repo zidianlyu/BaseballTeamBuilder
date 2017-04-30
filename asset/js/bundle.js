@@ -2888,6 +2888,16 @@ module.exports = React;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+module.exports = __webpack_require__(19);
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -2910,7 +2920,7 @@ module.exports = emptyObject;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3194,7 +3204,7 @@ module.exports = EventPluginHub;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3210,7 +3220,7 @@ module.exports = EventPluginHub;
 
 
 
-var EventPluginHub = __webpack_require__(21);
+var EventPluginHub = __webpack_require__(22);
 var EventPluginUtils = __webpack_require__(36);
 
 var accumulateInto = __webpack_require__(69);
@@ -3334,7 +3344,7 @@ module.exports = EventPropagators;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3387,7 +3397,7 @@ var ReactInstanceMap = {
 module.exports = ReactInstanceMap;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3449,16 +3459,6 @@ function SyntheticUIEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeEve
 SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 
 module.exports = SyntheticUIEvent;
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(19);
-
 
 /***/ }),
 /* 26 */
@@ -4071,7 +4071,7 @@ module.exports = ReactBrowserEventEmitter;
 
 
 
-var SyntheticUIEvent = __webpack_require__(24);
+var SyntheticUIEvent = __webpack_require__(25);
 var ViewportMetrics = __webpack_require__(68);
 
 var getEventModifierState = __webpack_require__(44);
@@ -5548,7 +5548,7 @@ module.exports = ReactErrorUtils;
 var _prodInvariant = __webpack_require__(3);
 
 var ReactCurrentOwner = __webpack_require__(11);
-var ReactInstanceMap = __webpack_require__(23);
+var ReactInstanceMap = __webpack_require__(24);
 var ReactInstrumentation = __webpack_require__(8);
 var ReactUpdates = __webpack_require__(10);
 
@@ -6467,7 +6467,7 @@ var _prodInvariant = __webpack_require__(16);
 var ReactNoopUpdateQueue = __webpack_require__(50);
 
 var canDefineProperty = __webpack_require__(32);
-var emptyObject = __webpack_require__(20);
+var emptyObject = __webpack_require__(21);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
 
@@ -7929,14 +7929,14 @@ var ReactDOMComponentTree = __webpack_require__(5);
 var ReactDOMContainerInfo = __webpack_require__(118);
 var ReactDOMFeatureFlags = __webpack_require__(120);
 var ReactFeatureFlags = __webpack_require__(62);
-var ReactInstanceMap = __webpack_require__(23);
+var ReactInstanceMap = __webpack_require__(24);
 var ReactInstrumentation = __webpack_require__(8);
 var ReactMarkupChecksum = __webpack_require__(140);
 var ReactReconciler = __webpack_require__(18);
 var ReactUpdateQueue = __webpack_require__(41);
 var ReactUpdates = __webpack_require__(10);
 
-var emptyObject = __webpack_require__(20);
+var emptyObject = __webpack_require__(21);
 var instantiateReactComponent = __webpack_require__(73);
 var invariant = __webpack_require__(1);
 var setInnerHTML = __webpack_require__(31);
@@ -9524,7 +9524,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(25);
+var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -9663,10 +9663,10 @@ var TeamUp = function (_React$Component) {
         }
     }, {
         key: 'constructTeamLists',
-        value: function constructTeamLists(playerLists) {
+        value: function constructTeamLists(playerNumbers) {
             var teamLists = [];
 
-            for (var i = 0; i < playerLists; i++) {
+            for (var i = 0; i < playerNumbers; i++) {
                 var pattern = {
                     name: 'Player ' + (i + 1),
                     isPitcher: false,
@@ -9681,7 +9681,14 @@ var TeamUp = function (_React$Component) {
                     pattern['preferredPositions'].push(prePos);
                 }
 
-                for (var k = 0; k < 2; k++) {
+                var avoidCol = void 0;
+                if (playerNumbers === 6 || playerNumbers === 7) {
+                    avoidCol = 2;
+                } else if (playerNumbers === 8 || playerNumbers === 9) {
+                    avoidCol = 1;
+                }
+
+                for (var k = 0; k < avoidCol; k++) {
                     var avdPos = allPositions[Math.floor(Math.random() * allPositions.length)];
                     allPositions.splice(allPositions.indexOf(avdPos), 1);
                     pattern['avoidPositions'].push(avdPos);
@@ -9704,6 +9711,11 @@ var TeamUp = function (_React$Component) {
             }
         }
     }, {
+        key: 'handbleRebuilt',
+        value: function handbleRebuilt() {
+            return this.finalForm();
+        }
+    }, {
         key: 'minRules',
         value: function minRules() {
             return _react2.default.createElement(
@@ -9718,7 +9730,12 @@ var TeamUp = function (_React$Component) {
                     'p',
                     { className: 'min-rules toggle' },
                     _react2.default.createElement('span', { className: 'fa fa-toggle-on' }),
-                    'AA Division'
+                    'AA Division',
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'only applied to 6 or 7 players'
+                    )
                 ),
                 _react2.default.createElement(
                     'p',
@@ -9744,6 +9761,15 @@ var TeamUp = function (_React$Component) {
                     'h1',
                     null,
                     'Optional Roster Rules'
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'Only applied to 6 or 7 players'
+                    )
                 ),
                 _react2.default.createElement(
                     'p',
@@ -9777,7 +9803,7 @@ var TeamUp = function (_React$Component) {
                 this.optRules()
             );
             var playersInfo = this.state.playerLists.map(function (el, rowIdx) {
-                return _react2.default.createElement(_playerInfo2.default, _extends({ key: rowIdx, availablePitchInnings: _this3.state.availablePitchInnings, updatePitchInning: _this3.updatePitchInning(rowIdx), updatePreferredPosition: _this3.updatePosition(rowIdx, "preferred"), updateAvoidPosition: _this3.updatePosition(rowIdx, "avoid"), updateName: _this3.updateName(rowIdx), updateIsPitcher: _this3.updateIsPitcher(rowIdx) }, _this3.state.playerLists[rowIdx]));
+                return _react2.default.createElement(_playerInfo2.default, _extends({ key: rowIdx, playerNum: _this3.state.playerNum, availablePitchInnings: _this3.state.availablePitchInnings, updatePitchInning: _this3.updatePitchInning(rowIdx), updatePreferredPosition: _this3.updatePosition(rowIdx, "preferred"), updateAvoidPosition: _this3.updatePosition(rowIdx, "avoid"), updateName: _this3.updateName(rowIdx), updateIsPitcher: _this3.updateIsPitcher(rowIdx) }, _this3.state.playerLists[rowIdx]));
             });
 
             return _react2.default.createElement(
@@ -9911,14 +9937,118 @@ var TeamUp = function (_React$Component) {
             );
         }
     }, {
+        key: 'userConfirmInput',
+        value: function userConfirmInput() {
+            var playersConfirmedInfo = [];
+
+            this.state.playerLists.map(function (info, i) {
+                // debugger;
+                var name = _react2.default.createElement(
+                    'td',
+                    null,
+                    info.name
+                );
+                var isPitcher = info.isPitcher ? _react2.default.createElement(
+                    'td',
+                    null,
+                    'Yes'
+                ) : _react2.default.createElement(
+                    'td',
+                    null,
+                    'No'
+                );
+                var selectedPitchInning = _react2.default.createElement(
+                    'td',
+                    null,
+                    info.selectedPitchInning
+                );
+                var prePos = _react2.default.createElement(
+                    'td',
+                    null,
+                    info.preferredPositions.join('   ')
+                );
+                var avdPos = _react2.default.createElement(
+                    'td',
+                    null,
+                    info.avoidPositions.join('   ')
+                );
+                playersConfirmedInfo.push(_react2.default.createElement(
+                    'tr',
+                    { key: i },
+                    name,
+                    isPitcher,
+                    selectedPitchInning,
+                    prePos,
+                    avdPos
+                ));
+            });
+
+            // debugger;
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'div',
+                    { className: 'build-page-header' },
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Your Input'
+                    ),
+                    _react2.default.createElement(
+                        'a',
+                        { className: 'btn btn-primary', href: 'index.html' },
+                        'Back To Home'
+                    )
+                ),
+                _react2.default.createElement(
+                    'table',
+                    { className: 'table table-striped' },
+                    _react2.default.createElement(
+                        'tbody',
+                        null,
+                        _react2.default.createElement(
+                            'tr',
+                            null,
+                            _react2.default.createElement(
+                                'th',
+                                null,
+                                'Name'
+                            ),
+                            _react2.default.createElement(
+                                'th',
+                                null,
+                                'Pitcher?'
+                            ),
+                            _react2.default.createElement(
+                                'th',
+                                null,
+                                'Inning Pitching'
+                            ),
+                            _react2.default.createElement(
+                                'th',
+                                null,
+                                'Preferred Position(s)'
+                            ),
+                            _react2.default.createElement(
+                                'th',
+                                null,
+                                'Positions to Avoid'
+                            )
+                        ),
+                        playersConfirmedInfo
+                    )
+                )
+            );
+        }
+    }, {
         key: 'finalForm',
         value: function finalForm() {
             var inningTurn = Array.from(new Array(parseInt(this.state.inningNum)), function (val, idx) {
                 return idx + 1;
             });
-
             var finalInfo = _react2.default.createElement(_teamInfo2.default, { playerLists: this.state.playerLists, innings: inningTurn });
-
             return _react2.default.createElement(
                 'div',
                 null,
@@ -9931,12 +10061,13 @@ var TeamUp = function (_React$Component) {
                         'Your Lineups'
                     ),
                     _react2.default.createElement(
-                        'a',
-                        { className: 'btn btn-primary', href: 'index.html' },
-                        'Build Again'
+                        'button',
+                        { className: 'btn btn-primary', onClick: this.buildFinalForm() },
+                        'Various Options'
                     )
                 ),
-                finalInfo
+                finalInfo,
+                this.userConfirmInput()
             );
         }
     }, {
@@ -9993,7 +10124,7 @@ var TeamUp = function (_React$Component) {
                             _react2.default.createElement(
                                 'cite',
                                 { title: 'Source Title' },
-                                ' Sport School'
+                                'Sport School'
                             )
                         )
                     ),
@@ -10116,7 +10247,7 @@ module.exports = __webpack_require__(116);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(25);
+var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -10279,7 +10410,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _react = __webpack_require__(25);
+var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -10348,13 +10479,13 @@ var NumSelector = function NumSelector(props) {
         // debugger;
         var availableInningCountsArray = void 0;
         if (minNum === 6) {
-            availableInningCountsArray = ['4', '5', '6', '7', '8', '9', '10', '11', '12', '13'];
-        } else if (minNum === 7) {
             availableInningCountsArray = ['4', '5', '6', '7', '8', '9', '10', '11', '12'];
+        } else if (minNum === 7) {
+            availableInningCountsArray = ['4', '5', '6', '7', '8', '9', '10'];
         } else if (minNum === 8) {
             availableInningCountsArray = ['4', '5', '6', '7', '8', '9'];
-        } else {
-            availableInningCountsArray = ['4', '5'];
+        } else if (minNum === 9) {
+            availableInningCountsArray = ['4', '5', '6', '7', '8'];
         }
         // console.log("availableInningCountsArray is: ", availableInningCountsArray);
         if (props.numInnings === "") {
@@ -10453,7 +10584,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _react = __webpack_require__(25);
+var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -10562,6 +10693,25 @@ var PlayerInfo = function PlayerInfo(props) {
         );
     };
 
+    var avoidPositionsRender = function avoidPositionsRender(playerNum) {
+        // debugger;
+        playerNum = parseInt(playerNum);
+        if (playerNum === 6 || playerNum === 7) {
+            return _react2.default.createElement(
+                'td',
+                null,
+                avoidPositions(0),
+                avoidPositions(1)
+            );
+        } else if (playerNum === 8 || playerNum === 9) {
+            return _react2.default.createElement(
+                'td',
+                null,
+                avoidPositions(0)
+            );
+        }
+    };
+
     return _react2.default.createElement(
         'tr',
         null,
@@ -10600,12 +10750,7 @@ var PlayerInfo = function PlayerInfo(props) {
             preferredPositions(1),
             preferredPositions(2)
         ),
-        _react2.default.createElement(
-            'td',
-            null,
-            avoidPositions(0),
-            avoidPositions(1)
-        )
+        avoidPositionsRender(props.playerNum)
     );
 };
 
@@ -10622,7 +10767,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _react = __webpack_require__(25);
+var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -10650,7 +10795,6 @@ var TeamInfo = function TeamInfo(props) {
         }
     });
 
-    // debugger;
     var shuffleArray = function shuffleArray(arr) {
         for (var i = arr.length; i; i--) {
             var j = Math.floor(Math.random() * i);
@@ -10663,75 +10807,88 @@ var TeamInfo = function TeamInfo(props) {
 
     var isValid = function isValid(board, i, j, c) {
         // rowCheck, In each inning the role cannot be duplicate
+        // console.log("basic rule");
         for (var row = 0; row < props.playerLists.length; row++) {
             if (board[row][j] == c) {
                 return false;
             }
         }
 
-        //colCheck min rule 1
-        if (j === 3) {
-            var min1CheckIn = 0;
-            var min1CheckOut = 0;
-            var min1CheckBn = 0;
-            for (var col = 0; col < 3; col++) {
-                if (infield.has(board[i][col])) {
+        if (props.playerLists.length < 8) {
+            //colCheck min rule 1
+            // console.log("min rule 1");
+            if (j === 3) {
+                var min1CheckIn = 0;
+                var min1CheckOut = 0;
+                var min1CheckBn = 0;
+                for (var col = 0; col < 3; col++) {
+                    if (infield.has(board[i][col])) {
+                        min1CheckIn += 1;
+                    }
+                    if (outfield.has(board[i][col])) {
+                        min1CheckOut += 1;
+                    }
+                }
+                if (infield.has(c)) {
                     min1CheckIn += 1;
                 }
-                if (outfield.has(board[i][col])) {
+                if (outfield.has(c)) {
                     min1CheckOut += 1;
                 }
-            }
-            if (infield.has(c)) {
-                min1CheckIn += 1;
-            }
-            if (outfield.has(c)) {
-                min1CheckOut += 1;
-            }
-            if (min1CheckIn > 1) {
-                min1CheckIn = 2;
-            }
-            if (min1CheckOut > 0) {
-                min1CheckOut = 1;
-            }
-            if (min1CheckIn + min1CheckOut < 3) {
-                return false;
+
+                if (min1CheckIn > 1) {
+                    min1CheckIn = 2;
+                }
+                if (min1CheckOut > 0) {
+                    min1CheckOut = 1;
+                }
+                if (min1CheckIn + min1CheckOut < 3) {
+                    return false;
+                }
             }
         }
 
-        // colCheck min rule 2
-        var min2Check = 0;
-        for (var _col = 0; _col < props.innings.length; _col++) {
-            if (board[i][_col] == c) {
-                min2Check += 1;
-            }
-            if (min2Check === 2) {
-                return false;
+        if (props.playerLists.length < 8) {
+
+            // colCheck min rule 2
+            // console.log("min rule 2");
+            var min2Check = 0;
+            for (var _col = 0; _col < props.innings.length; _col++) {
+                if (board[i][_col] == c) {
+                    min2Check += 1;
+                }
+                if (min2Check === 2) {
+                    return false;
+                }
             }
         }
 
-        // colCheck opt rule 1
-        var opt1check = 0;
-        for (var _col2 = 0; _col2 < props.innings.length; _col2++) {
-            if (board[i][_col2] === 'BN') {
-                opt1check += 1;
+        if (props.playerLists.length < 7) {
+            // colCheck opt rule 1
+            // console.log("opt rule 1");
+            var opt1check = 0;
+            for (var _col2 = 0; _col2 < props.innings.length; _col2++) {
+                if (board[i][_col2] === 'BN') {
+                    opt1check += 1;
+                }
+                if (opt1check > 2) {
+                    return false;
+                }
             }
-            if (opt1check > 2) {
-                return false;
-            }
-        }
 
-        // colCheck opt rule 2
-        for (var _col3 = 1; _col3 < props.innings.length; _col3++) {
-            if (board[i][_col3] == 'BN' && board[i][_col3 - 1] == 'BN') {
-                return false;
+            // colCheck opt rule 2
+            // console.log("opt rule 2");
+            for (var _col3 = 1; _col3 < props.innings.length; _col3++) {
+                if (board[i][_col3] == 'BN' && board[i][_col3 - 1] == 'BN') {
+                    return false;
+                }
             }
-        }
 
-        // colCheck opt rule 3
-        for (var _col4 = 1; _col4 < props.innings.length; _col4++) {
-            if (outfield.has(board[i][_col4]) && outfield.has(board[i][_col4 - 1])) {
-                return false;
+            // colCheck opt rule 3
+            for (var _col4 = 1; _col4 < props.innings.length; _col4++) {
+                if (outfield.has(board[i][_col4]) && outfield.has(board[i][_col4 - 1])) {
+                    return false;
+                }
             }
         }
 
@@ -10739,15 +10896,22 @@ var TeamInfo = function TeamInfo(props) {
         return true;
     };
 
+    var renderTurn = 0;
+
     var update = function update(printForm) {
-        // debugger;
+        renderTurn += 1;
+
         for (var row = 0; row < props.playerLists.length; row++) {
             for (var col = 0; col < props.innings.length; col++) {
                 if (printForm[row][col] === '.') {
                     var available = ['C', 'SS', '1B', '2B', '3B', 'LF', 'CF', 'RF', 'BN'];
-                    available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][0]), 1);
-                    available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][1]), 1);
-                    // available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][2]), 1);
+                    var caseNum = props.playerLists.length;
+                    if (caseNum === 6 || caseNum === 7) {
+                        available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][0]), 1);
+                        available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][1]), 1);
+                    } else if (caseNum === 8 || caseNum === 9) {
+                        available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][0]), 1);
+                    }
                     available = shuffleArray(available);
                     for (var idx = 0; idx < available.length; idx++) {
                         if (isValid(printForm, row, col, available[idx])) {
@@ -10813,22 +10977,37 @@ var TeamInfo = function TeamInfo(props) {
     });
 
     return _react2.default.createElement(
-        'table',
-        { className: 'table table-striped' },
+        'div',
+        null,
         _react2.default.createElement(
-            'tbody',
-            null,
+            'p',
+            { className: 'algo-runtime' },
+            'Render Algorithm',
             _react2.default.createElement(
-                'tr',
+                'label',
+                null,
+                renderTurn
+            ),
+            'times!!'
+        ),
+        _react2.default.createElement(
+            'table',
+            { className: 'table table-striped' },
+            _react2.default.createElement(
+                'tbody',
                 null,
                 _react2.default.createElement(
-                    'th',
+                    'tr',
                     null,
-                    'Player\'s Name'
+                    _react2.default.createElement(
+                        'th',
+                        null,
+                        'Player\'s Name'
+                    ),
+                    tableheader
                 ),
-                tableheader
-            ),
-            entireTable
+                entireTable
+            )
         )
     );
 };
@@ -12254,7 +12433,7 @@ module.exports = AutoFocusUtils;
 
 
 
-var EventPropagators = __webpack_require__(22);
+var EventPropagators = __webpack_require__(23);
 var ExecutionEnvironment = __webpack_require__(6);
 var FallbackCompositionState = __webpack_require__(111);
 var SyntheticCompositionEvent = __webpack_require__(154);
@@ -12859,8 +13038,8 @@ module.exports = CSSPropertyOperations;
 
 
 
-var EventPluginHub = __webpack_require__(21);
-var EventPropagators = __webpack_require__(22);
+var EventPluginHub = __webpack_require__(22);
+var EventPropagators = __webpack_require__(23);
 var ExecutionEnvironment = __webpack_require__(6);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactUpdates = __webpack_require__(10);
@@ -13295,7 +13474,7 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventPropagators = __webpack_require__(22);
+var EventPropagators = __webpack_require__(23);
 var ReactDOMComponentTree = __webpack_require__(5);
 var SyntheticMouseEvent = __webpack_require__(28);
 
@@ -13943,7 +14122,7 @@ var React = __webpack_require__(19);
 var ReactComponentEnvironment = __webpack_require__(39);
 var ReactCurrentOwner = __webpack_require__(11);
 var ReactErrorUtils = __webpack_require__(40);
-var ReactInstanceMap = __webpack_require__(23);
+var ReactInstanceMap = __webpack_require__(24);
 var ReactInstrumentation = __webpack_require__(8);
 var ReactNodeTypes = __webpack_require__(66);
 var ReactReconciler = __webpack_require__(18);
@@ -13952,7 +14131,7 @@ if (process.env.NODE_ENV !== 'production') {
   var checkReactTypeSpec = __webpack_require__(163);
 }
 
-var emptyObject = __webpack_require__(20);
+var emptyObject = __webpack_require__(21);
 var invariant = __webpack_require__(1);
 var shallowEqual = __webpack_require__(33);
 var shouldUpdateReactComponent = __webpack_require__(47);
@@ -14972,7 +15151,7 @@ var DOMLazyTree = __webpack_require__(17);
 var DOMNamespaces = __webpack_require__(35);
 var DOMProperty = __webpack_require__(13);
 var DOMPropertyOperations = __webpack_require__(58);
-var EventPluginHub = __webpack_require__(21);
+var EventPluginHub = __webpack_require__(22);
 var EventPluginRegistry = __webpack_require__(26);
 var ReactBrowserEventEmitter = __webpack_require__(27);
 var ReactDOMComponentFlags = __webpack_require__(59);
@@ -18070,7 +18249,7 @@ module.exports = REACT_ELEMENT_TYPE;
 
 
 
-var EventPluginHub = __webpack_require__(21);
+var EventPluginHub = __webpack_require__(22);
 
 function runEventQueueInBatch(events) {
   EventPluginHub.enqueueEvents(events);
@@ -18308,7 +18487,7 @@ module.exports = ReactHostOperationHistoryHook;
 
 
 var DOMProperty = __webpack_require__(13);
-var EventPluginHub = __webpack_require__(21);
+var EventPluginHub = __webpack_require__(22);
 var EventPluginUtils = __webpack_require__(36);
 var ReactComponentEnvironment = __webpack_require__(39);
 var ReactEmptyComponent = __webpack_require__(61);
@@ -18447,7 +18626,7 @@ module.exports = ReactMarkupChecksum;
 var _prodInvariant = __webpack_require__(3);
 
 var ReactComponentEnvironment = __webpack_require__(39);
-var ReactInstanceMap = __webpack_require__(23);
+var ReactInstanceMap = __webpack_require__(24);
 var ReactInstrumentation = __webpack_require__(8);
 
 var ReactCurrentOwner = __webpack_require__(11);
@@ -19876,7 +20055,7 @@ module.exports = SVGDOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(22);
+var EventPropagators = __webpack_require__(23);
 var ExecutionEnvironment = __webpack_require__(6);
 var ReactDOMComponentTree = __webpack_require__(5);
 var ReactInputSelection = __webpack_require__(64);
@@ -20076,7 +20255,7 @@ module.exports = SelectEventPlugin;
 var _prodInvariant = __webpack_require__(3);
 
 var EventListener = __webpack_require__(51);
-var EventPropagators = __webpack_require__(22);
+var EventPropagators = __webpack_require__(23);
 var ReactDOMComponentTree = __webpack_require__(5);
 var SyntheticAnimationEvent = __webpack_require__(152);
 var SyntheticClipboardEvent = __webpack_require__(153);
@@ -20087,7 +20266,7 @@ var SyntheticMouseEvent = __webpack_require__(28);
 var SyntheticDragEvent = __webpack_require__(155);
 var SyntheticTouchEvent = __webpack_require__(159);
 var SyntheticTransitionEvent = __webpack_require__(160);
-var SyntheticUIEvent = __webpack_require__(24);
+var SyntheticUIEvent = __webpack_require__(25);
 var SyntheticWheelEvent = __webpack_require__(161);
 
 var emptyFunction = __webpack_require__(9);
@@ -20475,7 +20654,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(24);
+var SyntheticUIEvent = __webpack_require__(25);
 
 /**
  * @interface FocusEvent
@@ -20558,7 +20737,7 @@ module.exports = SyntheticInputEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(24);
+var SyntheticUIEvent = __webpack_require__(25);
 
 var getEventCharCode = __webpack_require__(43);
 var getEventKey = __webpack_require__(167);
@@ -20647,7 +20826,7 @@ module.exports = SyntheticKeyboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(24);
+var SyntheticUIEvent = __webpack_require__(25);
 
 var getEventModifierState = __webpack_require__(44);
 
@@ -21031,7 +21210,7 @@ var _prodInvariant = __webpack_require__(3);
 
 var ReactCurrentOwner = __webpack_require__(11);
 var ReactDOMComponentTree = __webpack_require__(5);
-var ReactInstanceMap = __webpack_require__(23);
+var ReactInstanceMap = __webpack_require__(24);
 
 var getHostComponentFromComposite = __webpack_require__(71);
 var invariant = __webpack_require__(1);
@@ -21951,7 +22130,7 @@ var ReactElement = __webpack_require__(15);
 var ReactPropTypeLocationNames = __webpack_require__(79);
 var ReactNoopUpdateQueue = __webpack_require__(50);
 
-var emptyObject = __webpack_require__(20);
+var emptyObject = __webpack_require__(21);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
 
@@ -22899,7 +23078,7 @@ var _assign = __webpack_require__(4);
 var ReactComponent = __webpack_require__(49);
 var ReactNoopUpdateQueue = __webpack_require__(50);
 
-var emptyObject = __webpack_require__(20);
+var emptyObject = __webpack_require__(21);
 
 /**
  * Base class helpers for the updating state of a component.

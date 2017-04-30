@@ -136,7 +136,12 @@
     width: 150px;
 }
 
-#rotator {
+
+/*#rotator {
     height: 100px;
     width: 100px;
+}*/
+
+.blockquote-footer cite {
+    margin: 0 3px;
 }

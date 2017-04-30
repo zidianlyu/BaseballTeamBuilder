@@ -68,15 +68,29 @@ const NumSelector = (props) => {
                 '9',
                 '10',
                 '11',
-                '12',
-                '13'
+                '12'
             ];
         } else if (minNum === 7) {
-            availableInningCountsArray = ['4', '5', '6', '7', '8', '9', '10', '11', '12'];
+            availableInningCountsArray = [
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9',
+                '10'
+            ];
         } else if (minNum === 8) {
-            availableInningCountsArray = ['4', '5', '6', '7', '8','9'];
-        } else {
-            availableInningCountsArray = ['4', '5'];
+            availableInningCountsArray = [
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9'
+            ];
+        } else if (minNum === 9) {
+            availableInningCountsArray = ['4', '5', '6', '7', '8'];
         }
         // console.log("availableInningCountsArray is: ", availableInningCountsArray);
         if (props.numInnings === "") {
@@ -120,7 +134,7 @@ const NumSelector = (props) => {
 
     if (props.numPlayers !== '') {
         firstPop = (
-          <label>#Players: {props.numPlayers}</label>
+            <label>#Players: {props.numPlayers}</label>
         );
         firstPopAnimation = "";
         // debugger;
@@ -134,7 +148,7 @@ const NumSelector = (props) => {
         firstPopAnimation = "";
         secondPopAnimation = "";
         secondPop = (
-          <label>#Innings: {props.numInnings}</label>
+            <label>#Innings: {props.numInnings}</label>
         );
     }
 

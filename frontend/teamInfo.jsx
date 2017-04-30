@@ -38,7 +38,6 @@ const TeamInfo = (props) => {
         }
     });
 
-    // debugger;
     const shuffleArray = (arr) => {
         for (let i = arr.length; i; i--) {
             let j = Math.floor(Math.random() * i);
@@ -55,75 +54,88 @@ const TeamInfo = (props) => {
 
     const isValid = (board, i, j, c) => {
         // rowCheck, In each inning the role cannot be duplicate
+        // console.log("basic rule");
         for (let row = 0; row < props.playerLists.length; row++) {
             if (board[row][j] == c) {
                 return false;
             }
         }
 
-        //colCheck min rule 1
-        if (j === 3) {
-            let min1CheckIn = 0;
-            let min1CheckOut = 0;
-            let min1CheckBn = 0;
-            for (let col = 0; col < 3; col++) {
-                if (infield.has(board[i][col])) {
+        if (props.playerLists.length < 8) {
+            //colCheck min rule 1
+            // console.log("min rule 1");
+            if (j === 3) {
+                let min1CheckIn = 0;
+                let min1CheckOut = 0;
+                let min1CheckBn = 0;
+                for (let col = 0; col < 3; col++) {
+                    if (infield.has(board[i][col])) {
+                        min1CheckIn += 1;
+                    }
+                    if (outfield.has(board[i][col])) {
+                        min1CheckOut += 1;
+                    }
+                }
+                if (infield.has(c)) {
                     min1CheckIn += 1;
                 }
-                if (outfield.has(board[i][col])) {
+                if (outfield.has(c)) {
                     min1CheckOut += 1;
                 }
-            }
-            if (infield.has(c)) {
-                min1CheckIn += 1;
-            }
-            if (outfield.has(c)) {
-                min1CheckOut += 1;
-            }
-            if (min1CheckIn > 1) {
-                min1CheckIn = 2;
-            }
-            if (min1CheckOut > 0) {
-                min1CheckOut = 1;
-            }
-            if (min1CheckIn + min1CheckOut < 3) {
-                return false;
+
+                if (min1CheckIn > 1) {
+                    min1CheckIn = 2;
+                }
+                if (min1CheckOut > 0) {
+                    min1CheckOut = 1;
+                }
+                if (min1CheckIn + min1CheckOut < 3) {
+                    return false;
+                }
             }
         }
 
-        // colCheck min rule 2
-        let min2Check = 0;
-        for (let col = 0; col < props.innings.length; col++) {
-            if (board[i][col] == c) {
-                min2Check += 1;
-            }
-            if (min2Check === 2) {
-                return false;
+        if (props.playerLists.length < 8) {
+
+            // colCheck min rule 2
+            // console.log("min rule 2");
+            let min2Check = 0;
+            for (let col = 0; col < props.innings.length; col++) {
+                if (board[i][col] == c) {
+                    min2Check += 1;
+                }
+                if (min2Check === 2) {
+                    return false;
+                }
             }
         }
 
-        // colCheck opt rule 1
-        let opt1check = 0;
-        for (let col = 0; col < props.innings.length; col++) {
-            if (board[i][col] === 'BN') {
-                opt1check += 1;
+        if (props.playerLists.length < 7) {
+            // colCheck opt rule 1
+            // console.log("opt rule 1");
+            let opt1check = 0;
+            for (let col = 0; col < props.innings.length; col++) {
+                if (board[i][col] === 'BN') {
+                    opt1check += 1;
+                }
+                if (opt1check > 2) {
+                    return false;
+                }
             }
-            if (opt1check > 2) {
-                return false;
-            }
-        }
 
-        // colCheck opt rule 2
-        for (let col = 1; col < props.innings.length; col++) {
-            if (board[i][col] == 'BN' && board[i][col - 1] == 'BN') {
-                return false;
+            // colCheck opt rule 2
+            // console.log("opt rule 2");
+            for (let col = 1; col < props.innings.length; col++) {
+                if (board[i][col] == 'BN' && board[i][col - 1] == 'BN') {
+                    return false;
+                }
             }
-        }
 
-        // colCheck opt rule 3
-        for (let col = 1; col < props.innings.length; col++) {
-            if (outfield.has(board[i][col]) && outfield.has(board[i][col - 1])) {
-                return false;
+            // colCheck opt rule 3
+            for (let col = 1; col < props.innings.length; col++) {
+                if (outfield.has(board[i][col]) && outfield.has(board[i][col - 1])) {
+                    return false;
+                }
             }
         }
 
@@ -131,8 +143,11 @@ const TeamInfo = (props) => {
         return true;
     }
 
+    let renderTurn = 0;
+
     let update = (printForm) => {
-        // debugger;
+        renderTurn += 1;
+
         for (let row = 0; row < props.playerLists.length; row++) {
             for (let col = 0; col < props.innings.length; col++) {
                 if (printForm[row][col] === '.') {
@@ -147,9 +162,13 @@ const TeamInfo = (props) => {
                         'RF',
                         'BN'
                     ];
-                    available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][0]), 1);
-                    available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][1]), 1);
-                    // available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][2]), 1);
+                    let caseNum = props.playerLists.length;
+                    if (caseNum === 6 || caseNum === 7) {
+                        available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][0]), 1);
+                        available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][1]), 1);
+                    } else if (caseNum === 8 || caseNum === 9) {
+                        available.splice(available.indexOf(props.playerLists[row]['avoidPositions'][0]), 1);
+                    }
                     available = shuffleArray(available);
                     for (let idx = 0; idx < available.length; idx++) {
                         if (isValid(printForm, row, col, available[idx])) {
@@ -205,15 +224,20 @@ const TeamInfo = (props) => {
     ));
 
     return (
-        <table className="table table-striped">
-            <tbody>
-                <tr>
-                    <th>Player's Name</th>
-                    {tableheader}
-                </tr>
-                {entireTable}
-            </tbody>
-        </table>
+        <div>
+            <p className="algo-runtime">Render Algorithm
+                <label>{renderTurn}</label>
+                times!!</p>
+            <table className="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Player's Name</th>
+                        {tableheader}
+                    </tr>
+                    {entireTable}
+                </tbody>
+            </table>
+        </div>
     );
 
 }
