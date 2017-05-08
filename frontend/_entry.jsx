@@ -6,7 +6,7 @@ import TeamUp from './teamup';
 const navbar = (
     <nav className="navbar navbar-default">
         <div className="container-fluid">
-            <div className="navbar-headert">
+            <div className="navbar-header">
                 <button type="button" className="navbar-toggle collapsed">
                     <span className="sr-only">Toggle navigation</span>
                     <span className="icon-bar"></span>

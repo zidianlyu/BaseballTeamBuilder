@@ -10385,7 +10385,7 @@ var navbar = _react2.default.createElement(
         { className: 'container-fluid' },
         _react2.default.createElement(
             'div',
-            { className: 'navbar-headert' },
+            { className: 'navbar-header' },
             _react2.default.createElement(
                 'button',
                 { type: 'button', className: 'navbar-toggle collapsed' },
